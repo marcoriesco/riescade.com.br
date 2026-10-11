@@ -2,6 +2,7 @@
 	"version": 1,
 	"updated_at": "2026-07-29",
 	"platforms": [
+		{"id":"arcadedumps","name":"Arcade Dumps","extensions":[".bat", ".cmd"]},
 		{"id":"ios","name":"Apple iOS","extensions":[".ipa"]},
 		{
 			"id": "flash",

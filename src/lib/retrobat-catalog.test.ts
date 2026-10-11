@@ -4,6 +4,10 @@ import extractPaths from "./retrobat-extract-paths.json";
 const row:CatalogRow={id:"a".repeat(64),platform:"snes",filename:"Mario.zip",title:"Mario",file_size:3,md5_checksum:"b".repeat(32)};
 const platforms=[{id:"snes",extensions:[".zip"]},{id:"nes",extensions:[".nes"]}];
 describe("RetroBat marker snapshot",()=>{
+  it("exports Arcade Dumps packages with BAT launchers",()=>{
+    const result=buildRetrobatCatalog([{...row,platform:"arcadedumps",filename:"Halo Fireteam Raven.extract.zip"}],[{id:"arcadedumps",extensions:[".bat",".cmd"]}]);
+    expect(result.assets[0]).toMatchObject({platform:"arcadedumps",download_name:"Halo Fireteam Raven.extract.zip",launch_path:"Halo Fireteam Raven.bat",install_mode:"extract"});
+  });
   it("exports PS5 only as direct ZAR files",()=>{
     const rows=["Test.zar","Old.game","Old.extract.zip"].map((filename,index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"ps5",filename}));
     const result=buildRetrobatCatalog(rows,[{id:"ps5",extensions:[".game",".zar",".zip"]}]);

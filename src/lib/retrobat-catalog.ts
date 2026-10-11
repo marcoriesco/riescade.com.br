@@ -39,6 +39,7 @@ export function extractLaunchPath(platform:string,filename:string,extensions:str
   if(platform==="daphne")return `${base}.daphne`;
   if(platform==="singe")return `roms/${base}.zip`;
   if(platform==="namco2x6")return `${base}.acgame`;
+  if(platform==="arcadedumps")return `${base}.bat`;
   if(extensions.some(ext=>base.toLowerCase().endsWith(ext.toLowerCase())))return base;
   const preferred:Record<string,string>={ps3:".ps3",psvita:".psvita",wiiu:".rpx",dos:".pc",windows:".game",teknoparrot:".teknoparrot",scummvm:".scummvm",ports:".game",snes:".sfc",dreamcast:".gdi",psx:".cue",ps2:".iso"};
   return `${base}${preferred[platform]??extensions[0]}`;
