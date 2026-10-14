@@ -190,7 +190,8 @@ async function syncFolder(
     }
 
 
-    if (category === "theme" && extensionOf(file.name) !== ".zip") {
+    // <THEME>.retrobat.zip in the same folder are RetroBat themes, served by retrobat-themes-service.
+    if (category === "theme" && (extensionOf(file.name) !== ".zip" || file.name.toLowerCase().endsWith(".retrobat.zip"))) {
       skipped += 1;
       continue;
     }

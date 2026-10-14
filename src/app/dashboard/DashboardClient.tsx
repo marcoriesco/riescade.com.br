@@ -26,6 +26,7 @@ import {
   CreditCard,
   RefreshCw,
   Crown,
+  Palette,
   type LucideIcon,
 } from "lucide-react";
 import Image from "next/image";
@@ -70,6 +71,15 @@ interface ReleaseInfo {
   version: string;
   size: number | null;
   updatedAt?: string | null;
+}
+
+interface RetroBatTheme {
+  id: string;
+  name: string;
+  description: string;
+  previewUrl: string | null;
+  fileName: string | null;
+  size: number | null;
 }
 
 interface BiosAsset {
@@ -270,12 +280,13 @@ export default function DashboardClient() {
   const [osRelease, setOsRelease] = useState<ReleaseInfo | null>(null);
   const [retroBatRelease, setRetroBatRelease] = useState<ReleaseInfo | null>(null);
   const [biosAsset, setBiosAsset] = useState<BiosAsset | null>(null);
+  const [retroBatThemes, setRetroBatThemes] = useState<RetroBatTheme[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [authRedirecting, setAuthRedirecting] = useState(false);
   const [verifyingSession, setVerifyingSession] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [cancellingSubscription, setCancellingSubscription] = useState(false);
-  const [pendingAction, setPendingAction] = useState<"checkout" | "portal" | "bios" | null>(null);
+  const [pendingAction, setPendingAction] = useState<"checkout" | "portal" | "bios" | `theme:${string}` | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -389,6 +400,9 @@ export default function DashboardClient() {
   useEffect(() => {
     fetchJson<ReleaseInfo>("/api/app/update/latest").then(setOsRelease);
     fetchJson<ReleaseInfo>("/api/app/retrobat/latest").then(setRetroBatRelease);
+    fetchJson<{ themes: RetroBatTheme[] }>("/api/app/retrobat/themes").then((body) =>
+      setRetroBatThemes(body?.themes ?? [])
+    );
   }, []);
 
   useEffect(() => {
@@ -455,6 +469,24 @@ export default function DashboardClient() {
     }
     setActionError("Não foi possível abrir o gerenciamento de pagamento. Fale com o suporte.");
     setPendingAction(null);
+  };
+
+  const handleThemeDownload = async (theme: RetroBatTheme) => {
+    setPendingAction(`theme:${theme.id}`);
+    setActionError(null);
+    const body = await fetchJson<{ downloadUrl?: string }>(
+      `/api/app/retrobat/themes/${encodeURIComponent(theme.id)}/download`,
+      {
+        method: "POST",
+        headers: { Authorization: `Bearer ${await accessToken()}` },
+      }
+    );
+    setPendingAction(null);
+    if (body?.downloadUrl) {
+      window.location.assign(body.downloadUrl);
+      return;
+    }
+    setActionError(`Não foi possível liberar o tema ${theme.name} agora. Aguarde um minuto e tente novamente.`);
   };
 
   const handleBiosDownload = async () => {
@@ -908,6 +940,84 @@ export default function DashboardClient() {
                 : "Os aplicativos são gratuitos. A assinatura libera os downloads de jogos dentro deles e o pack de BIOS."}
             </p>
             <ExploreLink href="/tutorial">Ver tutorial</ExploreLink>
+          </div>
+        </section>
+
+        {/* TEMAS RETROBAT */}
+        <section id="temas" className="mt-20 scroll-mt-28">
+          <SectionHeading
+            eyebrow="Temas"
+            title="Temas exclusivos"
+            highlight="RIESCADE"
+            description="O RIESCADE RetroBat já vem com o tema RIESCADE Origins. Os temas abaixo são exclusivos para membros e podem ser instalados quando quiser."
+          />
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            {(retroBatThemes ?? []).map((theme) => {
+              const pending = pendingAction === `theme:${theme.id}`;
+              return (
+                <article
+                  key={theme.id}
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
+                >
+                  <div className="relative aspect-video border-b border-white/10 bg-black/40">
+                    {theme.previewUrl ? (
+                      <Image
+                        src={theme.previewUrl}
+                        alt={`Tema ${theme.name}`}
+                        fill
+                        sizes="(min-width: 1280px) 400px, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center">
+                        <Palette className="size-10 text-primary/60" />
+                      </div>
+                    )}
+                    <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-lg border border-primary/25 bg-black/70 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
+                      {!hasAccess && <Lock className="size-3" />}
+                      {hasAccess ? "Membros" : "Exclusivo para membros"}
+                    </span>
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="font-display text-xl font-bold uppercase tracking-wide text-foreground">
+                      RIESCADE <span className="text-primary">{theme.name}</span>
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{theme.description}</p>
+                    <div className="mt-auto pt-6">
+                      <p className="mb-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                        {[theme.fileName ?? `${theme.id}.retrobat.zip`, formatSize(theme.size) ?? ""].filter(Boolean).join(" · ")}
+                      </p>
+                      {!theme.fileName ? (
+                        <button disabled className={secondaryButton}>Em breve</button>
+                      ) : hasAccess ? (
+                        <button
+                          onClick={() => handleThemeDownload(theme)}
+                          disabled={pending}
+                          className={primaryButton}
+                        >
+                          <Download className="size-4" />
+                          {pending ? "Liberando..." : "Baixar tema"}
+                        </button>
+                      ) : (
+                        <button onClick={handleCheckout} disabled={pendingAction === "checkout"} className={secondaryButton}>
+                          <Lock className="size-4" />
+                          Assinar para liberar
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-border bg-black/30 p-6">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Como instalar</p>
+            <p className="mt-2 text-sm leading-relaxed text-foreground/80">
+              Extraia o .zip dentro da pasta <code className="font-mono text-foreground">emulationstation\.emulationstation\themes</code> do
+              RIESCADE RetroBat. Depois, no EmulationStation, abra Configurações da interface → Conjunto de temas e escolha o tema.
+            </p>
           </div>
         </section>
       </main>
