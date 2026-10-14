@@ -134,15 +134,28 @@ function toAssetRow(
   };
 }
 
+// A full sync makes hundreds of Supabase writes; retry the ones lost to a network blip.
+async function withNetworkRetry<T extends { error: { message: string } | null }>(
+  request: () => PromiseLike<T>
+): Promise<T> {
+  for (let attempt = 1; ; attempt += 1) {
+    const result = await request();
+    if (!result.error?.message.includes("fetch failed") || attempt >= 4) return result;
+    await new Promise((resolve) => setTimeout(resolve, 2000 * attempt));
+  }
+}
+
 async function replaceFolderAssets(
   folderId: string,
   rows: DownloadAssetRow[]
 ): Promise<void> {
   const supabase = getSupabaseAdmin();
-  const { error: deactivateError } = await supabase
-    .from("download_assets")
-    .update({ active: false })
-    .eq("drive_folder_id", folderId);
+  const { error: deactivateError } = await withNetworkRetry(() =>
+    supabase
+      .from("download_assets")
+      .update({ active: false })
+      .eq("drive_folder_id", folderId)
+  );
 
   if (deactivateError) {
     throw new Error(
@@ -151,11 +164,13 @@ async function replaceFolderAssets(
   }
 
   for (let index = 0; index < rows.length; index += UPSERT_BATCH_SIZE) {
-    const { error } = await supabase
-      .from("download_assets")
-      .upsert(rows.slice(index, index + UPSERT_BATCH_SIZE), {
-        onConflict: "drive_file_id",
-      });
+    const { error } = await withNetworkRetry(() =>
+      supabase
+        .from("download_assets")
+        .upsert(rows.slice(index, index + UPSERT_BATCH_SIZE), {
+          onConflict: "drive_file_id",
+        })
+    );
 
     if (error) {
       throw new Error(`Failed to index Google Drive assets: ${error.message}`);
