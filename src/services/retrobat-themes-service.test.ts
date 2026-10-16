@@ -32,6 +32,7 @@ describe("retroBatThemesFromFiles", () => {
       "RIESCADE_EDITION",
       "RIESCADE_HYPERSPIN",
       "RIESCADE_COINOPS",
+      "RIESCADE_XBOXS",
     ]);
     expect(themes[0]).toMatchObject({ fileName: "RIESCADE_PS5.retrobat.zip", size: 2048 });
     expect(themes[1].fileName).toBeNull();

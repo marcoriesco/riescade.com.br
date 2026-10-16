@@ -55,6 +55,12 @@ export const RETROBAT_EXCLUSIVE_THEMES: RetroBatThemeInfo[] = [
     description: "Inspirado no CoinOPS ARISE: gabinetes de fliperama com o gameplay tocando na tela da máquina.",
     previewUrl: null,
   },
+  {
+    id: "RIESCADE_XBOXS",
+    name: "Xbox Series",
+    description: "A Home do Xbox Series, com a fileira de tiles e os cards sobre a arte em tela cheia, e a biblioteca completa em grade.",
+    previewUrl: null,
+  },
 ];
 
 function themesFolderId(): string {
