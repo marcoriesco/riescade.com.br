@@ -101,6 +101,21 @@ export async function listGoogleDriveFolder(
   return files;
 }
 
+// For small text files (release manifests); large packages are downloaded by the clients from Drive.
+export async function readGoogleDriveFileText(fileId: string): Promise<string> {
+  assertDriveId(fileId, "Google Drive file ID");
+
+  const client = await getGoogleAuth().getClient();
+  const response = await client.request<string>({
+    url: `${DRIVE_API_FILES_URL}/${fileId}`,
+    method: "GET",
+    params: { alt: "media", supportsAllDrives: true },
+    responseType: "text",
+  });
+
+  return response.data;
+}
+
 export function isGoogleDriveFolder(file: GoogleDriveFile): boolean {
   return file.mimeType === FOLDER_MIME_TYPE;
 }
