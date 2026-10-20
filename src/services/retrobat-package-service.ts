@@ -5,8 +5,10 @@ import {
   type GoogleDriveFile,
 } from "@/services/google-drive-service";
 
-// Published by Atualizar-RetroBat.cmd in the RIESCADE RetroBat installation.
-const PACKAGE_PATTERN = /^RIESCADE-RetroBat-(\d+)\.(\d+)\.(\d+)\.7z$/;
+// Published by Release-RetroBat.ps1: RIESCADE-v1.0.1.7z (RIESCADE version). The older packages were named after
+// the RetroBat version (RIESCADE-RetroBat-8.3.1.7z) and only count while no RIESCADE-v package exists.
+const PACKAGE_PATTERN = /^RIESCADE-v(\d+)\.(\d+)\.(\d+)\.7z$/;
+const LEGACY_PACKAGE_PATTERN = /^RIESCADE-RetroBat-(\d+)\.(\d+)\.(\d+)\.7z$/;
 
 export interface RetroBatPackage {
   version: string;
@@ -29,16 +31,18 @@ export function pickLatestRetroBatPackage(
   let latest: { parts: number[]; file: GoogleDriveFile } | null = null;
 
   for (const file of files) {
-    const match = PACKAGE_PATTERN.exec(file.name);
+    const current = PACKAGE_PATTERN.exec(file.name);
+    const match = current ?? LEGACY_PACKAGE_PATTERN.exec(file.name);
     if (!match || file.capabilities?.canDownload === false) continue;
-    const parts = match.slice(1, 4).map(Number);
+    // [current naming first, major, minor, patch]
+    const parts = [current ? 1 : 0, ...match.slice(1, 4).map(Number)];
     if (!latest || compareVersions(parts, latest.parts) > 0) latest = { parts, file };
   }
 
   if (!latest) return null;
   const { file, parts } = latest;
   return {
-    version: parts.join("."),
+    version: parts.slice(1).join("."),
     fileName: file.name,
     size: file.size ? Number(file.size) : null,
     updatedAt: file.modifiedTime ?? null,

@@ -266,9 +266,12 @@
 			"name": "ikemen",
 			"installDir": "ikemen"
 		},
-		"infuse": {
-			"name": "infuse",
-			"installDir": "infuse"
+		"zeebx": {
+			"name": "Zeebx",
+			"installDir": "zeebx",
+			"executable": "zeebx/zeebx-headless.exe",
+			"aliases": ["infuse"],
+			"preserve": ["config.ini"]
 		},
 		"jgenesis": {
 			"name": "jgenesis",
@@ -721,6 +724,85 @@
 			"name": "zesarux",
 			"installDir": "zesarux",
 			"executable": "zesarux/zesarux.exe"
+		},
+		"amiberry": {
+			"name": "amiberry",
+			"installDir": "amiberry",
+			"executable": "amiberry/Amiberry.exe"
+		},
+		"arcadeduck": {
+			"name": "arcadeduck",
+			"installDir": "arcadeduck",
+			"executable": "arcadeduck/ArcadeDuck.exe"
+		},
+		"blastem": {
+			"name": "blastem",
+			"installDir": "blastem",
+			"executable": "blastem/blastem.exe"
+		},
+		"chihiro": {
+			"name": "chihiro",
+			"installDir": "chihiro",
+			"executable": "chihiro/cxbx.exe"
+		},
+		"chihiro-ds": {
+			"name": "chihiro-ds",
+			"installDir": "chihiro-ds",
+			"executable": "chihiro-ds/cxbx.exe",
+			"aliases": ["chihiro-gun"]
+		},
+		"cxbx-reloaded": {
+			"name": "cxbx-reloaded",
+			"installDir": "cxbx-reloaded",
+			"executable": "cxbx-reloaded/cxbx.exe",
+			"aliases": ["cxbx", "xbox"]
+		},
+		"demul-old": {
+			"name": "demul-old",
+			"installDir": "demul-old",
+			"executable": "demul-old/demul.exe"
+		},
+		"dolphin-triforce": {
+			"name": "dolphin-triforce",
+			"installDir": "dolphin-triforce",
+			"executable": "dolphin-triforce/Dolphin.exe",
+			"aliases": ["triforce"]
+		},
+		"lime3ds": {
+			"name": "lime3ds",
+			"installDir": "lime3ds",
+			"executable": "lime3ds/lime3ds.exe"
+		},
+		"pcsx2-16": {
+			"name": "pcsx2-16",
+			"installDir": "pcsx2-16",
+			"executable": "pcsx2-16/pcsx2.exe"
+		},
+		"quiverlauncher": {
+			"name": "quiverlauncher",
+			"installDir": "quiverlauncher",
+			"executable": "quiverlauncher/QuiverLauncher.exe"
+		},
+		"retroarch": {
+			"name": "retroarch",
+			"installDir": "retroarch",
+			"executable": "retroarch/RetroArch-Win64/retroarch.exe",
+			"aliases": ["angle", "libretro"]
+		},
+		"uzdoom": {
+			"name": "uzdoom",
+			"installDir": "uzdoom",
+			"executable": "uzdoom/uzdoom.exe"
+		},
+		"zinc": {
+			"name": "zinc",
+			"installDir": "zinc",
+			"executable": "zinc/ZiNc.exe"
+		},
+		"zquestclassic": {
+			"name": "zquestclassic",
+			"installDir": "zquestclassic",
+			"executable": "zquestclassic/zplayer.exe"
 		}
 	}
 }

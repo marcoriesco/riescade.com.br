@@ -146,7 +146,7 @@ const retroBatSteps: Step[] = [
     title: "Extraia os arquivos",
     body: (
       <>
-        Extraia o <Code>RIESCADE-RetroBat-X.X.X.7z</Code> em uma pasta própria, por exemplo{" "}
+        Extraia o <Code>RIESCADE-vX.X.X.7z</Code> em uma pasta própria, por exemplo{" "}
         <Code>C:\RIESCADE RetroBat</Code>. Depois extraia o conteúdo do <Code>bios.zip</Code> dentro da
         pasta <Code>bios</Code> do RetroBat.
       </>

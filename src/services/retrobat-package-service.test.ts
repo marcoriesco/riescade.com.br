@@ -35,6 +35,18 @@ describe("pickLatestRetroBatPackage", () => {
     });
   });
 
+  it("prefers the RIESCADE version packages over the older RetroBat-named ones", () => {
+    const latest = pickLatestRetroBatPackage([
+      driveFile("RIESCADE-RetroBat-8.3.1.7z"),
+      driveFile("RIESCADE-v1.0.1.7z"),
+      driveFile("RIESCADE-v1.0.10.7z"),
+      driveFile("RIESCADE-v1.0.2.7z"),
+    ]);
+
+    expect(latest?.fileName).toBe("RIESCADE-v1.0.10.7z");
+    expect(latest?.version).toBe("1.0.10");
+  });
+
   it("skips files that cannot be downloaded", () => {
     expect(
       pickLatestRetroBatPackage([
