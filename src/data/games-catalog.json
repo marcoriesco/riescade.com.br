@@ -2,8 +2,12 @@
 	"version": 1,
 	"updated_at": "2026-07-29",
 	"platforms": [
-		{"id":"arcadedumps","name":"Arcade Dumps","extensions":[".bat", ".cmd"]},
-		{"id":"ios","name":"Apple iOS","extensions":[".ipa"]},
+		{
+			"id": "arcadedumps",
+			"name": "Arcade Dumps",
+			"extensions": [".bat", ".cmd"]
+		},
+		{ "id": "ios", "name": "Apple iOS", "extensions": [".ipa"] },
 		{
 			"id": "flash",
 			"name": "Flash",
@@ -1332,7 +1336,12 @@
 		{
 			"id": "windows",
 			"name": "Games for Windows",
-			"extensions": [".game"]
+			"extensions": [".game", ".zip"]
+		},
+		{
+			"id": "recomp",
+			"name": "Recompilados",
+			"extensions": [".game", ".zip"]
 		},
 		{
 			"id": "vpinball",
