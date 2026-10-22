@@ -15,6 +15,7 @@ export interface GoogleDriveFile {
   md5Checksum?: string;
   modifiedTime?: string;
   webContentLink?: string;
+  appProperties?: Record<string, string>;
   capabilities?: {
     canDownload?: boolean;
   };
@@ -78,7 +79,7 @@ export async function listGoogleDriveFolder(
       params: {
         q: `'${folderId}' in parents and trashed = false`,
         fields:
-          "nextPageToken,files(id,name,mimeType,size,md5Checksum,modifiedTime,webContentLink,capabilities(canDownload))",
+          "nextPageToken,files(id,name,mimeType,size,md5Checksum,modifiedTime,webContentLink,appProperties,capabilities(canDownload))",
         pageSize: 1000,
         pageToken,
         orderBy: "name",

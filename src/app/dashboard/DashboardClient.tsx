@@ -80,6 +80,7 @@ interface RetroBatTheme {
   previewUrl: string | null;
   fileName: string | null;
   size: number | null;
+  version: string | null;
 }
 
 interface BiosAsset {
@@ -986,7 +987,7 @@ export default function DashboardClient() {
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{theme.description}</p>
                     <div className="mt-auto pt-6">
                       <p className="mb-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                        {[theme.fileName ?? `${theme.id}.retrobat.zip`, formatSize(theme.size) ?? ""].filter(Boolean).join(" · ")}
+                        {[theme.version ? `v${theme.version}` : "", theme.fileName ?? `${theme.id}.retrobat.zip`, formatSize(theme.size) ?? ""].filter(Boolean).join(" · ")}
                       </p>
                       {!theme.fileName ? (
                         <button disabled className={secondaryButton}>Em breve</button>

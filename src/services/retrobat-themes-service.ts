@@ -21,6 +21,8 @@ export interface RetroBatTheme extends RetroBatThemeInfo {
   fileName: string | null;
   size: number | null;
   updatedAt: string | null;
+  // "version: X.Y.Z" from the theme.xml header, stored by Release-Drive.cjs in the file's appProperties.
+  version: string | null;
 }
 
 // Display order on the dashboard. RIESCADE_ORIGINS ships inside the release.
@@ -29,7 +31,7 @@ export const RETROBAT_EXCLUSIVE_THEMES: RetroBatThemeInfo[] = [
     id: "RIESCADE_PS5",
     name: "PlayStation 5",
     description: "A tela inicial do PS5, com a fileira de tiles sobre a arte em tela cheia e a biblioteca de jogos em grade.",
-    previewUrl: null,
+    previewUrl: "/themes/retrobat/ps5.webp",
   },
   {
     id: "RIESCADE_SWITCH2",
@@ -47,19 +49,19 @@ export const RETROBAT_EXCLUSIVE_THEMES: RetroBatThemeInfo[] = [
     id: "RIESCADE_HYPERSPIN",
     name: "HyperSpin",
     description: "O clássico frontend arcade: roleta de logos, vídeo em moldura, smart themes por sistema e filtro CRT.",
-    previewUrl: null,
+    previewUrl: "/themes/retrobat/hyperspin.webp",
   },
   {
     id: "RIESCADE_COINOPS",
     name: "CoinOPS",
     description: "Inspirado no CoinOPS ARISE: gabinetes de fliperama com o gameplay tocando na tela da máquina.",
-    previewUrl: null,
+    previewUrl: "/themes/retrobat/coinops.webp",
   },
   {
     id: "RIESCADE_XBOXS",
     name: "Xbox Series",
     description: "A Home do Xbox Series, com a fileira de tiles e os cards sobre a arte em tela cheia, e a biblioteca completa em grade.",
-    previewUrl: null,
+    previewUrl: "/themes/retrobat/xboxs.webp",
   },
 ];
 
@@ -88,6 +90,7 @@ export function retroBatThemesFromFiles(files: GoogleDriveFile[]): RetroBatTheme
       fileName: file?.name ?? null,
       size: file?.size ? Number(file.size) : null,
       updatedAt: file?.modifiedTime ?? null,
+      version: file?.appProperties?.themeVersion ?? null,
     };
   });
 }
