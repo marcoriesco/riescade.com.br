@@ -622,6 +622,12 @@
 			"installDir": "tsugaru",
 			"executable": "tsugaru/Tsugaru_CUI.exe"
 		},
+		"ultraloader": {
+			"name": "Ultra Loader",
+			"installDir": "ultraloader",
+			"executable": "ultraloader/ultra-loader.exe",
+			"preserve": ["ultra.ini", "playtime.csv", "Ultra Loader"]
+		},
 		"uniplayer": {
 			"name": "uniplayer",
 			"installDir": "uniplayer"
