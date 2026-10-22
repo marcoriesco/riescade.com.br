@@ -1,0 +1,23 @@
+{
+  "tool": "image_gen (integrada)",
+  "reference": "2026-10-22_sua-infancia-tem-um-novo-play_v1.png",
+  "post1": "Arte aprovada original preservada.",
+  "posts": [
+    {
+      "slug": "02_seu-pc-central-de-nostalgia",
+      "prompt": "Create one finished portrait 4:5 Instagram post for Brazilian brand RIESCADE. Reference is the approved campaign poster: preserve its exact RIESCADE white futuristic wordmark with lime A and mechanical rabbit mascot at top. Premium cinematic retro gaming advertising, charcoal black, violet lighting, electric lime accents, readable bold Portuguese typography, generous safe margins. Footer riescade.com.br. No copyrighted characters, no third party logos, no fake app screenshots. Post 2. Headline exact: 'SEU PC.\\nUMA CENTRAL\\nDE NOSTALGIA.' Small support: 'Conheça o RIESCADE OS' and 'Aplicativo gratuito para Windows.' CTA: 'Conheça no site'. Original photorealistic desk scene with sleek PC tower, generic controller and tasteful CRT monitor displaying only a beautiful abstract pixel landscape, not a software interface. Different composition from reference, keep cohesive branding."
+    },
+    {
+      "slug": "03_qual-jogo-marcou-sua-infancia",
+      "prompt": "Create one finished portrait 4:5 Instagram post for Brazilian brand RIESCADE. Reference is the approved campaign poster: preserve its exact RIESCADE white futuristic wordmark with lime A and mechanical rabbit mascot at top. Premium cinematic retro gaming advertising, charcoal black, violet lighting, electric lime accents, readable bold Portuguese typography, generous safe margins. Footer riescade.com.br. No copyrighted characters, no third party logos, no fake app screenshots. Post 3 community engagement. Headline exact: 'QUAL JOGO\\nMARCOU SUA\\nINFÂNCIA?' Supporting text: 'A primeira fase. A trilha sonora. A última ficha.' CTA pill: 'Conta nos comentários'. Still life of generic unbranded 1990s game cartridges, arcade tokens and controller on dark table, nostalgic cinematic closeup, violet rim light and lime glow, inviting generous typography."
+    },
+    {
+      "slug": "04_do-controle-a-diversao",
+      "prompt": "Create one finished portrait 4:5 Instagram post for Brazilian brand RIESCADE. Reference is the approved campaign poster: preserve its exact RIESCADE white futuristic wordmark with lime A and mechanical rabbit mascot at top. Premium cinematic retro gaming advertising, charcoal black, violet lighting, electric lime accents, readable bold Portuguese typography, generous safe margins. Footer riescade.com.br. No copyrighted characters, no third party logos, no fake app screenshots. Post 4 feature. Headline exact: 'DO CONTROLE\\nÀ DIVERSÃO.' Support text exact: 'Navegue pela sua biblioteca com controle.' Secondary text: 'Conheça o RIESCADE OS para Windows.' CTA: 'Conheça no site'. Hero close-up of a beautifully rendered original black modern gamepad hovering over a dark desk, violet and lime rim lighting, tactile clean details, subtle pixel particles, premium product photography. No suggestion of zero configuration or universal compatibility."
+    },
+    {
+      "slug": "05_conheca-riescade-membro",
+      "prompt": "Create one finished portrait 4:5 Instagram post for Brazilian brand RIESCADE. Reference is the approved campaign poster: preserve its exact RIESCADE white futuristic wordmark with lime A and mechanical rabbit mascot at top. Premium cinematic retro gaming advertising, charcoal black, violet lighting, electric lime accents, readable bold Portuguese typography, generous safe margins. Footer riescade.com.br. No copyrighted characters, no third party logos, no fake app screenshots. Post 5 subscription offer. Headline exact: 'SEU PRÓXIMO\\nPLAY COMEÇA\\nAQUI.' Feature label 'RIESCADE MEMBRO'. Very prominent price exact 'R$ 30/mês'. Supporting line 'Sem fidelidade.' Three concise benefit lines: 'Downloads integrados' / 'Jogos e mídias no aplicativo' / 'Suporte VIP'. CTA pill 'Conheça os benefícios'. Footer additionally small legible 'Aplicativo gratuito. Assinatura opcional.' Design luxurious dark violet membership card floating above neon-lit arcade pedestal, subtle mechanical rabbit motif, no fake payment card or card numbers. Clear readable offer, plenty of breathing space."
+    }
+  ]
+}

@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
+const supabaseMediaOrigin = (() => {
+  try {
+    const url = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL || '');
+    return url.protocol === 'https:' ? url.origin : '';
+  } catch { return ''; }
+})();
 const nextConfig = {
   reactStrictMode: true,
   allowedDevOrigins: [
@@ -24,7 +30,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://checkout.stripe.com; img-src 'self' https: data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https:; upgrade-insecure-requests;",
+              `default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://checkout.stripe.com; img-src 'self' https: data:; media-src 'self' ${supabaseMediaOrigin}; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https:; upgrade-insecure-requests;`,
           },
           { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
           { key: "X-Content-Type-Options", value: "nosniff" },

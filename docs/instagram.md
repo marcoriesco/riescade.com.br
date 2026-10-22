@@ -1,5 +1,7 @@
 # Estúdio Instagram RIESCADE
 
+Preferência do proprietário: **sem cron**. Criação e postagem solicitadas pelo chat. Usar **Publicar agora** nos rascunhos aprovados: a ação exige administrador e publica somente o post selecionado, mesmo com publicação automática desativada. O primeiro lote de cinco artes e legendas está em `D:/Downloads/tmp/RIESCADE/arts/instagram/campanha-01`.
+
 Painel: `/admin/instagram`. Usa a sessão Supabase do site e uma lista explícita de UUIDs administrativos. Nenhum assinante recebe acesso automaticamente. A interface pública do painel não contém dados; as APIs verificam a sessão e a autorização em cada requisição.
 
 ## O que está implementado
@@ -10,10 +12,10 @@ Painel: `/admin/instagram`. Usa a sessão Supabase do site e uma lista explícit
 - Upload de PNG/JPG/WebP estático até 3 MB, convertido em JPEG 1080 × 1350 com margens quando necessário, sem cortar a arte. O arquivo resultante fica público para a Meta poder buscá-lo. Não envie arquivos confidenciais.
 - Legenda, prévia, rascunho, agendamento, cancelamento e histórico dos últimos 100 registros.
 - Horário informado explicitamente em Brasília/São Paulo (UTC−03). Persistência em UTC.
-- Worker autenticado: processa no máximo um post por chamada, somente agendados e vencidos. Reutiliza o container enquanto a Meta prepara a imagem.
+- Worker autenticado: processa no máximo um post por chamada. Na ação manual, publica apenas o rascunho selecionado. Reutiliza o container enquanto a Meta prepara a mídia; vídeos ainda em preparação continuam como rascunhos no fluxo manual.
 - Renovação do token próximo ao vencimento, quando o agendador estiver ativo.
 
-Esta versão publica somente imagens individuais no feed. Não inclui Reels, Stories, carrosséis, métricas, edição de posts existentes ou geração diária autônoma de artes. Rascunhos podem ser carregados no formulário para criar um agendamento; o rascunho original é preservado e pode ser cancelado.
+Esta versão publica imagens individuais e Reels MP4 preparados localmente. O formulário de upload continua limitado a imagens. O script `scripts/instagram-reel-01.mjs` envia o primeiro vídeo aprovado como rascunho, preservando o limite de 8 MB do bucket e acrescentando `video/mp4` aos tipos aceitos pelo Storage. A publicação usa `media_type=REELS`, `video_url` e `share_to_feed=true`; a capa é extraída em 1 segundo. Não inclui Stories, carrosséis, métricas ou geração diária autônoma. A ação manual é feita pelo painel autenticado, sem baixar os segredos de produção.
 
 ## Configuração e ativação
 
@@ -31,6 +33,14 @@ Esta versão publica somente imagens individuais no feed. Não inclui Reels, Sto
 O horário é aproximado pela frequência do agendador e pelo processamento da Meta. Cada chamada processa um item. Monitorar chamadas com estado `expired`, `disconnected` ou falhas; o sistema não envia alertas externos. Se o cron parar, publicações vencidas permanecem na fila e podem sair ao retomá-lo; cancelar as que não devem mais sair antes de retomar.
 
 ## Falhas e prevenção de duplicação
+
+### Erro `Invalid redirect_uri` ao conectar
+
+No produto Instagram do app da Meta, abrir a configuração do **Instagram Business Login / login empresarial** e cadastrar em **Valid OAuth Redirect URIs / URIs de redirecionamento OAuth válidos** exatamente `https://www.riescade.com.br/api/admin/instagram/callback`. Não usar a seção de webhooks. O código monta esse endereço a partir da origem de `NEXTAUTH_URL`: verificar o domínio (incluindo `www`), HTTPS, caminho e ausência de barra final. Se alterar `NEXTAUTH_URL` na Vercel, fazer redeploy. Após salvar, iniciar novamente pelo botão Conectar Instagram; não reutilizar a janela antiga de autorização.
+
+### Painel informa migração ausente
+
+Aplicar `20261022223109_instagram_publisher.sql` ao mesmo projeto Supabase usado pelo deployment. As APIs reconhecem os erros `42P01` e `PGRST205` e retornam a orientação de migração, sem expor os detalhes internos do banco.
 
 A disputa entre workers usa uma atualização condicional por status e contador de tentativas. Apenas um consegue reclamar o mesmo item. Antes de `media_publish`, o registro entra em `uncertain`. Se houver timeout, queda do processo ou falha ao gravar a confirmação, **não há reenvio automático**. Registros abandonados em `processing` por 10 minutos também entram em conferência. Verificar o perfil antes de preparar outro post; isso evita duplicar uma publicação que a Meta aceitou sem devolver resposta.
 

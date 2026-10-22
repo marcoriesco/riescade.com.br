@@ -1,0 +1,16 @@
+import dotenv from 'dotenv';
+import { readFile, writeFile } from 'node:fs/promises';
+import { createClient } from '@supabase/supabase-js';
+dotenv.config({path:'.env.local',quiet:true});
+const root='D:/Downloads/tmp/RIESCADE/arts/instagram/campanha-01';
+const drafts=JSON.parse(await readFile(root+'/draft-results.json','utf8'));
+const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false,autoRefreshToken:false}});
+const {data,error}=await db.from('instagram_posts').select('id,status,instagram_media_id,updated_at,error').in('id',drafts.map(p=>p.id));
+if(error)throw new Error('Could not verify campaign status');
+const results=drafts.map(p=>({order:p.order,...data.find(row=>row.id===p.id)}));
+await writeFile(root+'/publication-results.json',JSON.stringify(results,null,2));
+const campaign=JSON.parse(await readFile(root+'/campaign.json','utf8'));
+campaign.status=results.length===5&&results.every(p=>p.status==='published')?'published':'partially_published';
+campaign.publications=results;
+await writeFile(root+'/campaign.json',JSON.stringify(campaign,null,2));
+console.log(JSON.stringify({status:campaign.status,posts:results}));

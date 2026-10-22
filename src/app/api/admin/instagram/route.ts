@@ -6,9 +6,11 @@ import { requireSocialAdmin, seal, socialError, socialOrigin } from '@/lib/serve
 import { instagramConfig } from '@/lib/server/instagram-api';
 import { AppApiError } from '@/lib/server/app-errors';
 import { SOCIAL_BUCKET, validatePost } from '@/lib/instagram-post';
+import { publishDuePost } from '@/lib/server/instagram-worker';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
 
 export async function GET(request: Request) {
   try {
@@ -18,7 +20,13 @@ export async function GET(request: Request) {
       db.from('instagram_account').select('username,instagram_user_id,expires_at,refreshed_at').eq('id','primary').maybeSingle(),
       db.from('instagram_posts').select('id,account_id,caption,media_path,scheduled_at,status,container_id,instagram_media_id,error,created_at,updated_at').order('created_at', { ascending:false }).limit(100),
     ]);
-    if (account.error || posts.error) throw new Error('Database unavailable');
+    const databaseError = account.error || posts.error;
+    if (databaseError) {
+      if (['42P01', 'PGRST205'].includes(databaseError.code)) {
+        throw new AppApiError(503, 'Falta aplicar a migração do Instagram no Supabase: 20261022223109_instagram_publisher.sql.');
+      }
+      throw new Error('Database unavailable');
+    }
     return Response.json({ account:account.data, posts:posts.data, mediaBase:db.storage.from(SOCIAL_BUCKET).getPublicUrl('').data.publicUrl, publishingEnabled:process.env.INSTAGRAM_PUBLISHING_ENABLED === 'true' }, { headers: { 'Cache-Control':'no-store' } });
   } catch (e) { return socialError(e); }
 }
@@ -52,6 +60,10 @@ export async function POST(request: NextRequest) {
       return Response.json({ path, url:db.storage.from(SOCIAL_BUCKET).getPublicUrl(path).data.publicUrl });
     }
     const body = await request.json();
+    if (action === 'publish-now') {
+      if (typeof body.id !== 'string' || !/^[a-f0-9-]{36}$/i.test(body.id)) throw new AppApiError(400,'Publicação inválida.');
+      return Response.json(await publishDuePost({ postId:body.id }));
+    }
     if (action === 'cancel') {
       const { data, error } = await db.from('instagram_posts').update({ status:'cancelled',updated_at:new Date().toISOString() }).eq('id',body.id).in('status',['draft','scheduled','failed']).select('id');
       if (error) throw new Error('Cancel failed');

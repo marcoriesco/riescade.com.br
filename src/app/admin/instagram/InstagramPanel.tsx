@@ -38,6 +38,12 @@ export default function InstagramPanel() {
     setBusy(true);setError('');setNotice('');
     try { await task(); } catch(e) { setError((e as Error).message); } finally { setBusy(false); }
   }
+  async function publishNow(id:string) {
+    const result=await api('publish-now',{id});
+    await refresh();
+    const messages:Record<string,string>={published:'Publicação confirmada no Instagram.',preparing:'O Instagram está preparando a imagem. Clique em Publicar agora novamente em alguns instantes.',uncertain:'Resultado não confirmado. Confira o Instagram antes de reenviar.',failed:'Não foi possível preparar o post. Confira o histórico.',expired:'Reconecte o Instagram: autorização expirada.',disconnected:'Conecte o Instagram primeiro.',idle:'Este post já foi processado ou não está disponível.',busy:'Outra execução está processando este post.'};
+    setNotice(messages[result.state]||'Confira o histórico.');
+  }
   const input = 'w-full rounded-xl border border-white/15 bg-black/30 p-3 text-white focus:outline-none focus:ring-2 focus:ring-lime-400';
   const button = 'rounded-xl bg-lime-400 px-5 py-3 font-semibold text-black disabled:opacity-40';
   return <main id="main-content" className="min-h-screen bg-[#100e18] px-5 py-12 text-white">
@@ -51,7 +57,7 @@ export default function InstagramPanel() {
       {loading && <p>Verificando acesso…</p>}
       {data && <>
         <section className="flex flex-wrap items-center justify-between gap-5 rounded-2xl border border-white/10 bg-white/5 p-6">
-          <div><h2 className="text-xl font-semibold">{data.account ? `@${data.account.username}`:'Conecte o RIESCADE'}</h2><p className="mt-1 text-sm text-white/60">{data.account ? `Autorização válida até ${new Date(data.account.expires_at).toLocaleDateString('pt-BR',{ timeZone:'America/Sao_Paulo' })}`:'Autorize a conta profissional para preparar publicações.'}</p><p className="mt-2 text-sm text-lime-300">{data.publishingEnabled ? 'Publicação habilitada. A fila depende do agendador configurado no servidor.':'Publicação automática desativada. Você pode preparar a fila.'}</p></div>
+          <div><h2 className="text-xl font-semibold">{data.account ? `@${data.account.username}`:'Conecte o RIESCADE'}</h2><p className="mt-1 text-sm text-white/60">{data.account ? `Autorização válida até ${new Date(data.account.expires_at).toLocaleDateString('pt-BR',{ timeZone:'America/Sao_Paulo' })}`:'Autorize a conta profissional para preparar publicações.'}</p><p className="mt-2 text-sm text-lime-300">Publicação manual disponível nos rascunhos. Nenhum agendador é necessário.</p></div>
           <button disabled={busy} className={button} onClick={()=>run(async()=>{ const result=await api('connect',{});window.location.assign(result.url); })}>{data.account ? 'Reconectar Instagram':'Conectar Instagram'}</button>
         </section>
         <div className="grid gap-8 lg:grid-cols-2">
@@ -79,9 +85,9 @@ export default function InstagramPanel() {
         <section className="space-y-4"><div className="flex justify-between"><h2 className="text-2xl font-semibold">Fila e histórico</h2><button disabled={busy} className="text-lime-300 underline" onClick={()=>run(refresh)}>Atualizar</button></div>
           {!data.posts.length && <p className="text-white/50">Nenhuma publicação preparada ainda.</p>}
           {data.posts.map(post=><article key={post.id} className="flex flex-wrap gap-5 rounded-2xl border border-white/10 bg-white/5 p-5">
-            <Image src={`${data.mediaBase.replace(/\/$/,'')}/${post.media_path}`} alt="Arte da publicação" width={96} height={112} unoptimized className="h-28 w-24 rounded-lg object-cover"/>
+            {post.media_path.endsWith('.mp4') ? <video src={`${data.mediaBase.replace(/\/$/,'')}/${post.media_path}`} controls preload="metadata" className="h-40 w-24 rounded-lg object-contain" aria-label="Prévia do Reel"/> : <Image src={`${data.mediaBase.replace(/\/$/,'')}/${post.media_path}`} alt="Arte da publicação" width={96} height={112} unoptimized className="h-28 w-24 rounded-lg object-cover"/>}
             <div className="min-w-0 flex-1"><p className="text-sm font-semibold text-lime-300">{labels[post.status]}</p><p className="mt-2 whitespace-pre-wrap break-words text-sm">{post.caption}</p><p className="mt-2 text-xs text-white/50">{post.scheduled_at ? new Date(post.scheduled_at).toLocaleString('pt-BR',{ timeZone:'America/Sao_Paulo' })+' · Brasília':'Sem horário definido'}</p>{post.error && <p className="mt-2 text-sm text-amber-300">{post.error}</p>}{post.instagram_media_id && <p className="mt-2 text-xs text-white/50">ID no Instagram: {post.instagram_media_id}</p>}</div>
-            <div className="flex items-start gap-3">{post.status==='draft' && <button disabled={busy} className="text-sm text-lime-300 underline" onClick={()=>{setCaption(post.caption);setPath(post.media_path);setPreview(`${data.mediaBase.replace(/\/$/,'')}/${post.media_path}`);setNotice('Rascunho carregado no formulário. Escolha a data e agende.');window.scrollTo({top:0,behavior:'smooth'});}}>Usar rascunho</button>}{['draft','scheduled','failed'].includes(post.status) && <button disabled={busy} className="text-sm text-white/60 underline" onClick={()=>run(async()=>{await api('cancel',{id:post.id});await refresh();})}>Cancelar</button>}</div>
+            <div className="flex items-start gap-3">{['draft','scheduled'].includes(post.status) && <button disabled={busy} className={button} onClick={()=>run(()=>publishNow(post.id))}>Publicar agora</button>}{post.status==='draft' && !post.media_path.endsWith('.mp4') && <button disabled={busy} className="text-sm text-lime-300 underline" onClick={()=>{setCaption(post.caption);setPath(post.media_path);setPreview(`${data.mediaBase.replace(/\/$/,'')}/${post.media_path}`);setNotice('Rascunho carregado no formulário.');window.scrollTo({top:0,behavior:'smooth'});}}>Usar rascunho</button>}{['draft','scheduled','failed'].includes(post.status) && <button disabled={busy} className="text-sm text-white/60 underline" onClick={()=>run(async()=>{await api('cancel',{id:post.id});await refresh();})}>Cancelar</button>}</div>
           </article>)}
         </section>
       </>}

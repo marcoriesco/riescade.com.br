@@ -18,6 +18,7 @@ function table(name:string) {
     select:()=>{selected=true;return builder;},
     update:(value:Row)=>{change=value;return builder;},
     eq:(key:string,value:unknown)=>{filters.push(r=>r[key]===value);return builder;},
+    in:(key:string,values:unknown[])=>{filters.push(r=>values.includes(r[key]));return builder;},
     lt:(key:string,value:string)=>{filters.push(r=>String(r[key])<value);return builder;},
     lte:(key:string,value:string)=>{filters.push(r=>String(r[key])<=value);return builder;},
     order:()=>builder,limit:()=>builder,
@@ -41,6 +42,24 @@ beforeEach(()=>{
 });
 afterEach(()=>vi.unstubAllEnvs());
 describe('Instagram publisher',()=>{
+  it('creates a Reel container and preserves manual control while video is processing',async()=>{
+    vi.stubEnv('INSTAGRAM_PUBLISHING_ENABLED','false');post.status='draft';post.media_path='reel.mp4';
+    mocks.graph.mockImplementation(async(path:string)=>path.endsWith('/media')?{id:'video-container'}:{status_code:'IN_PROGRESS'});
+    expect(await publishDuePost({postId:'p1'})).toEqual({state:'preparing'});
+    expect(mocks.graph).toHaveBeenCalledWith('ig1/media','token',expect.objectContaining({media_type:'REELS',video_url:'https://assets.example/image.jpg',share_to_feed:'true'}),true);
+    expect(post.status).toBe('draft');expect(post.container_id).toBe('video-container');
+    mocks.graph.mockImplementation(async(path:string)=>path.endsWith('/media_publish')?{id:'reel-published'}:{status_code:'FINISHED'});
+    expect(await publishDuePost({postId:'p1'})).toEqual({state:'published'});
+    expect(post.instagram_media_id).toBe('reel-published');
+  });
+  it('publishes only the admin-selected draft manually while automation is disabled',async()=>{
+    vi.stubEnv('INSTAGRAM_PUBLISHING_ENABLED','false');post.status='draft';
+    expect(await publishDuePost({postId:'other'})).toEqual({state:'idle'});
+    expect(mocks.graph).not.toHaveBeenCalled();
+    expect(await publishDuePost({postId:'p1'})).toEqual({state:'published'});
+    expect(post.status).toBe('published');
+    expect(await publishDuePost({postId:'p1'})).toEqual({state:'idle'});
+  });
   it('has a master off switch and never publishes drafts',async()=>{
     vi.stubEnv('INSTAGRAM_PUBLISHING_ENABLED','false');
     expect(await publishDuePost()).toEqual({state:'disabled'});

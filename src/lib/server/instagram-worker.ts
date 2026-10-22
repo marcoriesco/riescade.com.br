@@ -6,8 +6,8 @@ import { SOCIAL_BUCKET, type SocialPost } from '@/lib/instagram-post';
 type Account = { instagram_user_id:string; encrypted_token:string; expires_at:string; refreshed_at:string };
 const now = () => new Date().toISOString();
 
-export async function publishDuePost() {
-  if (process.env.INSTAGRAM_PUBLISHING_ENABLED !== 'true') return { state:'disabled' };
+export async function publishDuePost(manual?: { postId:string }) {
+  if (!manual && process.env.INSTAGRAM_PUBLISHING_ENABLED !== 'true') return { state:'disabled' };
   const db = getSupabaseAdmin();
   const check = (error: unknown) => { if(error) throw new Error('Instagram queue persistence failed'); };
   // A terminated worker must never cause automatic publication retries.
@@ -27,11 +27,13 @@ export async function publishDuePost() {
     if (!updated.data?.length) return { state:'connection_changed' };
     token = fresh.access_token;
   }
-  const candidate = await db.from('instagram_posts').select('*').eq('status','scheduled').eq('account_id',a.instagram_user_id).lte('scheduled_at',now()).order('scheduled_at').limit(1).maybeSingle();
+  let query = db.from('instagram_posts').select('*').eq('account_id',a.instagram_user_id);
+  query = manual ? query.eq('id',manual.postId).in('status',['draft','scheduled']) : query.eq('status','scheduled').lte('scheduled_at',now());
+  const candidate = await query.order('scheduled_at').limit(1).maybeSingle();
   check(candidate.error);
   if (!candidate.data) return { state:'idle' };
   const row = candidate.data as SocialPost & { attempts:number };
-  const claimed = await db.from('instagram_posts').update({ status:'processing',updated_at:now(), attempts:row.attempts+1 }).eq('id',row.id).eq('status','scheduled').eq('attempts',row.attempts).select('id');
+  const claimed = await db.from('instagram_posts').update({ status:'processing',updated_at:now(), attempts:row.attempts+1 }).eq('id',row.id).eq('status',row.status).eq('attempts',row.attempts).select('id');
   check(claimed.error);
   if (!claimed.data?.length) return { state:'busy' };
   async function save(values: Record<string, unknown>) {
@@ -43,15 +45,18 @@ export async function publishDuePost() {
     if (row.attempts >= 30) throw new Error('Container preparation timeout');
     let container = row.container_id;
     if (!container) {
-      const imageUrl = db.storage.from(SOCIAL_BUCKET).getPublicUrl(row.media_path).data.publicUrl;
-      const created = await graph<{ id:string }>(`${a.instagram_user_id}/media`,token,{ image_url:imageUrl,caption:row.caption },true);
+      const mediaUrl = db.storage.from(SOCIAL_BUCKET).getPublicUrl(row.media_path).data.publicUrl;
+      const params:Record<string,string> = row.media_path.endsWith('.mp4')
+        ? { media_type:'REELS',video_url:mediaUrl,caption:row.caption,share_to_feed:'true',thumb_offset:'1000' }
+        : { image_url:mediaUrl,caption:row.caption };
+      const created = await graph<{ id:string }>(`${a.instagram_user_id}/media`,token,params,true);
       if (!created.id) throw new Error('Missing container');
       container = created.id;
       await save({ container_id:container });
     }
     const status = await graph<{ status_code:string }>(container,token,{ fields:'status_code' });
     if (status.status_code === 'IN_PROGRESS') {
-      await save({ status:'scheduled',scheduled_at:new Date(Date.now()+60000).toISOString() });
+      await save(manual ? { status:'draft' } : { status:'scheduled',scheduled_at:new Date(Date.now()+60000).toISOString() });
       return { state:'preparing' };
     }
     if (status.status_code !== 'FINISHED') throw new Error('Container unavailable');

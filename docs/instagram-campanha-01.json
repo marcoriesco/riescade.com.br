@@ -1,0 +1,37 @@
+{
+  "campaign": "RIESCADE — Sua infância tem um novo play",
+  "timezone": "America/Sao_Paulo",
+  "status": "prepared_locally",
+  "posts": [
+    {
+      "order": 1,
+      "slug": "01_sua-infancia-tem-um-novo-play",
+      "title": "Sua infância tem um novo play",
+      "caption": "Qual jogo faz você voltar no tempo? 🎮\n\nTem fase, música e partida que ficam com a gente. O RIESCADE OS é uma central de jogos para Windows para organizar sua biblioteca e reencontrar essa nostalgia.\n\nO aplicativo é gratuito. Conheça em riescade.com.br — link no perfil.\n\nConta pra gente: qual jogo marcou sua infância?\n\n#RIESCADE #Retrogaming #JogosRetro #NostalgiaGamer"
+    },
+    {
+      "order": 2,
+      "slug": "02_seu-pc-central-de-nostalgia",
+      "title": "Seu PC, uma central de nostalgia",
+      "caption": "Seu PC também pode ser o ponto de encontro das suas memórias gamer. 💚\n\nO RIESCADE OS reúne sua biblioteca em uma central para Windows, com capas, informações e integração com emuladores.\n\nConheça o aplicativo gratuito em riescade.com.br — link no perfil. Os benefícios da assinatura RIESCADE Membro são opcionais.\n\nSalva este post para conhecer depois e marca quem cresceu jogando com você.\n\n#RIESCADE #PCGamer #Retrogaming #JogosRetro"
+    },
+    {
+      "order": 3,
+      "slug": "03_qual-jogo-marcou-sua-infancia",
+      "title": "Qual jogo marcou sua infância?",
+      "caption": "A primeira fase. A trilha sonora. A última ficha. 🕹️\n\nSe você pudesse revisitar UM jogo da sua infância hoje, qual escolheria?\n\nVale o jogo do fliperama, o cartucho emprestado ou aquele clássico que juntava todo mundo na sala.\n\nEscreve o nome nos comentários e conta uma lembrança. Vamos conhecer a história de quem está chegando ao RIESCADE!\n\n#RIESCADE #NostalgiaGamer #Fliperama #JogosRetro"
+    },
+    {
+      "order": 4,
+      "slug": "04_do-controle-a-diversao",
+      "title": "Do controle à diversão",
+      "caption": "Pega o controle e escolhe a próxima partida. 🎮\n\nNo RIESCADE OS, você navega pela biblioteca com controle e encontra seus jogos em uma central para Windows.\n\nConheça o aplicativo gratuito em riescade.com.br — link no perfil. A compatibilidade dos jogos depende do sistema, do emulador e do seu PC.\n\nVocê prefere controle ou teclado? Conta aqui embaixo.\n\n#RIESCADE #ControleGamer #PCGamer #Retrogaming"
+    },
+    {
+      "order": 5,
+      "slug": "05_conheca-riescade-membro",
+      "title": "Conheça o RIESCADE Membro",
+      "caption": "Conheça o RIESCADE Membro. 💚\n\nPor R$ 30 por mês, a assinatura libera downloads de jogos e mídias dentro do aplicativo, pacote de BIOS e suporte VIP, conforme os benefícios apresentados no site.\n\nSem fidelidade: você pode cancelar pela sua conta. O aplicativo RIESCADE OS continua gratuito; a assinatura é opcional.\n\nVeja os benefícios e assine em riescade.com.br — link no perfil.\n\nTem alguma dúvida sobre o Membro? Deixa nos comentários.\n\n#RIESCADE #RIESCADEMembro #Retrogaming #JogosRetro"
+    }
+  ]
+}
