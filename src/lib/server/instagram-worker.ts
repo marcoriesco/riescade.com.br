@@ -46,7 +46,11 @@ export async function publishDuePost(manual?: { postId:string }) {
     let container = row.container_id;
     if (!container) {
       const mediaUrl = db.storage.from(SOCIAL_BUCKET).getPublicUrl(row.media_path).data.publicUrl;
-      const params:Record<string,string> = row.media_path.endsWith('.mp4')
+      const params:Record<string,string> = row.media_type === 'STORIES'
+        ? row.media_path.endsWith('.mp4')
+          ? { media_type:'STORIES',video_url:mediaUrl }
+          : { media_type:'STORIES',image_url:mediaUrl }
+        : row.media_path.endsWith('.mp4')
         ? { media_type:'REELS',video_url:mediaUrl,caption:row.caption,share_to_feed:'true',thumb_offset:'1000' }
         : { image_url:mediaUrl,caption:row.caption };
       const created = await graph<{ id:string }>(`${a.instagram_user_id}/media`,token,params,true);

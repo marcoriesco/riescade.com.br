@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     const db = getSupabaseAdmin();
     const [account, posts] = await Promise.all([
       db.from('instagram_account').select('username,instagram_user_id,expires_at,refreshed_at').eq('id','primary').maybeSingle(),
-      db.from('instagram_posts').select('id,account_id,caption,media_path,scheduled_at,status,container_id,instagram_media_id,error,created_at,updated_at').order('created_at', { ascending:false }).limit(100),
+      db.from('instagram_posts').select('id,account_id,caption,media_path,media_type,scheduled_at,status,container_id,instagram_media_id,error,created_at,updated_at').order('created_at', { ascending:false }).limit(100),
     ]);
     const databaseError = account.error || posts.error;
     if (databaseError) {

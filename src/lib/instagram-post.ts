@@ -1,5 +1,6 @@
 export const SOCIAL_BUCKET = 'instagram-media';
 export type SocialPost = {
+  media_type?: 'IMAGE' | 'REELS' | 'STORIES';
   id: string; caption: string; media_path: string; scheduled_at: string | null;
   status: 'draft' | 'scheduled' | 'processing' | 'published' | 'failed' | 'uncertain' | 'cancelled';
   container_id: string | null; instagram_media_id: string | null; error: string | null;

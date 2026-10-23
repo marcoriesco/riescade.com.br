@@ -2,6 +2,8 @@
 
 Preferência do proprietário: **sem cron**. Criação e postagem solicitadas pelo chat. Usar **Publicar agora** nos rascunhos aprovados: a ação exige administrador e publica somente o post selecionado, mesmo com publicação automática desativada. O primeiro lote de cinco artes e legendas está em `D:/Downloads/tmp/RIESCADE/arts/instagram/campanha-01`.
 
+Reels e Stories são registrados separadamente pelo campo `media_type` (`IMAGE`, `REELS`, `STORIES`), adicionado na migração `20261023141119_instagram_story_publications.sql`. Stories usam `media_type=STORIES` sem parâmetros exclusivos de Reel ou legenda. A conta precisa ser elegível na Meta para publicação de Stories. O bucket aceita JPEG e MP4 até 50 MB; o formulário de imagens continua com limite de 3 MB. O script `scripts/publish-last-token-v3.mjs` importa e verifica o vídeo v3 original, sem recompressão, para as duas publicações autorizadas.
+
 Painel: `/admin/instagram`. Usa a sessão Supabase do site e uma lista explícita de UUIDs administrativos. Nenhum assinante recebe acesso automaticamente. A interface pública do painel não contém dados; as APIs verificam a sessão e a autorização em cada requisição.
 
 ## O que está implementado

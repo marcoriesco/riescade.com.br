@@ -42,6 +42,12 @@ beforeEach(()=>{
 });
 afterEach(()=>vi.unstubAllEnvs());
 describe('Instagram publisher',()=>{
+  it('publishes a video Story without Reel-only parameters or captions',async()=>{
+    vi.stubEnv('INSTAGRAM_PUBLISHING_ENABLED','false');post.status='draft';post.media_path='story.mp4';post.media_type='STORIES';
+    expect(await publishDuePost({postId:'p1'})).toEqual({state:'published'});
+    expect(mocks.graph).toHaveBeenCalledWith('ig1/media','token',{media_type:'STORIES',video_url:'https://assets.example/image.jpg'},true);
+    expect(post.status).toBe('published');
+  });
   it('creates a Reel container and preserves manual control while video is processing',async()=>{
     vi.stubEnv('INSTAGRAM_PUBLISHING_ENABLED','false');post.status='draft';post.media_path='reel.mp4';
     mocks.graph.mockImplementation(async(path:string)=>path.endsWith('/media')?{id:'video-container'}:{status_code:'IN_PROGRESS'});

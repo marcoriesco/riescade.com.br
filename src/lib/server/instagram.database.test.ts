@@ -9,6 +9,7 @@ beforeAll(async()=>{
     insert into auth.users values ('00000000-0000-4000-8000-000000000001');
     create schema storage; create table storage.buckets(id text primary key,name text,public boolean,file_size_limit bigint,allowed_mime_types text[]);`);
   await db.exec(readFileSync('supabase/migrations/20261022223109_instagram_publisher.sql','utf8'));
+  await db.exec(readFileSync('supabase/migrations/20261023141119_instagram_story_publications.sql','utf8'));
 },30000);
 afterAll(async()=>{if(db)await db.close();});
 describe('Instagram database isolation and claims',()=>{
