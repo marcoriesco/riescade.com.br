@@ -28,6 +28,12 @@ export interface RetroBatTheme extends RetroBatThemeInfo {
 // Display order on the dashboard. RIESCADE_ORIGINS ships inside the release.
 export const RETROBAT_EXCLUSIVE_THEMES: RetroBatThemeInfo[] = [
   {
+    id: "RIESCADE_OS",
+    name: "RIESCADE OS",
+    description: "Interface do RIESCADE OS, com biblioteca de jogos em grade, navegação por sistemas e arte em tela cheia.",
+    previewUrl: "/themes/retrobat/os.webp",
+  },
+  {
     id: "RIESCADE_PS5",
     name: "PlayStation 5",
     description: "A tela inicial do PS5, com a fileira de tiles sobre a arte em tela cheia e a biblioteca de jogos em grade.",

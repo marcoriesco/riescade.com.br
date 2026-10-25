@@ -18,6 +18,7 @@ function driveFile(name: string, overrides: Record<string, unknown> = {}) {
 describe("retroBatThemesFromFiles", () => {
   it("lists every exclusive theme in order and links only the tagged zips", () => {
     const themes = retroBatThemesFromFiles([
+      driveFile("RIESCADE_OS.retrobat.zip", { size: "4096", appProperties: { themeVersion: "1.0.1" } }),
       driveFile("RIESCADE_PS5.retrobat.zip", { size: "2048", appProperties: { themeVersion: "1.2.0" } }),
       driveFile("RIESCADE_SWITCH2.zip"),
       driveFile("RIESCADE_ORIGINS.retrobat.zip"),
@@ -27,6 +28,7 @@ describe("retroBatThemesFromFiles", () => {
     ]);
 
     expect(themes.map((theme) => theme.id)).toEqual([
+      "RIESCADE_OS",
       "RIESCADE_PS5",
       "RIESCADE_SWITCH2",
       "RIESCADE_EDITION",
@@ -34,11 +36,12 @@ describe("retroBatThemesFromFiles", () => {
       "RIESCADE_COINOPS",
       "RIESCADE_XBOXS",
     ]);
-    expect(themes[0]).toMatchObject({ fileName: "RIESCADE_PS5.retrobat.zip", size: 2048, version: "1.2.0" });
-    expect(themes[4].version).toBeNull();
-    expect(themes[1].fileName).toBeNull();
+    expect(themes[0]).toMatchObject({ id: "RIESCADE_OS", fileName: "RIESCADE_OS.retrobat.zip", size: 4096, version: "1.0.1", previewUrl: "/themes/retrobat/os.webp" });
+    expect(themes[1]).toMatchObject({ fileName: "RIESCADE_PS5.retrobat.zip", size: 2048, version: "1.2.0" });
+    expect(themes[5].version).toBeNull();
     expect(themes[2].fileName).toBeNull();
-    expect(themes[4].updatedAt).toBe("2026-10-14T10:00:00.000Z");
+    expect(themes[3].fileName).toBeNull();
+    expect(themes[5].updatedAt).toBe("2026-10-14T10:00:00.000Z");
     expect(JSON.stringify(themes)).not.toContain("newer");
   });
 });
