@@ -100,7 +100,7 @@ export default async function WikiSystemPage({
       <main
         id="main-content"
         tabIndex={-1}
-        className="relative z-10 mx-auto w-full max-w-5xl flex-grow px-6 pb-24 pt-32 md:px-12"
+        className="relative z-10 mx-auto w-full max-w-7xl flex-grow px-6 pb-24 pt-32 md:px-12"
       >
         {/* Breadcrumb Navigation */}
         <nav aria-label="Navegação estrutural" className="mb-8 flex items-center gap-2 text-xs text-muted-foreground">
