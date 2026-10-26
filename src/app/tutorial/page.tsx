@@ -1,269 +1,153 @@
 import type { Metadata } from "next";
-import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { PageIntro, ExploreLink } from "@/components/PageIntro";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
 import {
-  Archive,
-  Cpu,
   Download,
+  FolderArchive,
   Gamepad2,
-  HardDrive,
-  LogIn,
-  Monitor,
-  Play,
+  CheckCircle2,
   Sparkles,
-  Users,
-  UserCheck,
-  CircleHelp,
-  ArrowDown,
+  ArrowRight,
+  ExternalLink,
+  MessageCircle,
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Como instalar o RIESCADE OS e o RIESCADE RetroBat",
+  title: "Como instalar e configurar o RIESCADE no Windows",
   description:
-    "Passo a passo para instalar o RIESCADE OS ou o RIESCADE RetroBat no Windows: download, login, pack de BIOS, emuladores e download de jogos.",
+    "Passo a passo completo para instalar o RIESCADE no Windows: download do aplicativo, pack de BIOS, login com Google, emuladores e como jogar.",
   alternates: { canonical: "/tutorial" },
+  openGraph: {
+    title: "Como instalar e configurar o RIESCADE no Windows",
+    description:
+      "Guia oficial para instalar o RIESCADE no PC: download, pack de BIOS, login e execução de jogos.",
+    type: "article",
+    url: "https://www.riescade.com.br/tutorial",
+  },
 };
 
-interface Step {
-  icon: LucideIcon;
-  title: string;
-  body: React.ReactNode;
-}
-
-const Code = ({ children }: { children: React.ReactNode }) => (
-  <code className="rounded-md border border-border bg-black/40 px-1.5 py-0.5 font-mono text-[0.85em] text-foreground">
-    {children}
-  </code>
-);
-
-const Path = ({ children }: { children: React.ReactNode }) => (
-  <strong className="font-semibold text-foreground">{children}</strong>
-);
-
-const requirements = [
-  { icon: Monitor, title: "Windows 10 ou 11", text: "Versão de 64 bits." },
-  { icon: UserCheck, title: "Conta Google", text: "A mesma no site e nos aplicativos." },
-  { icon: Sparkles, title: "Assinatura ativa", text: "Libera os downloads de jogos e de BIOS." },
-  { icon: Archive, title: "7-Zip ou WinRAR", text: "Para extrair os arquivos .7z e .zip." },
-  { icon: HardDrive, title: "Espaço em disco", text: "O pack de BIOS ocupa cerca de 3 GB, além do espaço dos jogos." },
+const REQUIREMENTS = [
+  { item: "Sistema operacional", value: "Windows 10 ou Windows 11 (64 bits)", note: "Recomendado 64 bits atualizado" },
+  { item: "Descompactador", value: "7-Zip ou WinRAR", note: "Necessário para extrair arquivos .7z e .zip" },
+  { item: "Conta Google", value: "Mesma conta da assinatura", note: "Usada para liberar o catálogo e downloads" },
+  { item: "Espaço em disco", value: "Mínimo 5 GB livres", note: "3 GB para BIOS + espaço para seus jogos" },
+  { item: "Controles", value: "Xbox, PlayStation ou Genérico", note: "Mapeamento automático Plug & Play" },
 ];
 
-const osSteps: Step[] = [
+const INSTALL_STEPS = [
   {
-    icon: Download,
-    title: "Baixe o aplicativo",
+    step: "1",
+    title: "Baixe o aplicativo RIESCADE e o Pack de BIOS",
     body: (
       <>
-        Entre em <Link href="/dashboard" className="text-primary hover:text-accent">Minha conta</Link> e,
-        na <Path>Central de downloads</Path>, clique em <Path>Baixar RIESCADE OS</Path>. O botão sempre
-        entrega a versão mais recente.
+        Acesse a seção de downloads em{" "}
+        <Link href="/dashboard#downloads" className="text-primary hover:underline font-medium">
+          Minha Conta → Downloads
+        </Link>
+        . Baixe o instalador do <strong className="text-foreground">RIESCADE</strong> (arquivo compactado{" "}
+        <code className="font-mono text-xs text-primary">.7z</code>) e o pacote completo de{" "}
+        <strong className="text-foreground">BIOS</strong> (<code className="font-mono text-xs text-primary">bios.zip</code>).
       </>
     ),
   },
   {
-    icon: Archive,
-    title: "Extraia em uma pasta",
+    step: "2",
+    title: "Extraia o RIESCADE em uma pasta dedicada",
     body: (
       <>
-        Extraia o arquivo <Code>RIESCADE_OS_vX.X.X.7z</Code> em uma pasta própria, por exemplo{" "}
-        <Code>C:\RIESCADE OS</Code>. Evite a pasta <Path>Arquivos de Programas</Path> e mantenha a
-        estrutura de pastas como veio no pacote.
+        Com o 7-Zip ou WinRAR, extraia o arquivo do aplicativo na raiz de um disco, por exemplo{" "}
+        <code className="font-mono text-xs text-primary bg-card px-1.5 py-0.5 rounded border border-border">C:\RIESCADE\</code> ou em um HD externo.{" "}
+        <span className="text-muted-foreground">
+          Evite a pasta <em>Arquivos de Programas</em> para prevenir restrições de permissões do Windows.
+        </span>
       </>
     ),
   },
   {
-    icon: Play,
-    title: "Abra o RIESCADE OS",
+    step: "3",
+    title: "Instale o Pack de BIOS na pasta bios\\",
     body: (
       <>
-        Execute <Code>RIESCADE.exe</Code> na raiz da pasta. Ele funciona com controle, teclado e mouse,
-        e se atualiza sozinho quando sair uma versão nova.
+        Abra o arquivo <code className="font-mono text-xs text-foreground">bios.zip</code> baixado e extraia todo o seu conteúdo
+        diretamente dentro da pasta <code className="font-mono text-xs text-primary bg-card px-1.5 py-0.5 rounded border border-border">C:\RIESCADE\bios\</code>.
+        As BIOS são obrigatórias para que consoles como PS1, PS2, Saturn, Sega CD e Dreamcast possam inicializar os jogos.
       </>
     ),
   },
   {
-    icon: LogIn,
-    title: "Entre com sua conta",
+    step: "4",
+    title: "Inicie o RetroBat.exe e faça login com sua conta",
     body: (
       <>
-        Vá em <Path>Configurações → Minha Conta</Path> e escolha <Path>Entrar com Google</Path>. O
-        navegador abre o site da RIESCADE. Conclua o login e o navegador devolve você ao aplicativo.
-        Use a mesma conta Google da sua assinatura.
+        Dentro da pasta do RIESCADE, execute o arquivo <code className="font-mono text-xs text-primary font-bold">RetroBat.exe</code>.
+        Na primeira inicialização, uma tela de boas-vindas exibirá a opção de <strong className="text-foreground">Entrar com Google</strong>.
+        Clique no botão, conclua a autenticação na janela do navegador e volte para o aplicativo. Sua assinatura será reconhecida instantaneamente.
       </>
     ),
   },
   {
-    icon: Cpu,
-    title: "Instale o pack de BIOS",
+    step: "5",
+    title: "Navegue pelo catálogo e comece a jogar",
     body: (
       <>
-        Em <Path>Configurações → Downloads</Path>, na seção <Path>Pacote de BIOS</Path>, clique em{" "}
-        <Path>Baixar BIOS</Path>. O aplicativo baixa e instala tudo na pasta <Code>bios</Code>. Sem as
-        BIOS, jogos de vários consoles aparecem na biblioteca mas não iniciam.
-      </>
-    ),
-  },
-  {
-    icon: Gamepad2,
-    title: "Baixe e jogue",
-    body: (
-      <>
-        Abra uma plataforma, escolha um jogo e use <Path>Baixar jogo</Path>. O emulador necessário é
-        instalado automaticamente quando faltar. Para levar tudo de uma vez, use{" "}
-        <Path>Baixar plataforma completa</Path> e <Path>Baixar mídias completas</Path>.
-      </>
-    ),
-  },
-  {
-    icon: Users,
-    title: "Jogue online com amigos",
-    body: (
-      <>
-        Em <Path>Jogar online → Amigos</Path>, compartilhe seu código de amizade, adicione amigos e
-        convide para uma partida privada. Cada pessoa precisa ter o mesmo jogo instalado.
+        Todos os jogos do catálogo na nuvem aparecem organizados por consoles, portáteis e arcades. Ao selecionar qualquer jogo pela primeira vez,
+        o RIESCADE faz o download automático da ROM, das artes (capas 3D, títulos e vídeos) e do emulador pré-configurado. Em seguida, o jogo inicia sozinho!
       </>
     ),
   },
 ];
 
-const retroBatSteps: Step[] = [
+const FAQS = [
   {
-    icon: Download,
-    title: "Baixe o RetroBat e o pack de BIOS",
-    body: (
-      <>
-        Em <Link href="/dashboard" className="text-primary hover:text-accent">Minha conta</Link>, baixe o{" "}
-        <Path>RIESCADE RetroBat</Path> e o <Path>Pack de BIOS</Path>. O RetroBat vem com a pasta{" "}
-        <Code>bios</Code> vazia, por isso o pack é necessário aqui.
-      </>
-    ),
+    q: "O aplicativo diz que não possuo assinatura ativa.",
+    a: "Confira se você fez login no aplicativo com o mesmo e-mail Google utilizado no momento da assinatura. Você pode checar o status da sua assinatura na página Minha Conta do site.",
   },
   {
-    icon: Archive,
-    title: "Extraia os arquivos",
-    body: (
-      <>
-        Extraia o <Code>RIESCADE-vX.X.X.7z</Code> em uma pasta própria, por exemplo{" "}
-        <Code>C:\RIESCADE RetroBat</Code>. Depois extraia o conteúdo do <Code>bios.zip</Code> dentro da
-        pasta <Code>bios</Code> do RetroBat.
-      </>
-    ),
+    q: "O jogo aparece na lista mas a tela fecha e volta para o menu.",
+    a: "Na grande maioria dos casos, isso ocorre pela falta das BIOS do sistema correspondente. Certifique-se de que extraiu o arquivo bios.zip completo dentro da subpasta bios\\ do RIESCADE.",
   },
   {
-    icon: LogIn,
-    title: "Abra e entre com sua conta",
-    body: (
-      <>
-        Execute <Code>RetroBat.exe</Code>. Na primeira abertura aparece a central RIESCADE: escolha{" "}
-        <Path>Entrar com Google</Path>, conclua o login no navegador e volte. O catálogo é preparado e o
-        RetroBat continua sozinho. Nas próximas vezes ele abre direto.
-      </>
-    ),
+    q: "Posso adicionar minhas próprias ROMs e jogos que já possuo?",
+    a: "Sim! O RIESCADE suporta tanto os jogos do catálogo em nuvem quanto suas próprias ROMs locais. Basta colocar os arquivos na subpasta correta em roms\\ (consulte a nossa Wiki de Sistemas) e pressionar F5 no aplicativo.",
   },
   {
-    icon: Gamepad2,
-    title: "Escolha um jogo e jogue",
-    body: (
-      <>
-        Os jogos do catálogo já aparecem na biblioteca do EmulationStation. Ao abrir um jogo que ainda
-        não está no seu PC, uma tela mostra o progresso do download do jogo, das mídias e do emulador.
-        Quando termina, o jogo inicia automaticamente.
-      </>
-    ),
+    q: "Como conectar e configurar meu controle?",
+    a: "O RIESCADE detecta controles de Xbox One/Series, PlayStation (DualShock 4 / DualSense), Nintendo Switch Pro e genéricos DirectInput/XInput de forma 100% Plug & Play. Ao conectar o controle via USB ou Bluetooth, ele já estará mapeado.",
   },
   {
-    icon: Sparkles,
-    title: "Ainda não assina?",
-    body: (
-      <>
-        Use <Path>Continuar sem login</Path> para usar como um RetroBat comum, com seus próprios jogos.
-        Depois de assinar, abra novamente e use <Path>Verificar assinatura novamente</Path>.
-      </>
-    ),
+    q: "Posso utilizar o RIESCADE em um HD externo ou Pendrive?",
+    a: "Sim! O RIESCADE é totalmente portátil. Você pode manter toda a pasta em um HD externo ou SSD portátil e conectar em qualquer computador com Windows 10 ou 11.",
   },
 ];
-
-const faqs = [
-  {
-    q: "Preciso instalar os dois?",
-    a: "Não. Escolha um. O RIESCADE OS é a experiência completa e mais simples. O RIESCADE RetroBat é para quem prefere a interface do EmulationStation. A mesma assinatura vale para os dois.",
-  },
-  {
-    q: "O aplicativo diz que não tenho assinatura.",
-    a: "Confira se entrou com a mesma conta Google usada no pagamento. Você pode ver o status em Minha conta. Se acabou de assinar, saia e entre novamente no aplicativo.",
-  },
-  {
-    q: "O jogo aparece mas não abre.",
-    a: "Na maioria das vezes falta a BIOS do console. No RIESCADE OS, instale o pacote em Configurações → Downloads. No RetroBat, confira se o bios.zip foi extraído dentro da pasta bios.",
-  },
-  {
-    q: "Posso usar meus próprios jogos?",
-    a: "Sim. Coloque cada jogo na subpasta da plataforma dentro de roms (por exemplo roms\\snes) e atualize a biblioteca. Não coloque os jogos soltos na raiz de roms.",
-  },
-  {
-    q: "Os arquivos antigos do Drive (RIESCADE_BASE) ainda funcionam?",
-    a: "Esse era o método antigo de instalação manual. Hoje os jogos, mídias e emuladores são baixados dentro dos aplicativos, sem copiar pastas à mão.",
-  },
-];
-
-function StepList({ steps }: { steps: Step[] }) {
-  return (
-    <ol className="relative space-y-4">
-      {steps.map((step, index) => (
-        <li
-          key={step.title}
-          className="group relative flex gap-5 rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] p-6 transition-colors hover:border-primary/40"
-        >
-          <div className="flex shrink-0 flex-col items-center">
-            <span className="glow-primary flex size-12 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 font-display text-lg font-bold text-primary">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-          </div>
-          <div className="min-w-0">
-            <h3 className="flex items-center gap-2 font-display text-lg font-bold uppercase tracking-wide text-foreground">
-              <step.icon className="size-4 shrink-0 text-primary" />
-              {step.title}
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
-          </div>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-function GuideHeader({ eyebrow, title, highlight, description }: {
-  eyebrow: string;
-  title: string;
-  highlight: string;
-  description: string;
-}) {
-  return (
-    <div className="mb-8">
-      <span className="font-mono text-xs font-bold uppercase tracking-[0.3em] text-primary">{eyebrow}</span>
-      <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight text-foreground md:text-4xl">
-        {title} <span className="text-gradient-primary">{highlight}</span>
-      </h2>
-      <p className="mt-3 max-w-3xl text-muted-foreground">{description}</p>
-    </div>
-  );
-}
 
 export default function TutorialPage() {
   return (
     <div className="site-page relative flex min-h-screen flex-col bg-background">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[600px] bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.10)_0%,transparent_60%)]" />
       <Header />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: "Como instalar e configurar o RIESCADE no Windows",
+            step: INSTALL_STEPS.map((s, idx) => ({
+              "@type": "HowToStep",
+              position: idx + 1,
+              name: s.title,
+            })),
+          }).replace(/</g, "\\u003c"),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: faqs.map((faq) => ({
+            mainEntity: FAQS.map((faq) => ({
               "@type": "Question",
               name: faq.q,
               acceptedAnswer: { "@type": "Answer", text: faq.a },
@@ -272,133 +156,360 @@ export default function TutorialPage() {
         }}
       />
 
-      <main id="main-content" tabIndex={-1} className="relative z-10 mx-auto w-full max-w-5xl flex-grow px-6 pb-24 pt-32 md:px-12">
-        <PageIntro
-          eyebrow="Guia de instalação"
-          title={<>Tudo pronto para <span className="text-gradient-primary">jogar.</span></>}
-          description="Instale o RIESCADE OS ou o RIESCADE RetroBat, entre com sua conta e baixe seus jogos direto pelo aplicativo."
-        >
-          <ExploreLink href="/dashboard">Ir para downloads</ExploreLink>
-        </PageIntro>
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="relative z-10 mx-auto w-full max-w-6xl flex-grow px-6 pb-24 pt-28 md:px-10"
+      >
+        {/* Breadcrumb Clean */}
+        <nav aria-label="Navegação estrutural" className="mb-6 flex items-center gap-2 text-xs text-muted-foreground">
+          <Link href="/" className="hover:text-primary transition-colors">
+            Início
+          </Link>
+          <span className="text-border">/</span>
+          <span className="text-foreground">Tutorial</span>
+        </nav>
 
-        {/* ESCOLHA */}
-        <section aria-labelledby="choose-title">
-          <h2 id="choose-title" className="sr-only">Escolha seu sistema</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <a
-              href="#riescade-os"
-              className="group rounded-2xl border-2 border-primary/50 bg-gradient-to-b from-primary/[0.07] to-background/90 p-7 transition-all hover:-translate-y-1 hover:shadow-[0_20px_60px_hsl(var(--primary)/0.12)]"
-            >
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Recomendado</span>
-              <h3 className="mt-2 font-display text-2xl font-bold uppercase text-foreground">
-                RIESCADE <span className="text-primary">OS</span>
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Nosso aplicativo completo. Biblioteca, emuladores, BIOS, temas e jogo online em uma só interface.
+        {/* Tutorial Header */}
+        <header className="pb-12 pt-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-md bg-primary/15 border border-primary/30 px-2.5 py-1 font-mono text-[11px] font-bold text-primary">
+              <Sparkles className="h-3 w-3" />
+              Guia Oficial de Instalação
+            </span>
+            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+              Windows 10 & 11 · +240 Plataformas
+            </p>
+          </div>
+
+          <div className="mt-4">
+            <h1 className="max-w-4xl font-display text-4xl font-extrabold tracking-tight md:text-6xl text-foreground">
+              Como instalar e configurar o <span className="text-primary">RIESCADE</span>
+            </h1>
+            <p className="mt-5 max-w-3xl text-lg text-muted-foreground leading-relaxed">
+              Do download ao primeiro jogo em poucos minutos. Baixe o aplicativo oficial, instale o pacote de BIOS
+              e tenha acesso a uma central completa com mais de 240 sistemas retrô e modernos com downloads sob demanda.
+            </p>
+          </div>
+
+          {/* Quick Info Grid 3 Cols (Lovable hairline style) */}
+          <div className="mt-10 grid gap-px overflow-hidden rounded-lg bg-border text-sm sm:grid-cols-3 [&>div]:bg-card [&>div]:px-5 [&>div]:py-4">
+            <div>
+              <p className="text-muted-foreground text-xs uppercase tracking-wider font-mono">Compatibilidade</p>
+              <p className="mt-1 font-semibold text-foreground">Windows 10 ou 11 (64-bit)</p>
+            </div>
+            <div>
+              <p className="text-muted-foreground text-xs uppercase tracking-wider font-mono">Autenticação</p>
+              <p className="mt-1 font-semibold text-primary">Login com Google (1 clique)</p>
+            </div>
+            <div>
+              <p className="text-muted-foreground text-xs uppercase tracking-wider font-mono">Arquivos essenciais</p>
+              <p className="mt-1 font-semibold text-foreground">App RIESCADE + Pack de BIOS</p>
+            </div>
+          </div>
+        </header>
+
+        {/* 2-Column Layout: Main Article and Sticky "Nesta página" Sidebar */}
+        <div className="grid gap-16 lg:grid-cols-[1fr_220px]">
+          {/* Main Content Article */}
+          <article className="max-w-3xl divide-y divide-border/60">
+            {/* SEÇÃO 01: REQUISITOS */}
+            <section id="requisitos" className="pb-12 pt-8 scroll-mt-28">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs font-semibold text-primary">01</span>
+                <span className="text-border">/</span>
+                <h2 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
+                  Requisitos do sistema
+                </h2>
+              </div>
+
+              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                Antes de iniciar o download, certifique-se de que seu computador atende aos requisitos básicos:
               </p>
-              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                Ver passo a passo <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
-              </span>
-            </a>
-            <a
-              href="#riescade-retrobat"
-              className="group rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] p-7 transition-all hover:-translate-y-1 hover:border-primary/40"
-            >
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-primary">EmulationStation</span>
-              <h3 className="mt-2 font-display text-2xl font-bold uppercase text-foreground">
-                RIESCADE <span className="text-primary">RetroBat</span>
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                O RetroBat clássico integrado à RIESCADE. Os jogos são baixados na hora em que você abre.
+
+              <div className="mt-6 overflow-hidden rounded-lg border border-border">
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-card text-xs uppercase text-muted-foreground font-mono border-b border-border">
+                    <tr>
+                      <th className="px-4 py-3">Componente</th>
+                      <th className="px-4 py-3">Requisito</th>
+                      <th className="px-4 py-3 hidden sm:table-cell">Observação</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border/60 bg-card/40">
+                    {REQUIREMENTS.map((req) => (
+                      <tr key={req.item} className="transition-colors hover:bg-card/80">
+                        <td className="px-4 py-3 font-medium text-foreground">{req.item}</td>
+                        <td className="px-4 py-3 font-mono text-xs text-primary">{req.value}</td>
+                        <td className="px-4 py-3 text-xs text-muted-foreground hidden sm:table-cell">{req.note}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            {/* SEÇÃO 02: PASSO A PASSO */}
+            <section id="instalacao" className="pb-12 pt-8 scroll-mt-28">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs font-semibold text-primary">02</span>
+                <span className="text-border">/</span>
+                <h2 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
+                  Passo a passo de instalação
+                </h2>
+              </div>
+
+              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                Siga as etapas abaixo para ter o RIESCADE funcionando no seu computador com todos os sistemas liberados:
               </p>
-              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                Ver passo a passo <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
-              </span>
-            </a>
-          </div>
-        </section>
 
-        {/* REQUISITOS */}
-        <section aria-labelledby="requirements-title" className="mt-16">
-          <h2 id="requirements-title" className="mb-5 font-mono text-xs font-bold uppercase tracking-[0.3em] text-primary">
-            Antes de começar
-          </h2>
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {requirements.map((item) => (
-              <li key={item.title} className="rounded-2xl border border-border bg-surface/30 p-4">
-                <item.icon className="size-4 text-primary" />
-                <p className="mt-3 text-sm font-semibold text-foreground">{item.title}</p>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{item.text}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
+              <ol className="mt-8 space-y-0">
+                {INSTALL_STEPS.map((step) => (
+                  <li key={step.step} className="relative grid grid-cols-[2rem_1fr] gap-4 pb-8 last:pb-0">
+                    {/* Linha vertical conectora estilo Lovable */}
+                    <span className="absolute bottom-0 left-[0.7rem] top-7 w-px bg-border" />
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 font-mono text-xs font-bold text-primary ring-4 ring-background">
+                      {step.step}
+                    </span>
+                    <div>
+                      <h3 className="font-semibold text-foreground text-base">{step.title}</h3>
+                      <div className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                        {step.body}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
 
-        <section id="riescade-os" className="mt-20 scroll-mt-28">
-          <GuideHeader
-            eyebrow="Opção 1"
-            title="Instalando o"
-            highlight="RIESCADE OS"
-            description="Do download ao primeiro jogo em poucos minutos. Tudo, inclusive BIOS e emuladores, é baixado de dentro do aplicativo."
-          />
-          <StepList steps={osSteps} />
-        </section>
+              {/* Callout de dica */}
+              <div className="mt-8 border-l-2 border-primary bg-card/60 p-4 rounded-r-lg text-sm text-muted-foreground leading-relaxed">
+                <div className="flex items-center gap-2 font-semibold text-foreground mb-1">
+                  <CheckCircle2 className="h-4 w-4 text-primary" />
+                  Pronto para jogar
+                </div>
+                Não é necessário configurar emuladores manualmente. Cada núcleo do RetroArch ou emulador independente (DuckStation, PCSX2, Dolphin, RPCS3)
+                já vem pré-configurado pelo RIESCADE para entregar a melhor qualidade gráfica e resposta do controle.
+              </div>
+            </section>
 
-        <section id="riescade-retrobat" className="mt-20 scroll-mt-28">
-          <GuideHeader
-            eyebrow="Opção 2"
-            title="Instalando o"
-            highlight="RIESCADE RetroBat"
-            description="Independente do RIESCADE OS. Não é preciso ter os dois instalados."
-          />
-          <StepList steps={retroBatSteps} />
-        </section>
+            {/* SEÇÃO 03: ADICIONAR JOGOS PRÓPRIOS */}
+            <section id="adicionar-jogos" className="pb-12 pt-8 scroll-mt-28">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs font-semibold text-primary">03</span>
+                <span className="text-border">/</span>
+                <h2 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
+                  Como adicionar seus próprios jogos e ROMs
+                </h2>
+              </div>
 
-        {/* FAQ */}
-        <section aria-labelledby="faq-title" className="mt-20">
-          <GuideHeader
-            eyebrow="Dúvidas"
-            title="Perguntas"
-            highlight="frequentes"
-            description="Não encontrou sua resposta? Fale com a comunidade no WhatsApp ou no Telegram."
-          />
-          <div className="space-y-3">
-            {faqs.map((faq) => (
-              <details
-                key={faq.q}
-                className="group rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] p-5 open:border-primary/40"
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-foreground">
-                  <span className="flex items-center gap-3">
-                    <CircleHelp className="size-4 shrink-0 text-primary" />
-                    {faq.q}
-                  </span>
-                  <span className="text-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
-                </summary>
-                <p className="mt-3 pl-7 text-sm leading-relaxed text-muted-foreground">{faq.a}</p>
-              </details>
-            ))}
-          </div>
+              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                Além do catálogo em nuvem com downloads automáticos, você pode adicionar qualquer jogo ou coleção que já tenha no seu computador.
+              </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a
-              href="https://chat.whatsapp.com/Kn2eA8g8FIp0aTYV0iNYSe"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center rounded-xl border border-primary bg-primary px-6 font-display text-sm font-bold uppercase tracking-[0.12em] text-white transition-all hover:-translate-y-0.5 hover:bg-accent"
-            >
-              Suporte no WhatsApp
-            </a>
-            <a
-              href="https://t.me/riescade"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center rounded-xl border border-white/30 bg-black/40 px-6 font-display text-sm font-bold uppercase tracking-[0.12em] text-white transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-primary/10"
-            >
-              Telegram
-            </a>
-          </div>
-        </section>
+              <div className="mt-6 space-y-4">
+                <div className="rounded-lg border border-border bg-card/50 p-5">
+                  <h3 className="font-semibold text-foreground text-sm flex items-center gap-2">
+                    <FolderArchive className="h-4 w-4 text-primary" />
+                    1. Encontre a pasta do sistema
+                  </h3>
+                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                    Dentro do diretório onde instalou o RIESCADE, acesse a pasta <code className="font-mono text-primary">roms\</code>.
+                    Cada sistema possui sua própria subpasta dedicada. Por exemplo:
+                  </p>
+                  <ul className="mt-3 space-y-1 font-mono text-xs text-muted-foreground">
+                    <li>• Super Nintendo: <code className="text-foreground">roms\snes\</code></li>
+                    <li>• PlayStation 1: <code className="text-foreground">roms\psx\</code></li>
+                    <li>• PlayStation 2: <code className="text-foreground">roms\ps2\</code></li>
+                    <li>• Jogos de PC / Windows: <code className="text-foreground">roms\windows\</code></li>
+                  </ul>
+                </div>
+
+                <div className="rounded-lg border border-border bg-card/50 p-5">
+                  <h3 className="font-semibold text-foreground text-sm flex items-center gap-2">
+                    <Gamepad2 className="h-4 w-4 text-primary" />
+                    2. Coloque as ROMs nos formatos corretos
+                  </h3>
+                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                    Para consoles de CD/DVD (PS1, PS2, Saturn), recomendamos utilizar o formato <code className="text-primary font-mono font-semibold">.chd</code> para economizar até 60% de espaço.
+                    Para jogos de cartucho (Mega Drive, SNES, N64), formatos <code className="text-foreground font-mono">.zip</code> ou ROMs puras funcionam perfeitamente.
+                  </p>
+                </div>
+
+                <div className="rounded-lg border border-border bg-card/50 p-5">
+                  <h3 className="font-semibold text-foreground text-sm flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-primary" />
+                    3. Recarregue a lista no RIESCADE
+                  </h3>
+                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                    Com o RIESCADE aberto, pressione a tecla <kbd className="rounded border border-border bg-black/50 px-1.5 py-0.5 font-mono text-[11px] text-foreground">F5</kbd> no teclado
+                    ou pressione <strong className="text-foreground">START → Atualizar lista de jogos</strong> no controle. Os novos jogos aparecerão na hora!
+                  </p>
+                </div>
+              </div>
+
+              {/* Botão para consultar a Wiki completa */}
+              <div className="mt-6 flex items-center justify-between rounded-lg border border-primary/30 bg-primary/10 p-4">
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Consulte as pastas e extensões de cada console</p>
+                  <p className="text-xs text-muted-foreground">Mais de 240 sistemas documentados com formatos recomendados e BIOS necessárias.</p>
+                </div>
+                <Link
+                  href="/wiki"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 font-mono text-xs font-bold text-black transition-all hover:bg-accent flex-shrink-0"
+                >
+                  Abrir Wiki
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </section>
+
+            {/* SEÇÃO 04: TEMAS */}
+            <section id="temas" className="pb-12 pt-8 scroll-mt-28">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs font-semibold text-primary">04</span>
+                <span className="text-border">/</span>
+                <h2 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
+                  Temas e personalização
+                </h2>
+              </div>
+
+              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                O RIESCADE acompanha diversos temas visuais exclusivos inspirados no PlayStation 5, Xbox Series, CoinOPS,
+                HyperSpin e interfaces arcade. Para trocar de tema:
+              </p>
+
+              <ol className="mt-4 list-decimal list-inside space-y-2 text-sm text-muted-foreground">
+                <li>Abra o RIESCADE e pressione o botão <strong className="text-foreground">START</strong> no controle (ou <strong className="text-foreground">Espaço</strong> no teclado).</li>
+                <li>Navegue até a opção <strong className="text-foreground">Configurações de Interface (UI Settings)</strong>.</li>
+                <li>Selecione <strong className="text-foreground">Tema (Theme Set)</strong> e escolha entre os temas instalados.</li>
+                <li>O visual do sistema será alterado instantaneamente sem necessidade de reiniciar.</li>
+              </ol>
+            </section>
+
+            {/* SEÇÃO 05: FAQ */}
+            <section id="faq" className="pb-12 pt-8 scroll-mt-28">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs font-semibold text-primary">05</span>
+                <span className="text-border">/</span>
+                <h2 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
+                  Perguntas frequentes
+                </h2>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                {FAQS.map((faq) => (
+                  <details
+                    key={faq.q}
+                    className="group rounded-lg border border-border bg-card/40 p-4 transition-all open:bg-card open:border-primary/40"
+                  >
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-foreground text-sm">
+                      <span>{faq.q}</span>
+                      <span className="text-primary font-mono text-lg transition-transform group-open:rotate-45" aria-hidden="true">
+                        +
+                      </span>
+                    </summary>
+                    <p className="mt-3 text-xs leading-relaxed text-muted-foreground border-t border-border/60 pt-3">
+                      {faq.a}
+                    </p>
+                  </details>
+                ))}
+              </div>
+            </section>
+
+            {/* SEÇÃO 06: SUPORTE */}
+            <section id="suporte" className="pb-12 pt-8 scroll-mt-28">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs font-semibold text-primary">06</span>
+                <span className="text-border">/</span>
+                <h2 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
+                  Suporte VIP e Comunidade
+                </h2>
+              </div>
+
+              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                Ficou com alguma dúvida ou precisa de ajuda para configurar um jogo específico? Nossa equipe e comunidade estão prontas para ajudar:
+              </p>
+
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="https://chat.whatsapp.com/Kn2eA8g8FIp0aTYV0iNYSe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-primary px-6 font-mono text-xs font-bold text-black transition-all hover:bg-accent"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Comunidade no WhatsApp
+                </a>
+                <a
+                  href="https://t.me/riescade"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-card px-6 font-mono text-xs font-bold text-foreground transition-all hover:border-primary hover:text-primary"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Canal no Telegram
+                </a>
+              </div>
+            </section>
+          </article>
+
+          {/* Sticky Sidebar "Nesta página" estilo Lovable */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-28 border-l border-border pl-5 pt-2">
+              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                Nesta página
+              </p>
+              <nav className="mt-4 space-y-2 text-sm">
+                <a
+                  href="#requisitos"
+                  className="block text-muted-foreground transition-colors hover:text-foreground text-xs"
+                >
+                  Requisitos do sistema
+                </a>
+                <a
+                  href="#instalacao"
+                  className="block text-muted-foreground transition-colors hover:text-foreground text-xs"
+                >
+                  Passo a passo
+                </a>
+                <a
+                  href="#adicionar-jogos"
+                  className="block text-muted-foreground transition-colors hover:text-foreground text-xs"
+                >
+                  Adicionar jogos próprios
+                </a>
+                <a
+                  href="#temas"
+                  className="block text-muted-foreground transition-colors hover:text-foreground text-xs"
+                >
+                  Temas e interface
+                </a>
+                <a
+                  href="#faq"
+                  className="block text-muted-foreground transition-colors hover:text-foreground text-xs"
+                >
+                  Perguntas frequentes
+                </a>
+                <a
+                  href="#suporte"
+                  className="block text-muted-foreground transition-colors hover:text-foreground text-xs"
+                >
+                  Suporte VIP
+                </a>
+              </nav>
+
+              <div className="mt-10 border-t border-border/60 pt-6">
+                <Link
+                  href="/dashboard#downloads"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary/10 border border-primary/30 px-3 py-2 font-mono text-xs font-semibold text-primary transition-colors hover:bg-primary/20"
+                >
+                  <Download className="h-3.5 w-3.5" />
+                  Baixar RIESCADE
+                </Link>
+              </div>
+            </div>
+          </aside>
+        </div>
       </main>
 
       <Footer />

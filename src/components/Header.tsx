@@ -90,11 +90,11 @@ export function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 sm:pt-5">
       <div className="header-backdrop mx-auto flex max-w-[1480px] items-center justify-between rounded-2xl border border-white/10 px-5 py-3.5 sm:px-7">
-        <Link href="/" className="group flex items-center" aria-label="RIESCADE OS — Início">
+        <Link href="/" className="group flex items-center" aria-label="RIESCADE — Início">
           <div className="relative flex items-center">
             <Image
               src="/images/riescade-logo-horizontal.webp"
-              alt="RIESCADE OS"
+              alt="RIESCADE"
               width={160}
               height={53}
               priority

@@ -85,7 +85,7 @@ const features = [
 	{
 		icon: Download,
 		title: 'Download Ilimitado',
-		description: 'Downloads integrados diretamente ao aplicativo RIESCADE OS.',
+		description: 'Downloads integrados diretamente ao aplicativo RIESCADE.',
 	},
 	{
 		icon: Trophy,
@@ -102,7 +102,7 @@ const features = [
 ];
 
 const benefits = [
-	'Biblioteca integrada ao RIESCADE OS',
+	'Biblioteca integrada ao RIESCADE',
 	'Downloads seguros dentro do aplicativo',
 	'Comunidade VIP — Suporte prioritário',
 	'250+ Plataformas — Atari até Switch',
@@ -211,7 +211,7 @@ export default function HomeClient() {
 									className="font-brand-condensed inline-flex h-14 items-center justify-center gap-3 rounded-xl border border-primary bg-primary px-8 font-display text-md font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_45px_hsl(var(--primary)/0.36)] transition-all hover:-translate-y-1 hover:bg-accent disabled:opacity-60"
 								>
 									<Download className="h-5 w-5" />
-									{isLoggingIn ? 'Carregando...' : 'Baixar RIESCADE OS'}
+									{isLoggingIn ? 'Carregando...' : 'Baixar RIESCADE'}
 								</button>
 								<a
 									href="#features"
@@ -222,7 +222,7 @@ export default function HomeClient() {
 								</a>
 							</div>
 							<p className="ml-20 mt-2 text-xs text-white/38">
-								Grátis para Windows 11
+								Grátis para Windows
 							</p>
 
 							<div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 text-xs font-medium text-white/70">

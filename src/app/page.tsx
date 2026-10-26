@@ -37,7 +37,7 @@ const jsonLd = [
 	{
 		'@context': 'https://schema.org',
 		'@type': 'SoftwareApplication',
-		name: 'RIESCADE OS',
+		name: 'RIESCADE',
 		applicationCategory: 'GameApplication',
 		operatingSystem: 'Windows 10, Windows 11',
 		description:
@@ -45,7 +45,7 @@ const jsonLd = [
 		url: SITE_URL,
 		image: `${SITE_URL}/images/og-image.webp`,
 		offers: [
-			{ '@type': 'Offer', name: 'RIESCADE OS', price: '0', priceCurrency: 'BRL' },
+			{ '@type': 'Offer', name: 'RIESCADE', price: '0', priceCurrency: 'BRL' },
 			{
 				'@type': 'Offer',
 				name: 'RIESCADE Membro',

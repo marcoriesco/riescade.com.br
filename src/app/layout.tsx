@@ -10,12 +10,12 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 export const metadata: Metadata = {
 	metadataBase: new URL('https://www.riescade.com.br'),
 	title: {
-		default: 'RIESCADE OS — Central de jogos retrô e emuladores para PC',
+		default: 'RIESCADE — Central de jogos retrô e emuladores para PC',
 		template: '%s | RIESCADE',
 	},
 	description:
 		'Transforme seu PC em uma central de jogos: mais de 250 consoles, arcades e computadores clássicos com emuladores, BIOS e downloads integrados. Para Windows.',
-	applicationName: 'RIESCADE OS',
+	applicationName: 'RIESCADE',
 	authors: [{ name: 'RIESCADE', url: 'https://www.riescade.com.br' }],
 	creator: 'RIESCADE',
 	publisher: 'RIESCADE',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 		locale: 'pt_BR',
 		url: 'https://www.riescade.com.br',
 		siteName: 'RIESCADE',
-		title: 'RIESCADE OS — Central de jogos retrô e emuladores para PC',
+		title: 'RIESCADE — Central de jogos retrô e emuladores para PC',
 		description:
 			'Mais de 250 consoles, arcades e computadores clássicos em uma única central de jogos para Windows.',
 		images: [
@@ -33,13 +33,13 @@ export const metadata: Metadata = {
 				url: '/images/og-image.webp',
 				width: 1200,
 				height: 630,
-				alt: 'RIESCADE OS',
+				alt: 'RIESCADE',
 			},
 		],
 	},
 	twitter: {
 		card: 'summary_large_image',
-		title: 'RIESCADE OS — Central de jogos retrô e emuladores para PC',
+		title: 'RIESCADE — Central de jogos retrô e emuladores para PC',
 		description: 'Mais de 250 consoles, arcades e computadores clássicos em uma única central de jogos para Windows.',
 		images: ['/images/og-image.webp'],
 	},

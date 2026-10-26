@@ -29,8 +29,8 @@ export interface RetroBatTheme extends RetroBatThemeInfo {
 export const RETROBAT_EXCLUSIVE_THEMES: RetroBatThemeInfo[] = [
   {
     id: "RIESCADE_OS",
-    name: "RIESCADE OS",
-    description: "Interface do RIESCADE OS, com biblioteca de jogos em grade, navegação por sistemas e arte em tela cheia.",
+    name: "RIESCADE Classic",
+    description: "Interface clássica RIESCADE, com biblioteca de jogos em grade, navegação por sistemas e arte em tela cheia.",
     previewUrl: "/themes/retrobat/os.webp",
   },
   {

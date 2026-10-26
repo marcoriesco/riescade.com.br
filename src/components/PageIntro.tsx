@@ -17,7 +17,7 @@ export function PageIntro({ eyebrow, title, description, children }: {
       </nav>
       <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div className="max-w-3xl">
-          <p className="mb-4 font-mono text-xs font-bold uppercase tracking-[0.22em] text-primary">{eyebrow} / RIESCADE OS</p>
+          <p className="mb-4 font-mono text-xs font-bold uppercase tracking-[0.22em] text-primary">{eyebrow} · RIESCADE</p>
           <h1 className="font-display text-4xl font-bold uppercase leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">{title}</h1>
           {description && <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">{description}</p>}
         </div>

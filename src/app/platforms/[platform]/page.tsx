@@ -6,15 +6,13 @@ import {
   ArrowUpRight,
   CalendarDays,
   Check,
-  ChevronRight,
   CircleHelp,
   Cpu,
   Download,
   Factory,
   Gamepad2,
   Library,
-  LogIn,
-  Play,
+  BookOpen,
 } from "lucide-react";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -36,7 +34,7 @@ export function generateStaticParams() {
 
 function describe(platform: Platform) {
   const year = platform.content?.year ? ` (${platform.content.year})` : "";
-  return `Jogue ${platform.name}${year} no PC com o RIESCADE OS: emulador configurado, biblioteca com capas e downloads integrados. Funciona com controle no Windows.`;
+  return `Jogue ${platform.name}${year} no PC com o RIESCADE: emulador configurado, biblioteca com capas e downloads integrados. Funciona com controle no Windows.`;
 }
 
 export async function generateMetadata({
@@ -47,7 +45,7 @@ export async function generateMetadata({
   const platform = getPlatform((await params).platform);
   if (!platform) return { title: "Plataforma não encontrada", robots: { index: false } };
 
-  const title = `Jogue ${platform.name} no PC`;
+  const title = `Jogue ${platform.name} no PC — RIESCADE`;
   const description = describe(platform);
   const image = platform.image ?? platform.logo ?? "/images/og-image.webp";
   return {
@@ -65,21 +63,21 @@ function faqFor(platform: Platform) {
   return [
     {
       q: `Dá para jogar ${platform.name} no PC?`,
-      a: `Sim. O RIESCADE OS reúne o emulador de ${platform.name} já configurado, organiza seus jogos com capas e informações e inicia tudo com um clique, usando controle, teclado ou mouse no Windows.`,
+      a: `Sim. O RIESCADE reúne o emulador de ${platform.name} já configurado, organiza seus jogos com capas e informações e inicia tudo com um clique, usando controle, teclado ou mouse no Windows.`,
     },
     {
       q: `Preciso de BIOS para jogar ${platform.name}?`,
       a: bios
-        ? `Sim, ${platform.name} precisa de arquivos de BIOS ou firmware. No RIESCADE OS, os membros instalam o pacote completo de BIOS com um clique em Configurações → Downloads.`
-        : `Na maioria dos casos, não. Os jogos de ${platform.name} rodam direto no emulador, sem arquivos de BIOS adicionais.`,
+        ? `Sim, ${platform.name} necessita de arquivos de BIOS ou firmware. No RIESCADE, o pacote completo de BIOS está disponível para membros em Minha Conta → Downloads.`
+        : `Na maioria dos casos, não. Os jogos de ${platform.name} rodam direto no emulador configurado pelo RIESCADE, sem arquivos de BIOS adicionais.`,
     },
     {
       q: "Posso jogar com controle?",
-      a: "Sim. O RIESCADE OS detecta controles XInput, DirectInput e HID automaticamente e configura cada emulador, sem precisar mapear botões manualmente.",
+      a: "Sim. O RIESCADE detecta controles XInput, DirectInput e HID automaticamente e configura cada emulador, sem precisar mapear botões manualmente.",
     },
     {
       q: "Quanto custa?",
-      a: "O RIESCADE OS é gratuito. A assinatura de R$ 30 por mês, sem fidelidade, libera os downloads de jogos e mídias dentro do aplicativo, o pacote de BIOS e o suporte VIP.",
+      a: "O aplicativo RIESCADE é gratuito. A assinatura de R$ 30 por mês, sem fidelidade, libera os downloads de jogos e mídias dentro do aplicativo, o pacote de BIOS e o suporte VIP.",
     },
   ];
 }
@@ -101,8 +99,8 @@ export default async function PlatformPage({
     platform.content?.maker && { icon: Factory, label: "Fabricante", value: platform.content.maker },
     platform.content?.year && { icon: CalendarDays, label: "Lançamento", value: String(platform.content.year) },
     platform.kindLabel && { icon: Gamepad2, label: "Tipo", value: platform.kindLabel },
-    games > 0 && { icon: Library, label: "No catálogo", value: `${games.toLocaleString("pt-BR")} jogos` },
-    { icon: Cpu, label: "BIOS", value: platform.content?.bios ? "Necessária" : "Não precisa" },
+    games > 0 && { icon: Library, label: "Catálogo RIESCADE", value: `${games.toLocaleString("pt-BR")} jogos` },
+    { icon: Cpu, label: "BIOS", value: platform.content?.bios ? "Obrigatória" : "Não necessária" },
   ].filter(Boolean) as { icon: typeof Factory; label: string; value: string }[];
 
   const jsonLd = [
@@ -128,159 +126,185 @@ export default async function PlatformPage({
 
   return (
     <div className="site-page relative flex min-h-screen flex-col bg-background">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[600px] bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.10)_0%,transparent_60%)]" />
       <Header />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
-      <main id="main-content" tabIndex={-1} className="relative z-10 mx-auto w-full max-w-7xl flex-grow px-6 pb-24 pt-32 md:px-12">
-        <nav aria-label="Navegação estrutural" className="mb-8 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-          <Link href="/" className="hover:text-primary">Início</Link>
-          <ChevronRight aria-hidden="true" className="size-3" />
-          <Link href="/platforms" className="hover:text-primary">Plataformas</Link>
-          <ChevronRight aria-hidden="true" className="size-3" />
-          <span>{platform.name}</span>
+      <main id="main-content" tabIndex={-1} className="relative z-10 mx-auto w-full max-w-7xl flex-grow px-6 pb-24 pt-28 md:px-12">
+        {/* Breadcrumb Clean Lovable */}
+        <nav aria-label="Navegação estrutural" className="mb-6 flex items-center gap-2 text-xs text-muted-foreground">
+          <Link href="/" className="hover:text-primary transition-colors">Início</Link>
+          <span className="text-border">/</span>
+          <Link href="/platforms" className="hover:text-primary transition-colors">Plataformas</Link>
+          <span className="text-border">/</span>
+          <span className="text-foreground">{platform.name}</span>
         </nav>
 
-        {/* HERO */}
-        <section className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
+        {/* HERO SECTION */}
+        <section className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] pb-12">
           <div>
-            {platform.kindLabel && (
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.22em] text-primary">
-                {platform.kindLabel}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-primary/15 border border-primary/30 px-2.5 py-1 font-mono text-[11px] font-bold text-primary">
+                <Gamepad2 className="h-3 w-3" />
+                {platform.kindLabel || "Plataforma"}
               </span>
-            )}
-            <h1 className="mt-4 font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight text-foreground sm:text-5xl">
-              Jogue <span className="text-gradient-primary">{platform.name}</span> no PC
+              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                {[platform.content?.maker, platform.content?.year].filter(Boolean).join(" · ")}
+              </p>
+            </div>
+
+            <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight md:text-6xl text-foreground">
+              Jogue <span className="text-primary">{platform.name}</span> no PC
             </h1>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
               {platform.content?.summary ??
-                `Os jogos de ${platform.name} organizados na biblioteca do RIESCADE OS, prontos para jogar no Windows com controle.`}
+                `Os jogos de ${platform.name} organizados na biblioteca do RIESCADE, prontos para jogar no Windows com controle, capas e downloads sob demanda.`}
             </p>
+
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/dashboard"
-                className="inline-flex h-14 items-center justify-center gap-3 rounded-xl border border-primary bg-primary px-8 font-display text-sm font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_45px_hsl(var(--primary)/0.36)] transition-all hover:-translate-y-1 hover:bg-accent"
+                href="/dashboard#downloads"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 font-mono text-xs font-bold text-black transition-all hover:bg-accent shadow-sm"
               >
-                <Download className="size-5" />
-                Baixar RIESCADE OS
+                <Download className="size-4" />
+                Baixar RIESCADE
               </Link>
               <Link
-                href="/tutorial"
-                className="inline-flex h-14 items-center justify-center gap-3 rounded-xl border border-white/30 bg-black/40 px-8 font-display text-sm font-bold uppercase tracking-[0.12em] text-white transition-all hover:-translate-y-1 hover:border-primary hover:bg-primary/10"
+                href={`/wiki/${platform.slug}`}
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-border bg-card px-6 font-mono text-xs font-semibold text-foreground transition-all hover:border-primary hover:text-primary"
               >
-                <Play className="size-5" />
-                Como instalar
+                <BookOpen className="size-4" />
+                Ver guia na Wiki
               </Link>
             </div>
           </div>
 
-          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.06] p-8">
-            <div className="grid-overlay absolute inset-0 opacity-30" />
-            <div className="relative flex aspect-[4/3] items-center justify-center">
-              {art ? (
-                <Image
-                  src={art}
-                  alt={platform.name}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 560px"
-                  className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
-                />
-              ) : (
-                <Gamepad2 className="size-24 text-primary" />
-              )}
-            </div>
+          <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg border border-border bg-card p-6">
+            {art ? (
+              <Image
+                src={art}
+                alt={platform.name}
+                fill
+                priority
+                unoptimized
+                sizes="(max-width: 1024px) 100vw, 560px"
+                className="object-contain p-6"
+              />
+            ) : (
+              <Gamepad2 className="size-20 text-muted-foreground/30" />
+            )}
           </div>
         </section>
 
-        {/* FICHA */}
-        <section aria-label={`Ficha do ${platform.name}`} className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
-          {facts.map((fact) => (
-            <div key={fact.label} className="rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] p-5">
-              <fact.icon className="size-4 text-primary" />
-              <p className="mt-3 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">{fact.label}</p>
-              <p className="mt-1 font-display text-lg font-bold text-foreground">{fact.value}</p>
-            </div>
-          ))}
+        {/* FICHA (Lovable hairline style) */}
+        <section aria-label={`Ficha de ${platform.name}`} className="mt-4">
+          <div className="grid gap-px overflow-hidden rounded-lg bg-border text-sm sm:grid-cols-2 lg:grid-cols-5 [&>div]:bg-card [&>div]:px-5 [&>div]:py-4">
+            {facts.map((fact) => (
+              <div key={fact.label}>
+                <p className="text-muted-foreground text-xs uppercase tracking-wider font-mono flex items-center gap-1.5">
+                  <fact.icon className="size-3 text-primary" />
+                  {fact.label}
+                </p>
+                <p className="mt-1 font-semibold text-foreground text-base">{fact.value}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* COMO JOGAR */}
-        <section className="mt-20">
-          <span className="font-mono text-xs font-bold uppercase tracking-[0.3em] text-primary">Passo a passo</span>
-          <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight text-foreground md:text-4xl">
-            Como jogar {platform.name} <span className="text-gradient-primary">no PC</span>
-          </h2>
-          <ol className="mt-8 grid gap-4 md:grid-cols-3">
+        <section className="mt-16 border-t border-border/60 pt-12">
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-xs font-semibold text-primary">01</span>
+            <span className="text-border">/</span>
+            <h2 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
+              Como jogar {platform.name} no PC
+            </h2>
+          </div>
+
+          <ol className="mt-8 space-y-0 max-w-3xl">
             {[
-              { icon: Download, title: "Baixe o RIESCADE OS", text: "Gratuito para Windows. Extraia o arquivo e abra o RIESCADE.exe." },
               {
-                icon: LogIn,
-                title: "Entre com sua conta",
-                text: platform.content?.bios
-                  ? `Entre com Google e instale o pacote de BIOS em Configurações → Downloads. ${platform.name} precisa dele.`
-                  : "Entre com sua conta Google em Configurações → Minha Conta para liberar os downloads.",
+                step: "1",
+                title: "Baixe e extraia o aplicativo RIESCADE",
+                text: "Gratuito para Windows 10 e 11. Baixe o instalador em Minha Conta e extraia na pasta de sua escolha (ex: C:\\RIESCADE).",
               },
-              { icon: Gamepad2, title: `Escolha e jogue`, text: `Abra ${platform.name} na biblioteca, baixe o jogo e jogue com controle. O emulador é configurado automaticamente.` },
-            ].map((step, index) => (
-              <li key={step.title} className="rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] p-6">
-                <div className="flex items-center gap-3">
-                  <span className="glow-primary flex size-10 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 font-display font-bold text-primary">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <step.icon className="size-4 text-primary" />
+              {
+                step: "2",
+                title: platform.content?.bios ? "Instale o Pack de BIOS na pasta bios\\" : "Faça login com sua conta Google",
+                text: platform.content?.bios
+                  ? `Os emuladores de ${platform.name} exigem arquivos de BIOS. Baixe o pack completo em Minha Conta e extraia dentro da pasta C:\\RIESCADE\\bios\\.`
+                  : "Abra o RetroBat.exe e faça login com sua conta Google para sincronizar seu catálogo e habilitar os downloads com 1 clique.",
+              },
+              {
+                step: "3",
+                title: `Abra ${platform.name} e inicie a partida`,
+                text: `Selecione a plataforma ${platform.name} na lista, escolha seu jogo e pressione o botão do controle. O emulador e as mídias são configurados automaticamente.`,
+              },
+            ].map((s) => (
+              <li key={s.step} className="relative grid grid-cols-[2rem_1fr] gap-4 pb-8 last:pb-0">
+                <span className="absolute bottom-0 left-[0.7rem] top-7 w-px bg-border" />
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 font-mono text-xs font-bold text-primary ring-4 ring-background">
+                  {s.step}
+                </span>
+                <div>
+                  <h3 className="font-semibold text-foreground text-base">{s.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{s.text}</p>
                 </div>
-                <h3 className="mt-4 font-display text-lg font-bold uppercase text-foreground">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.text}</p>
               </li>
             ))}
           </ol>
 
           {platform.extensions.length > 0 && (
-            <p className="mt-6 text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">Formatos reconhecidos:</span>{" "}
-              {platform.extensions.map((ext) => (
-                <code key={ext} className="mr-1.5 rounded-md border border-border bg-black/40 px-1.5 py-0.5 font-mono text-xs text-foreground">
-                  {ext}
-                </code>
-              ))}
-            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-2 rounded-lg border border-border bg-card/50 p-4">
+              <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">Formatos aceitos:</span>
+              <div className="flex flex-wrap gap-1.5">
+                {platform.extensions.map((ext) => (
+                  <code key={ext} className="rounded border border-border bg-background px-2 py-0.5 font-mono text-xs text-foreground">
+                    {ext}
+                  </code>
+                ))}
+              </div>
+            </div>
           )}
         </section>
 
-        {/* CTA */}
-        <section className="relative mt-20 overflow-hidden rounded-3xl border-2 border-primary/50 bg-gradient-to-b from-primary/[0.07] to-background/90 p-8 md:p-12">
-          <div className="absolute left-0 top-0 h-4 w-4 border-l-2 border-t-2 border-primary" />
-          <div className="absolute right-0 top-0 h-4 w-4 border-r-2 border-t-2 border-primary" />
-          <div className="absolute bottom-0 left-0 h-4 w-4 border-b-2 border-l-2 border-primary" />
-          <div className="absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 border-primary" />
-          <div className="grid items-center gap-8 md:grid-cols-[1.4fr_1fr]">
-            <div>
-              <h2 className="font-display text-3xl font-bold uppercase text-foreground">
+        {/* CTA ASSINATURA */}
+        <section className="mt-16 rounded-lg border border-border bg-card p-6 md:p-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="max-w-2xl">
+              <h2 className="font-display text-2xl font-bold uppercase tracking-tight text-foreground md:text-3xl">
                 {games > 0 ? `${games.toLocaleString("pt-BR")} jogos de ${platform.name}` : platform.name}{" "}
-                <span className="text-gradient-primary">a um clique</span>
+                <span className="text-primary">a um clique</span>
               </h2>
-              <ul className="mt-6 space-y-3">
-                {["Downloads de jogos e mídias dentro do aplicativo", "Pacote completo de BIOS", "Mais de 250 plataformas na mesma biblioteca", "Suporte VIP no WhatsApp e no Telegram"].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-foreground/80">
-                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border border-primary/50 bg-primary/10">
-                      <Check className="size-3 text-primary" />
-                    </span>
-                    {item}
-                  </li>
-                ))}
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                Baixe jogos, capas 3D e mídias direto no aplicativo. Sem configurações complexas, com suporte VIP e catálogo ilimitado.
+              </p>
+              <ul className="mt-4 space-y-1.5 text-xs text-muted-foreground">
+                <li className="flex items-center gap-2">
+                  <Check className="size-3.5 text-primary flex-shrink-0" />
+                  Downloads integrados diretamente ao RIESCADE
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="size-3.5 text-primary flex-shrink-0" />
+                  Pack de BIOS completo incluído
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="size-3.5 text-primary flex-shrink-0" />
+                  Mais de 250 plataformas reunidas na mesma interface
+                </li>
               </ul>
             </div>
-            <div className="text-center md:text-right">
-              <p className="font-display text-5xl font-bold text-foreground">
-                R$ 30<span className="font-mono text-sm font-normal text-muted-foreground">/mês</span>
+
+            <div className="flex flex-col items-start md:items-end flex-shrink-0">
+              <p className="font-display text-3xl font-bold text-foreground">
+                R$ 30<span className="font-mono text-xs font-normal text-muted-foreground">/mês</span>
               </p>
-              <p className="mt-1 text-sm text-muted-foreground">Sem fidelidade. Cancele quando quiser.</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">Sem fidelidade. Cancele quando quiser.</p>
               <Link
                 href="/dashboard"
-                className="mt-6 inline-flex h-14 w-full items-center justify-center rounded-xl bg-primary font-display text-lg font-bold uppercase tracking-[0.15em] text-white transition-all hover:scale-[1.02] hover:bg-accent md:w-auto md:px-10"
+                className="mt-4 inline-flex h-11 items-center justify-center rounded-lg bg-primary px-6 font-mono text-xs font-bold text-black transition-all hover:bg-accent"
               >
                 Assinar agora
               </Link>
@@ -289,22 +313,29 @@ export default async function PlatformPage({
         </section>
 
         {/* FAQ */}
-        <section aria-labelledby="faq-title" className="mt-20 max-w-4xl">
-          <span className="font-mono text-xs font-bold uppercase tracking-[0.3em] text-primary">Dúvidas</span>
-          <h2 id="faq-title" className="mb-8 mt-3 font-display text-3xl font-bold uppercase tracking-tight text-foreground">
-            Perguntas <span className="text-gradient-primary">frequentes</span>
-          </h2>
-          <div className="space-y-3">
+        <section aria-labelledby="faq-title" className="mt-16 border-t border-border/60 pt-12 max-w-3xl">
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-xs font-semibold text-primary">02</span>
+            <span className="text-border">/</span>
+            <h2 id="faq-title" className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
+              Perguntas frequentes sobre {platform.name}
+            </h2>
+          </div>
+
+          <div className="mt-6 space-y-3">
             {faqs.map((faq) => (
-              <details key={faq.q} className="group rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] p-5 open:border-primary/40">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-foreground">
-                  <span className="flex items-center gap-3">
+              <details
+                key={faq.q}
+                className="group rounded-lg border border-border bg-card/40 p-4 transition-all open:bg-card open:border-primary/40"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-foreground text-sm">
+                  <span className="flex items-center gap-2.5">
                     <CircleHelp className="size-4 shrink-0 text-primary" />
                     {faq.q}
                   </span>
-                  <span className="text-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                  <span className="text-primary font-mono text-lg transition-transform group-open:rotate-45" aria-hidden="true">+</span>
                 </summary>
-                <p className="mt-3 pl-7 text-sm leading-relaxed text-muted-foreground">{faq.a}</p>
+                <p className="mt-3 pl-6 text-xs leading-relaxed text-muted-foreground border-t border-border/60 pt-3">{faq.a}</p>
               </details>
             ))}
           </div>
@@ -312,21 +343,21 @@ export default async function PlatformPage({
 
         {/* RELACIONADAS */}
         {related.length > 0 && (
-          <section aria-labelledby="related-title" className="mt-20">
-            <h2 id="related-title" className="mb-6 font-mono text-xs font-bold uppercase tracking-[0.3em] text-primary">
-              Veja também
-            </h2>
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+          <section aria-labelledby="related-title" className="mt-16 border-t border-border/60 pt-12">
+            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+              Sistemas relacionados
+            </p>
+            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
               {related.map((other) => (
                 <Link
                   key={other.slug}
                   href={`/platforms/${other.slug}`}
-                  className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-card/60 p-4 transition-colors hover:border-primary/40"
+                  className="group flex flex-col justify-between rounded-lg border border-border bg-card p-3.5 transition-all hover:border-primary/50"
                 >
-                  <span className="text-sm font-semibold text-foreground group-hover:text-primary">{other.name}</span>
-                  <span className="mt-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+                  <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">{other.name}</span>
+                  <span className="mt-2 flex items-center justify-between font-mono text-[10px] text-muted-foreground">
                     {other.content?.year ?? other.kindLabel}
-                    <ArrowUpRight className="size-3.5" />
+                    <ArrowUpRight className="size-3 group-hover:text-primary" />
                   </span>
                 </Link>
               ))}

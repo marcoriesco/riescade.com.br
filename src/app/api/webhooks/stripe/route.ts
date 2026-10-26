@@ -57,11 +57,10 @@ async function sendSubscriptionWelcome(session: Stripe.Checkout.Session) {
     html: `<h1>Bem-vindo à RIESCADE!</h1>
       <p>Sua assinatura está ativa. Para começar:</p>
       <ol>
-        <li><a href="${LATEST_APP_DOWNLOAD_URL}">Baixe a versão mais recente do RIESCADE OS</a>.</li>
+        <li><a href="${LATEST_APP_DOWNLOAD_URL}">Baixe a versão mais recente do RIESCADE</a>.</li>
         <li>Extraia o arquivo e abra o aplicativo.</li>
-        <li>Entre em <strong>Configurações → Minha conta</strong>.</li>
         <li>Faça login com a mesma conta Google usada na assinatura.</li>
-        <li>Escolha um jogo no app e use o botão de download.</li>
+        <li>Escolha um jogo no catálogo e comece a jogar.</li>
       </ol>
       <p>O link sempre baixa a versão mais recente publicada.</p>`,
   });

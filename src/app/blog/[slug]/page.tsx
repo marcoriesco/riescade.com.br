@@ -178,7 +178,7 @@ export default async function BlogPostPage({
             <div className="absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 border-primary" />
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-primary">
               <Gamepad2 className="size-4" />
-              RIESCADE OS
+              RIESCADE
             </div>
             <h2 className="mt-3 font-display text-2xl font-bold uppercase text-foreground">
               Jogue os clássicos <span className="text-gradient-primary">no seu PC</span>
@@ -191,7 +191,7 @@ export default async function BlogPostPage({
               className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-6 font-display text-sm font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_45px_hsl(var(--primary)/0.3)] transition-all hover:-translate-y-0.5 hover:bg-accent"
             >
               <Download className="size-4" />
-              Baixar RIESCADE OS
+              Baixar RIESCADE
             </Link>
           </aside>
         </div>

@@ -20,7 +20,6 @@ import {
   Check,
   CheckCircle2,
   Sparkles,
-  Monitor,
   Cpu,
   Lock,
   CreditCard,
@@ -48,8 +47,8 @@ const STATUS_LABELS: Record<string, string> = {
 };
 
 const MEMBER_BENEFITS = [
-  "Biblioteca integrada ao RIESCADE OS e ao RIESCADE RetroBat",
-  "Downloads seguros dentro dos aplicativos",
+  "Biblioteca integrada ao aplicativo RIESCADE",
+  "Downloads seguros dentro do aplicativo",
   "Pack de BIOS completo para download",
   "Comunidade VIP — Suporte prioritário",
   "250+ Plataformas — Atari até Switch",
@@ -278,7 +277,6 @@ export default function DashboardClient() {
   const [user, setUser] = useState<User | null>(null);
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [details, setDetails] = useState<SubscriptionDetails | null>(null);
-  const [osRelease, setOsRelease] = useState<ReleaseInfo | null>(null);
   const [retroBatRelease, setRetroBatRelease] = useState<ReleaseInfo | null>(null);
   const [biosAsset, setBiosAsset] = useState<BiosAsset | null>(null);
   const [retroBatThemes, setRetroBatThemes] = useState<RetroBatTheme[] | null>(null);
@@ -580,8 +578,8 @@ export default function DashboardClient() {
             </h1>
             <p className="mt-3 text-muted-foreground">
               Entre com sua conta Google para ver sua assinatura e baixar o
-              RIESCADE OS, o RIESCADE RetroBat e o pack de BIOS. Se for seu
-              primeiro acesso, a conta é criada automaticamente.
+              RIESCADE e o pack de BIOS. Se for seu primeiro acesso, a conta é
+              criada automaticamente.
             </p>
             <button onClick={handleSignIn} disabled={authRedirecting} className={`${primaryButton} mt-8`}>
               <FontAwesomeIcon icon={faGoogle} className="h-4 w-4" />
@@ -738,8 +736,8 @@ export default function DashboardClient() {
             </dl>
 
             <p className="mt-6 rounded-xl border border-border bg-black/30 p-4 text-xs leading-relaxed text-muted-foreground">
-              Use esta mesma conta Google para entrar no RIESCADE OS e no RIESCADE RetroBat.
-              Os aplicativos abrem o navegador nesta conta para liberar o acesso.
+              Use esta mesma conta Google para entrar no RIESCADE.
+              O aplicativo abre o navegador nesta conta para liberar o acesso.
             </p>
           </div>
 
@@ -845,56 +843,33 @@ export default function DashboardClient() {
             eyebrow="Downloads"
             title="Central de"
             highlight="downloads"
-            description="Escolha como quer jogar. O RIESCADE OS é a experiência completa e mais simples de usar. O RIESCADE RetroBat é para quem prefere a interface clássica do EmulationStation. Os dois usam a mesma conta e a mesma assinatura."
+            description="Baixe o aplicativo RIESCADE para Windows e o pack completo de BIOS para habilitar todos os sistemas e emuladores com sua assinatura."
           />
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            <DownloadCard
-              icon={Monitor}
-              tag="Recomendado"
-              name={<>RIESCADE <span className="text-primary">OS</span></>}
-              description="Nosso aplicativo próprio para Windows 11. Transforma o PC em uma central de jogos com biblioteca, emuladores e downloads em uma única interface, pensada para TV e controle."
-              features={[
-                "+250 plataformas com downloads de jogos dentro do app",
-                "Emuladores, BIOS e temas instalados automaticamente",
-                "RetroAchievements, scraping e multiplayer com amigos",
-                "Atualizações automáticas pelo próprio aplicativo",
-              ]}
-              install="Extraia o arquivo .7z, abra o RIESCADE OS e entre em Configurações → Minha conta com sua conta Google."
-              meta={[
-                osRelease ? `Versão ${osRelease.version}` : "",
-                formatSize(osRelease?.size) ?? "",
-                "Windows 11",
-              ].filter(Boolean)}
-            >
-              <a href="/api/app/update/download" className={primaryButton}>
-                <Download className="size-4" />
-                Baixar RIESCADE OS
-              </a>
-            </DownloadCard>
-
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
             <DownloadCard
               icon={Gamepad2}
-              tag="EmulationStation"
-              name={<>RIESCADE <span className="text-primary">RetroBat</span></>}
-              description="O RetroBat com EmulationStation, já configurado e integrado à RIESCADE. Os jogos do catálogo aparecem na sua biblioteca e são baixados na hora em que você abre."
+              tag="Aplicativo Oficial"
+              name={<>RIESCADE <span className="text-primary">App</span></>}
+              description="O aplicativo oficial RIESCADE para Windows. Navegação fluida com EmulationStation, catálogo na nuvem integrado e emuladores pré-configurados."
               features={[
-                retroBatRelease ? `Baseado no RetroBat ${retroBatRelease.version}` : "Baseado no RetroBat mais recente",
-                "Jogo, mídia e emulador baixados automaticamente ao jogar",
-                "Login com Google na primeira abertura",
-                "Independente: não precisa do RIESCADE OS instalado",
+                retroBatRelease ? `Versão ${retroBatRelease.version}` : "Versão oficial para Windows",
+                "Mais de 240 plataformas com downloads dentro do app",
+                "Jogo, mídias e emuladores baixados na hora ao iniciar",
+                "Suporte completo a controles com vibração e mapeamento automático",
+                "RetroAchievements, temas exclusivos e atualizações automáticas",
               ]}
-              install="Extraia o .7z em uma pasta de sua preferência, execute RetroBat.exe e entre com sua conta Google. Sem assinatura, use “Continuar sem login” para usar como RetroBat comum."
+              install="Extraia o .7z em uma pasta de sua preferência (ex: C:\RIESCADE), execute RetroBat.exe e faça login com sua conta Google."
               meta={[
                 retroBatRelease ? `Versão ${retroBatRelease.version}` : "",
                 formatSize(retroBatRelease?.size) ?? "",
-                "Windows",
+                "Windows 10 / 11",
               ].filter(Boolean)}
             >
               {retroBatRelease ? (
                 <a href="/api/app/retrobat/download" className={primaryButton}>
                   <Download className="size-4" />
-                  Baixar RIESCADE RetroBat
+                  Baixar RIESCADE
                 </a>
               ) : (
                 <button disabled className={primaryButton}>Em breve</button>
@@ -906,13 +881,14 @@ export default function DashboardClient() {
               tag={hasAccess ? "Membros" : "Exclusivo para membros"}
               locked={!hasAccess}
               name={<>Pack de <span className="text-primary">BIOS</span></>}
-              description="Os arquivos de sistema que vários emuladores exigem para rodar jogos de consoles como PlayStation, Saturn, Dreamcast, Neo Geo e muitos outros."
+              description="Os arquivos de sistema exigidos pelos emuladores para rodar jogos de consoles como PlayStation, Saturn, Dreamcast, Neo Geo e muitos outros."
               features={[
                 "Pacote único com as BIOS de todas as plataformas suportadas",
-                "Necessário para o RIESCADE RetroBat",
-                "No RIESCADE OS as BIOS já são baixadas automaticamente",
+                "Essencial para inicializar jogos de consoles em disco e arcade",
+                "Estrutura 100% pronta e compatível para extração direta",
+                "Atualizado constantemente para novos emuladores",
               ]}
-              install="Extraia o conteúdo do bios.zip dentro da pasta bios do RIESCADE RetroBat."
+              install="Extraia o conteúdo do bios.zip diretamente dentro da pasta bios do seu RIESCADE."
               meta={["bios.zip", biosSize ?? ""].filter(Boolean)}
             >
               {hasAccess ? (
