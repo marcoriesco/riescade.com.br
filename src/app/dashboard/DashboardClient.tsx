@@ -962,19 +962,7 @@ export default function DashboardClient() {
                   className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
                 >
                   <div className="relative aspect-video border-b border-white/10 bg-black/40">
-                    {theme.previewUrl ? (
-                      <Image
-                        src={theme.previewUrl}
-                        alt={`Tema ${theme.name}`}
-                        fill
-                        sizes="(min-width: 1280px) 400px, (min-width: 640px) 50vw, 100vw"
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center">
-                        <Palette className="size-10 text-primary/60" />
-                      </div>
-                    )}
+                    <ThemePreview previewUrl={theme.previewUrl} name={theme.name} />
                     <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-lg border border-primary/25 bg-black/70 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
                       {!hasAccess && <Lock className="size-3" />}
                       {hasAccess ? "Membros" : "Exclusivo para membros"}
@@ -1045,5 +1033,30 @@ function InfoBox({ label, value }: { label: string; value: string }) {
       <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
       <p className="mt-2 text-sm font-medium text-foreground">{value}</p>
     </div>
+  );
+}
+
+function ThemePreview({ previewUrl, name }: { previewUrl: string | null; name: string }) {
+  const [error, setError] = useState(false);
+
+  if (!previewUrl || error) {
+    return (
+      <div className="flex h-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-black/60 to-primary/10">
+        <Palette className="size-10 text-primary/60" />
+        <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">{name}</span>
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={previewUrl}
+      alt={`Tema ${name}`}
+      fill
+      unoptimized
+      onError={() => setError(true)}
+      sizes="(min-width: 1280px) 400px, (min-width: 640px) 50vw, 100vw"
+      className="object-cover transition-transform duration-500 group-hover:scale-105"
+    />
   );
 }

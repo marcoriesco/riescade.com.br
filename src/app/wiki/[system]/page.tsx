@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CopyPathButton } from "@/components/wiki/CopyPathButton";
+import { CodeBlock } from "@/components/wiki/CodeBlock";
 import {
   getAllWikiSystems,
   getWikiSystem,
@@ -16,11 +17,13 @@ import {
   Cpu,
   Sparkles,
   AlertCircle,
+  AlertTriangle,
   CheckCircle2,
   ChevronRight,
   ArrowLeft,
   Gamepad2,
   Info,
+  Lightbulb,
 } from "lucide-react";
 
 export const revalidate = 86400;
@@ -173,13 +176,158 @@ export default async function WikiSystemPage({
         <div className="mt-10 grid gap-8 md:grid-cols-3">
           {/* Main Info Column (2 cols) */}
           <div className="space-y-8 md:col-span-2">
-            {/* Step-by-step Guide */}
+            {/* Rich Detailed Technical Sections (e.g. Windows, PS1, PS2, PS3, Switch, Arcade, Exclusives) */}
+            {system.sections && system.sections.length > 0 && (
+              <div className="space-y-8">
+                {system.sections.map((section, sIdx) => (
+                  <section
+                    key={section.id || sIdx}
+                    id={section.id}
+                    className="rounded-3xl border border-white/10 bg-card/40 p-6 md:p-8 backdrop-blur-sm shadow-lg shadow-black/10"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                      <h2 className="text-xl md:text-2xl font-bold tracking-tight text-foreground flex items-center gap-2.5">
+                        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/20 text-primary text-xs font-mono font-bold">
+                          {sIdx + 1}
+                        </span>
+                        {section.title}
+                      </h2>
+                      {section.badge && (
+                        <span className="rounded-full bg-primary/10 border border-primary/30 px-3 py-0.5 font-mono text-[11px] font-bold text-primary">
+                          {section.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    {section.description && (
+                      <p className="text-sm md:text-base text-foreground/90 leading-relaxed mt-2 mb-4">
+                        {section.description}
+                      </p>
+                    )}
+
+                    {/* Section Callout */}
+                    {section.callout && (
+                      <div
+                        className={`my-4 flex items-start gap-3 rounded-2xl border p-4 text-sm leading-relaxed ${
+                          section.callout.type === "warning"
+                            ? "border-amber-500/30 bg-amber-500/10 text-amber-200"
+                            : section.callout.type === "danger"
+                            ? "border-rose-500/30 bg-rose-500/10 text-rose-200"
+                            : section.callout.type === "tip"
+                            ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200"
+                            : "border-primary/30 bg-primary/10 text-foreground"
+                        }`}
+                      >
+                        {section.callout.type === "warning" ? (
+                          <AlertTriangle className="h-5 w-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                        ) : section.callout.type === "danger" ? (
+                          <AlertCircle className="h-5 w-5 text-rose-400 flex-shrink-0 mt-0.5" />
+                        ) : section.callout.type === "tip" ? (
+                          <Lightbulb className="h-5 w-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                        ) : (
+                          <Info className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        )}
+                        <div>
+                          {section.callout.title && (
+                            <strong className="block font-semibold mb-1">
+                              {section.callout.title}
+                            </strong>
+                          )}
+                          <span>{section.callout.text}</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Section Steps */}
+                    {section.steps && section.steps.length > 0 && (
+                      <div className="my-5 space-y-4">
+                        {section.steps.map((st, stepIdx) => (
+                          <div
+                            key={stepIdx}
+                            className="rounded-2xl border border-white/5 bg-black/30 p-4 transition-colors hover:border-white/10"
+                          >
+                            <div className="flex items-start gap-3">
+                              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/20 text-xs font-mono font-bold text-primary flex-shrink-0 mt-0.5">
+                                {st.stepNumber || stepIdx + 1}
+                              </span>
+                              <div className="flex-1">
+                                <h4 className="font-semibold text-sm text-foreground">
+                                  {st.title}
+                                </h4>
+                                <p className="mt-1 text-xs md:text-sm text-muted-foreground leading-relaxed">
+                                  {st.text}
+                                </p>
+                              </div>
+                            </div>
+                            {st.code && (
+                              <div className="mt-3 pl-9">
+                                <CodeBlock code={st.code} language={st.codeLang || "text"} />
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Section Code Snippets */}
+                    {section.snippets && section.snippets.length > 0 && (
+                      <div className="my-4 space-y-3">
+                        {section.snippets.map((snip, snipIdx) => (
+                          <CodeBlock
+                            key={snipIdx}
+                            code={snip.code}
+                            language={snip.language}
+                            filename={snip.filename}
+                            description={snip.description}
+                          />
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Section Table */}
+                    {section.table && (
+                      <div className="my-5 overflow-x-auto rounded-2xl border border-white/10 bg-black/40">
+                        <table className="w-full text-left text-xs md:text-sm">
+                          <thead className="border-b border-white/10 bg-white/[0.04] text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+                            <tr>
+                              {section.table.headers.map((h, hIdx) => (
+                                <th key={hIdx} className="px-4 py-3 font-semibold">
+                                  {h}
+                                </th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-white/5 font-mono">
+                            {section.table.rows.map((row, rIdx) => (
+                              <tr key={rIdx} className="hover:bg-white/[0.02] transition-colors">
+                                {row.map((cell, cIdx) => (
+                                  <td
+                                    key={cIdx}
+                                    className={`px-4 py-3 text-foreground/90 ${
+                                      cIdx === 0 ? "font-semibold text-foreground" : ""
+                                    }`}
+                                  >
+                                    {cell}
+                                  </td>
+                                ))}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                  </section>
+                ))}
+              </div>
+            )}
+
+            {/* Standard Step-by-step Guide */}
             <section aria-labelledby="steps-title" className="rounded-3xl border border-white/10 bg-card/40 p-6 md:p-8 backdrop-blur-sm">
               <h2 id="steps-title" className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/20 text-primary text-sm font-mono font-bold">
-                  1
+                  {system.sections && system.sections.length > 0 ? system.sections.length + 1 : 1}
                 </span>
-                Passo a Passo de Instalação
+                Resumo Prático de Instalação
               </h2>
 
               <ol className="mt-6 space-y-4">
@@ -200,7 +348,7 @@ export default async function WikiSystemPage({
             <section aria-labelledby="formats-title" className="rounded-3xl border border-white/10 bg-card/40 p-6 md:p-8 backdrop-blur-sm">
               <h2 id="formats-title" className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/20 text-primary text-sm font-mono font-bold">
-                  2
+                  {system.sections && system.sections.length > 0 ? system.sections.length + 2 : 2}
                 </span>
                 Formatos & Extensões Aceitas
               </h2>
@@ -238,7 +386,7 @@ export default async function WikiSystemPage({
               <section aria-labelledby="notes-title" className="rounded-3xl border border-white/10 bg-card/40 p-6 md:p-8 backdrop-blur-sm">
                 <h2 id="notes-title" className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
                   <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/20 text-primary text-sm font-mono font-bold">
-                    3
+                    {system.sections && system.sections.length > 0 ? system.sections.length + 3 : 3}
                   </span>
                   Dicas e Particularidades
                 </h2>

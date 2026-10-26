@@ -5,6 +5,43 @@ export interface WikiEmulator {
   cores: string[];
 }
 
+export interface WikiCodeSnippet {
+  code: string;
+  language: string;
+  filename?: string;
+  description?: string;
+}
+
+export interface WikiTable {
+  headers: string[];
+  rows: string[][];
+}
+
+export interface WikiCallout {
+  type: "info" | "warning" | "tip" | "danger";
+  title?: string;
+  text: string;
+}
+
+export interface WikiStep {
+  stepNumber?: number;
+  title: string;
+  text: string;
+  code?: string;
+  codeLang?: string;
+}
+
+export interface WikiSection {
+  id: string;
+  title: string;
+  description?: string;
+  badge?: string;
+  callout?: WikiCallout;
+  snippets?: WikiCodeSnippet[];
+  table?: WikiTable;
+  steps?: WikiStep[];
+}
+
 export interface WikiSystem {
   id: string;
   slug: string;
@@ -33,6 +70,7 @@ export interface WikiSystem {
   image: string | null;
   notes: string[];
   instructions: string[];
+  sections?: WikiSection[];
 }
 
 export const WIKI_SYSTEMS: WikiSystem[] = wikiSystemsJson as WikiSystem[];

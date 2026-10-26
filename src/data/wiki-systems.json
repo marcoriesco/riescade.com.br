@@ -12,9 +12,12 @@
     "extensions": [
       ".game",
       ".bat",
+      ".cmd",
+      ".game",
+      ".bat",
       ".cmd"
     ],
-    "recommendedFormat": ".zip (ROMset não extraído)",
+    "recommendedFormat": ".game ou .bat (acompanhado da pasta de dump do jogo)",
     "biosRequired": false,
     "biosFiles": [],
     "biosNotes": "Não precisa de BIOS tradicional. Utiliza os wrappers LinuxLoader 64-bit / Raw Thrills e UltraLoader já configurados pelo RIESCADE.",
@@ -38,13 +41,38 @@
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Arcade Dumps no RIESCADE.",
     "logo": "/images/platforms/logos/arcadedumps.webp",
     "image": null,
-    "notes": [],
+    "notes": [
+      "Sistema exclusivo do RIESCADE para dumps de placas arcade modernas baseadas em PC (ex: Halo Fireteam Raven, Mario Kart Arcade GP DX, Star Wars Battle Pod).",
+      "Estrutura de arquivos: coloque o script .bat ou arquivo .game na raiz de \\roms\\arcadedumps\\ e a pasta com os dados do jogo ao lado.",
+      "O executável halo-loader64.exe e as bibliotecas do LinuxLoader ficam em \\emulators\\linuxloader-rawthrills\\."
+    ],
     "instructions": [
-      "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
-      "Abra a pasta: roms\\arcadedumps\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.zip (ROMset não extraído)).",
-      "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
-      "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+      "Abra o diretório onde o RIESCADE está instalado no seu computador.",
+      "Navegue até a pasta: roms\\arcadedumps\\",
+      "Copie a pasta de dados do jogo arcade (ex: halo-fireteam-raven) para dentro de roms\\arcadedumps\\.",
+      "Certifique-se de que o arquivo disparador correspondente (.bat ou .game) esteja na raiz de roms\\arcadedumps\\.",
+      "Abra o RIESCADE e pressione F5 ou acesse Menu Principal → Atualizar Lista de Jogos. O jogo aparecerá com capa e informações prontas para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "arcadedumps-intro",
+        "title": "Arcade PC Dumps no RIESCADE",
+        "badge": "Exclusivo RIESCADE",
+        "description": "Sistema exclusivo para dumps de gabinetes arcade modernos baseados em hardware x86/PC (como Halo: Fireteam Raven, Mario Kart Arcade GP DX, Star Wars Battle Pod, Transformers Human Alliance, Luigi Mansion Arcade).",
+        "snippets": [
+          {
+            "filename": "Estrutura de pastas em roms\\arcadedumps\\",
+            "language": "text",
+            "description": "Como organizar os dados e launchers:",
+            "code": "roms\\arcadedumps\\Halo Fireteam Raven.bat\nroms\\arcadedumps\\halo-fireteam-raven\\ (pasta completa com os dados do jogo)\nroms\\arcadedumps\\Mario Kart Arcade GP DX.game"
+          }
+        ],
+        "callout": {
+          "type": "info",
+          "title": "Loaders Integrados",
+          "text": "O RIESCADE já inclui os launchers necessários pré-configurados em emulators\\linuxloader-rawthrills\\ com suporte a resoluções ultrawide e force feedback."
+        }
+      }
     ]
   },
   {
@@ -61,7 +89,7 @@
       ".zip",
       ".7z"
     ],
-    "recommendedFormat": ".zip (ROMset não extraído)",
+    "recommendedFormat": ".zip ou .7z (romset Arcade com patch Widescreen 16:9)",
     "biosRequired": true,
     "biosFiles": [
       "neogeo.zip (se jogar títulos Neo Geo Widescreen)"
@@ -85,13 +113,28 @@
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Arcade Wide Screen no RIESCADE.",
     "logo": "/images/platforms/logos/arcadews.webp",
     "image": null,
-    "notes": [],
+    "notes": [
+      "ROMs de arcade com patch 16:9 executadas pelo core especializado FBNeo Widescreen sem esticar sprites."
+    ],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\arcadews\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.zip (ROMset não extraído)).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.zip ou .7z (romset Arcade com patch Widescreen 16:9)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "arcadews-intro",
+        "title": "Arcade Widescreen 16:9 Nativo",
+        "badge": "Exclusivo RIESCADE",
+        "description": "Coletânea exclusiva onde os clássicos dos arcades (Capcom CPS1, CPS2, CPS3, Neo Geo e Cave) recebem patches no código para renderizar a imagem em proporção panorâmica 16:9 sem esticar os sprites e expandindo o campo de visão.",
+        "callout": {
+          "type": "tip",
+          "title": "Core Especializado",
+          "text": "O sistema utiliza a versão especial fbneo_arcadews embutida no RIESCADE, garantindo enquadramento perfeito em TVs modernas sem bordas pretas laterais."
+        }
+      }
     ]
   },
   {
@@ -105,9 +148,10 @@
     "folder": "pgm3viper",
     "folderPath": "roms\\pgm3viper\\",
     "extensions": [
+      ".game",
       ".game"
     ],
-    "recommendedFormat": ".game",
+    "recommendedFormat": ".game (arquivo apontando para o identificador do jogo Viper/PGM3)",
     "biosRequired": false,
     "biosFiles": [],
     "biosNotes": "Os arquivos de launcher (.game) e dumps são executados pelo emulador Kitsune interno do RIESCADE.",
@@ -127,13 +171,31 @@
     "summary": "Configurações, pasta de ROMs e instruções de instalação para IGS PC / PGM3 / KONAMI Viper no RIESCADE.",
     "logo": "/images/platforms/logos/pgm3viper.webp",
     "image": null,
-    "notes": [],
+    "notes": [
+      "Sistema dedicado aos jogos da placa arcade IGS PGM3 e Konami Viper (ex: Boxing Mania, Knights of Valour 3 HD, GTI Club, Silent Scope EX).",
+      "O emulador Kitsune foi integrado exclusivamente no emulatorLauncher do RIESCADE para carregar as roms via arquivos .game."
+    ],
     "instructions": [
-      "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
-      "Abra a pasta: roms\\pgm3viper\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
-      "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
-      "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+      "Acesse a pasta: roms\\pgm3viper\\ dentro da raiz do RIESCADE.",
+      "Copie o arquivo .game correspondente ao título (ex: Boxing Mania - Ashita no Joe.game).",
+      "Mantenha os arquivos de suporte na pasta roms\\pgm3viper\\library\\.",
+      "Abra o RIESCADE e atualize a lista de jogos para carregar o título com o emulador Kitsune."
+    ],
+    "sections": [
+      {
+        "id": "pgm3viper-intro",
+        "title": "Hardware IGS PGM3 e Konami Viper Arcade",
+        "badge": "Exclusivo RIESCADE",
+        "description": "Jogos da placa arcade IGS PolyGame Master 3 e hardware Konami Viper (títulos como Boxing Mania, Knights of Valour 3 HD, GTI Club e Silent Scope EX).",
+        "snippets": [
+          {
+            "filename": "Disparador .game",
+            "language": "text",
+            "description": "Executado diretamente através do emulador Kitsune interno do RIESCADE:",
+            "code": "roms\\pgm3viper\\Boxing Mania.game"
+          }
+        ]
+      }
     ]
   },
   {
@@ -185,7 +247,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.pxp).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "recomp",
@@ -201,10 +264,10 @@
       ".game",
       ".lnk"
     ],
-    "recommendedFormat": ".game",
+    "recommendedFormat": ".game (apontando para o executável recompilado)",
     "biosRequired": false,
     "biosFiles": [],
-    "biosNotes": "Projetos recompilados nativos de PC (N64 Recomp, etc.). Executam direto no Windows.",
+    "biosNotes": "Projetos recompilados nativos de PC (N64 Recomp, etc.). Executam direto no Windows a 60/120fps nativos.",
     "defaultEmulator": {
       "name": "windows",
       "core": null
@@ -223,15 +286,54 @@
     "theme": "recomp",
     "isCustomRiescade": true,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Recompilation no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/recomp.webp",
     "image": null,
-    "notes": [],
+    "notes": [
+      "Projetos recompilados em C/C++ nativo rodando com resolução ultra-alta, 60/120+ fps e compatibilidade com controles modernos."
+    ],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\recomp\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.game (apontando para o executável recompilado)).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "recomp-intro",
+        "title": "Projetos de Recompilação Nativa para PC (PC Ports)",
+        "badge": "Exclusivo RIESCADE",
+        "description": "Clássicos reimaginados e recompilados em código C/C++ nativo para Windows. Não usam emulador e rodam a 60, 120 ou 144+ FPS destravados com suporte nativo a monitores ultrawide, iluminação avançada e texturas em altíssima resolução.",
+        "table": {
+          "headers": [
+            "Título Recompilado",
+            "Projeto",
+            "Destaques"
+          ],
+          "rows": [
+            [
+              "Zelda 64: Ocarina of Time",
+              "Ship of Harkinian",
+              "60 FPS, widescreen, câmera livre, controles modernos"
+            ],
+            [
+              "Zelda: Majora's Mask",
+              "Zelda 64 Recompiled",
+              "Taxa de quadros destravada, suporte ultrawide e gyro"
+            ],
+            [
+              "Perfect Dark PC",
+              "Perfect Dark Port",
+              "Suporte a teclado e mouse, 120 FPS e renderizador DirectX"
+            ],
+            [
+              "Super Mario 64 PC",
+              "Render96 / SM64 Plus",
+              "Modelos poligonais estilo Nintendo 64 Promo Art e 60 FPS"
+            ]
+          ]
+        }
+      }
     ]
   },
   {
@@ -248,7 +350,7 @@
       ".iso",
       ".m3u"
     ],
-    "recommendedFormat": ".zip (ROMset não extraído)",
+    "recommendedFormat": ".iso ou .m3u",
     "biosRequired": false,
     "biosFiles": [],
     "biosNotes": "Xenia não exige dump de BIOS de Xbox 360.",
@@ -269,16 +371,17 @@
     "theme": "xboxlivearcade",
     "isCustomRiescade": true,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Xbox Live Arcade no RIESCADE.",
-    "logo": "/images/platforms/logos/xbla.webp",
+    "logo": "/images/platforms/logos/xboxlivearcade.webp",
     "image": null,
     "notes": [],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\xbla\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.zip (ROMset não extraído)).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.iso ou .m3u).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "2ship",
@@ -312,7 +415,7 @@
     "theme": "2ship",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para 2 Ship 2 Harkinian no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/2ship.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -321,7 +424,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.z64).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "sega32x",
@@ -348,7 +452,7 @@
       "32X_M_BIOS.BIN",
       "32X_S_BIOS.BIN"
     ],
-    "biosNotes": "Opcional para Picodrive, recomendado para emulação com precisão máxima.",
+    "biosNotes": "Opcional para Picodrive, mas recomendado para fidelidade total.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "picodrive"
@@ -400,7 +504,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.32x).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "3do",
@@ -420,10 +525,10 @@
     "recommendedFormat": ".chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)",
     "biosRequired": true,
     "biosFiles": [
-      "panafz10.bin",
-      "goldstar.bin"
+      "panafz10.bin (Panasonic FZ-10)",
+      "goldstar.bin (Goldstar 3DO)"
     ],
-    "biosNotes": "Coloque na pasta bios/.",
+    "biosNotes": "Coloque na pasta bios/. Opera com Opera e 4DO.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "opera"
@@ -446,17 +551,15 @@
     "summary": "Configurações, pasta de ROMs e instruções de instalação para 3DO no RIESCADE.",
     "logo": "/images/platforms/logos/3do.webp",
     "image": "/images/platforms/systems/3do.webp",
-    "notes": [
-      "Formato recomendado: CHD (.chd). Converte múltiplos .bin/.cue em um único arquivo compactado sem perda de qualidade de áudio.",
-      "Jogos multidisco (CD 1, CD 2, etc.): crie um arquivo .m3u com o nome do jogo listando cada disco em uma linha para salvar o progresso unificado."
-    ],
+    "notes": [],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\3do\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "actionmax",
@@ -504,7 +607,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.actionmax).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "adam",
@@ -574,7 +678,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.wav).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "advision",
@@ -626,7 +731,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "amazon",
@@ -661,7 +767,7 @@
     "theme": "amazon",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Amazon Prime Gaming no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/amazon.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -670,7 +776,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bat).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "amiga4000",
@@ -690,6 +797,7 @@
       ".adz",
       ".lha",
       ".rp9",
+      ".uae",
       ".hdf",
       ".m3u",
       ".zip",
@@ -737,7 +845,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.adf).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "amiga1200",
@@ -757,6 +866,7 @@
       ".adz",
       ".lha",
       ".rp9",
+      ".uae",
       ".hdf",
       ".m3u",
       ".zip",
@@ -806,7 +916,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.adf).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "amigacd32",
@@ -831,7 +942,7 @@
       ".nrg",
       ".mds"
     ],
-    "recommendedFormat": ".iso",
+    "recommendedFormat": ".chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)",
     "biosRequired": true,
     "biosFiles": [
       "kick40060.CD32",
@@ -875,10 +986,11 @@
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\amigacd32\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.iso).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "amigacdtv",
@@ -947,7 +1059,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.cue).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "amiga500",
@@ -967,6 +1080,7 @@
       ".adz",
       ".lha",
       ".rp9",
+      ".uae",
       ".hdf",
       ".ags",
       ".m3u",
@@ -976,7 +1090,7 @@
     "recommendedFormat": ".adf",
     "biosRequired": true,
     "biosFiles": [
-      "kick34005.A500 (Kickstart 1.3)"
+      "kick34005.A500 (Kickstart 1.3 - MD5: c4f0f55f1d1e0855e342be99185e5b14)"
     ],
     "biosNotes": "Coloque na pasta bios/.",
     "defaultEmulator": {
@@ -1017,7 +1131,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.adf).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "amstradcpc",
@@ -1071,7 +1186,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.dsk).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gx4000",
@@ -1123,7 +1239,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.dsk).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "apfm1000",
@@ -1175,7 +1292,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "apple2",
@@ -1243,7 +1361,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.nib).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "apple2gs",
@@ -1299,7 +1418,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.2mg).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "arcade",
@@ -1321,9 +1441,11 @@
       "neogeo.zip",
       "pgm.zip",
       "qsound_hle.zip",
-      "decocass.zip"
+      "decocass.zip",
+      "naomi.zip",
+      "namcoc75.zip"
     ],
-    "biosNotes": "MAME e FBNeo utilizam arquivos BIOS/Driver em formato .zip dentro de roms/arcade ou bios/.",
+    "biosNotes": "Mantenha os arquivos .zip de BIOS na mesma pasta roms/arcade/ ou em bios/.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "mame"
@@ -1363,6 +1485,53 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip (ROMset não extraído)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "arcade-rule-no-unzip",
+        "title": "A Regra de Ouro do Arcade: NUNCA Extraia os Arquivos .zip",
+        "badge": "Regra Fundamental",
+        "description": "Diferente de jogos de PC ou consoles de CD, emuladores de arcade (MAME e FinalBurn Neo) lêem os chips individuais de ROM diretamente de dentro do arquivo .zip. Se você extrair o conteúdo do .zip, o jogo NÃO FUNCIONARÁ!",
+        "callout": {
+          "type": "danger",
+          "title": "Não altere os nomes dos arquivos .zip",
+          "text": "Os nomes como mslug.zip, kof98.zip, sf2.zip são códigos universais de identificação dos drivers da placa arcade. Nunca renomeie esses arquivos."
+        }
+      },
+      {
+        "id": "arcade-bios",
+        "title": "Arquivos de BIOS de Arcade",
+        "description": "Certos sistemas (como Neo Geo, PolyGame Master e Capcom QSound) exigem um arquivo de BIOS acompanhando a ROM:",
+        "table": {
+          "headers": [
+            "Placa Arcade",
+            "Arquivo de BIOS (.zip)",
+            "Localização"
+          ],
+          "rows": [
+            [
+              "SNK Neo Geo MVS/AES",
+              "neogeo.zip",
+              "roms\\arcade\\ ou bios\\"
+            ],
+            [
+              "Capcom CPS1 / CPS2 (Áudio)",
+              "qsound_hle.zip ou qsound.zip",
+              "roms\\arcade\\ ou bios\\"
+            ],
+            [
+              "IGS PolyGame Master (PGM)",
+              "pgm.zip",
+              "roms\\arcade\\ ou bios\\"
+            ],
+            [
+              "Sega Naomi / Atomiswave",
+              "naomi.zip, awbios.zip",
+              "roms\\arcade\\ ou bios\\"
+            ]
+          ]
+        }
+      }
     ]
   },
   {
@@ -1416,7 +1585,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "archimedes",
@@ -1495,7 +1665,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.mfi).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "arduboy",
@@ -1542,7 +1713,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.hex).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "astrocade",
@@ -1594,7 +1766,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "atari2600",
@@ -1654,7 +1827,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.7z).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "atari5200",
@@ -1716,7 +1890,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.rom).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "atari7800",
@@ -1739,7 +1914,7 @@
     "biosFiles": [
       "7800 BIOS (U).rom"
     ],
-    "biosNotes": "Opcional, mas melhora compatibilidade.",
+    "biosNotes": "Opcional no ProSystem, recomendado para compatibilidade.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "prosystem"
@@ -1771,7 +1946,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.a78).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "atari800",
@@ -1830,7 +2006,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.rom).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "atarist",
@@ -1887,7 +2064,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.st).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "xegs",
@@ -1948,7 +2126,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.atr).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "atom",
@@ -2019,7 +2198,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.wav).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "atomiswave",
@@ -2038,11 +2218,9 @@
       ".7z"
     ],
     "recommendedFormat": ".bin",
-    "biosRequired": true,
-    "biosFiles": [
-      "awbios.zip"
-    ],
-    "biosNotes": "Coloque na pasta bios/ ou junto da rom.",
+    "biosRequired": false,
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "libretro",
       "core": "flycast"
@@ -2078,9 +2256,10 @@
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\atomiswave\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
-      "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
+      "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "bbcmicro",
@@ -2133,7 +2312,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.ssd).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "bennugd",
@@ -2169,7 +2349,7 @@
     "theme": "bennugd",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para BennuGD no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/bennugd.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -2178,7 +2358,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.dat).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "bsyndrome",
@@ -2211,7 +2392,7 @@
     "theme": "bsyndrome",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Bermuda Syndrome no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/bsyndrome.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -2220,7 +2401,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "bstone",
@@ -2253,7 +2435,7 @@
     "theme": "bstone",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Blake Stone no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/bstone.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -2262,7 +2444,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bstone).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "camplynx",
@@ -2319,7 +2502,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "cannonball",
@@ -2363,7 +2547,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "casloopy",
@@ -2414,7 +2599,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "cassettevision",
@@ -2450,7 +2636,7 @@
     "theme": "cassettevision",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Cassette Vision no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/cassettevision.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -2459,7 +2645,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin777).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "cave",
@@ -2518,7 +2705,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.fba).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "cavestory",
@@ -2564,7 +2752,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.libretro).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "cdogs",
@@ -2606,7 +2795,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "chihiro",
@@ -2624,11 +2814,9 @@
       ".bin"
     ],
     "recommendedFormat": ".xbe",
-    "biosRequired": true,
-    "biosFiles": [
-      "chihiro.zip"
-    ],
-    "biosNotes": "Coloque na pasta bios/chihiro/.",
+    "biosRequired": false,
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "xemu-chihiro",
       "core": null
@@ -2668,9 +2856,10 @@
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\chihiro\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.xbe).",
-      "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
+      "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "colecovision",
@@ -2751,7 +2940,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.rom).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "cgenius",
@@ -2793,7 +2983,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.cgenius).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "c128",
@@ -2844,7 +3035,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.d64).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "c16",
@@ -2884,7 +3076,7 @@
     "theme": "c16",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Commodore 16 no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/c16.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -2893,7 +3085,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.d64).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "c64",
@@ -2950,7 +3143,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.crt).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pet",
@@ -3004,7 +3198,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.a0).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "cplus4",
@@ -3053,7 +3248,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.d64).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "corsixth",
@@ -3095,7 +3291,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "cps1",
@@ -3144,7 +3341,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.fba).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "cps2",
@@ -3193,7 +3391,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.fba).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "cps3",
@@ -3243,7 +3442,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.fba).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "crvision",
@@ -3297,7 +3497,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "devilutionx",
@@ -3342,7 +3543,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "dice",
@@ -3378,7 +3580,7 @@
     "theme": "dice",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para DICE no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/dice.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -3387,7 +3589,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "dinothawr",
@@ -3431,7 +3634,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "doom",
@@ -3480,7 +3684,7 @@
     "theme": "doom",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Doom no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/doom.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -3489,7 +3693,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.wad).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "doom3",
@@ -3530,7 +3735,7 @@
     "theme": "doom3",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Doom 3 no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/doom3.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -3539,7 +3744,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.boom3).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "dos",
@@ -3602,7 +3808,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.dosbox).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "dragon32",
@@ -3650,7 +3857,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.wav).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "dreamcast",
@@ -3674,8 +3882,8 @@
     "recommendedFormat": ".chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)",
     "biosRequired": true,
     "biosFiles": [
-      "dc_boot.bin",
-      "dc_flash.bin"
+      "dc_boot.bin (MD5: e10c53c2f8b90bab96eed2e9684f4fc5b)",
+      "dc_flash.bin (MD5: 0a93f7940c455905ab6e36b337ae04be)"
     ],
     "biosNotes": "Coloque dentro de bios/dc/. Necessário para Flycast e Redream.",
     "defaultEmulator": {
@@ -3714,17 +3922,15 @@
     "summary": "O último console da Sega, à frente do seu tempo, com jogo online e jogos como Shenmue, Sonic Adventure, Jet Set Radio, Crazy Taxi e Soulcalibur.",
     "logo": "/images/platforms/logos/dreamcast.webp",
     "image": "/images/platforms/systems/dreamcast.webp",
-    "notes": [
-      "Formato recomendado: CHD (.chd). Converte múltiplos .bin/.cue em um único arquivo compactado sem perda de qualidade de áudio.",
-      "Jogos multidisco (CD 1, CD 2, etc.): crie um arquivo .m3u com o nome do jogo listando cada disco em uma linha para salvar o progresso unificado."
-    ],
+    "notes": [],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\dreamcast\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "eduke32",
@@ -3766,7 +3972,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.eduke32).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "dusklight",
@@ -3801,7 +4008,7 @@
     "theme": "dusklight",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para DuskLight no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/dusklight.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -3810,7 +4017,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.m3u).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "eagames",
@@ -3845,7 +4053,7 @@
     "theme": "eagames",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para EA Games no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/eagames.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -3854,7 +4062,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bat).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "easyrpg",
@@ -3903,7 +4112,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.easyrpg).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "ecwolf",
@@ -3948,7 +4158,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.pk3).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "electron",
@@ -3999,7 +4210,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "bk",
@@ -4035,7 +4247,7 @@
     "theme": "bk",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Elektronika BK no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/bk.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -4044,7 +4256,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "enterprise",
@@ -4085,7 +4298,7 @@
     "theme": "enterprise",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Enterprise no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/enterprise.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -4094,7 +4307,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "epic",
@@ -4129,7 +4343,7 @@
     "theme": "epic",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para EPIC no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/epic.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -4138,7 +4352,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bat).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "exodos",
@@ -4171,7 +4386,7 @@
     "theme": "exodos",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para eXoDOS no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/exodos.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -4180,7 +4395,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.lnk).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "exowin3x",
@@ -4213,7 +4429,7 @@
     "theme": "exowin3x",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para eXoWin3x no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/pc.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -4222,7 +4438,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.lnk).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "exowin9x",
@@ -4255,7 +4472,7 @@
     "theme": "exowin9x",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para eXoWin9x no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/pc.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -4264,7 +4481,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.lnk).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "channelf",
@@ -4317,7 +4535,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "fbneo",
@@ -4336,12 +4555,12 @@
       ".7z",
       ".bin"
     ],
-    "recommendedFormat": ".fba",
+    "recommendedFormat": ".zip (ROMset não extraído)",
     "biosRequired": true,
     "biosFiles": [
-      "Arquivos de BIOS do ROMset FBNeo"
+      "Arquivos de BIOS do ROMset FBNeo (neogeo.zip, pgm.zip, etc.)"
     ],
-    "biosNotes": "Mantenha na pasta roms/fbneo ou bios/.",
+    "biosNotes": "Devem permanecer compactados em formato .zip dentro de roms/fbneo/ ou bios/.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "fbneo"
@@ -4369,13 +4588,63 @@
     "summary": "O FinalBurn Neo é um emulador de arcade focado em desempenho e jogo online, ótimo para Neo Geo, CPS1, CPS2 e CPS3.",
     "logo": "/images/platforms/logos/fbneo.webp",
     "image": "/images/platforms/systems/fbneo.webp",
-    "notes": [],
+    "notes": [
+      "NUNCA extraia os arquivos .zip das ROMs de Arcade. Mantenha os arquivos .zip exatamente como vêm no ROMset.",
+      "Sempre utilize a versão de ROMset compatível com o core/versão do MAME ou FBNeo configurado."
+    ],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\fbneo\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.fba).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.zip (ROMset não extraído)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "arcade-rule-no-unzip",
+        "title": "A Regra de Ouro do Arcade: NUNCA Extraia os Arquivos .zip",
+        "badge": "Regra Fundamental",
+        "description": "Diferente de jogos de PC ou consoles de CD, emuladores de arcade (MAME e FinalBurn Neo) lêem os chips individuais de ROM diretamente de dentro do arquivo .zip. Se você extrair o conteúdo do .zip, o jogo NÃO FUNCIONARÁ!",
+        "callout": {
+          "type": "danger",
+          "title": "Não altere os nomes dos arquivos .zip",
+          "text": "Os nomes como mslug.zip, kof98.zip, sf2.zip são códigos universais de identificação dos drivers da placa arcade. Nunca renomeie esses arquivos."
+        }
+      },
+      {
+        "id": "arcade-bios",
+        "title": "Arquivos de BIOS de Arcade",
+        "description": "Certos sistemas (como Neo Geo, PolyGame Master e Capcom QSound) exigem um arquivo de BIOS acompanhando a ROM:",
+        "table": {
+          "headers": [
+            "Placa Arcade",
+            "Arquivo de BIOS (.zip)",
+            "Localização"
+          ],
+          "rows": [
+            [
+              "SNK Neo Geo MVS/AES",
+              "neogeo.zip",
+              "roms\\arcade\\ ou bios\\"
+            ],
+            [
+              "Capcom CPS1 / CPS2 (Áudio)",
+              "qsound_hle.zip ou qsound.zip",
+              "roms\\arcade\\ ou bios\\"
+            ],
+            [
+              "IGS PolyGame Master (PGM)",
+              "pgm.zip",
+              "roms\\arcade\\ ou bios\\"
+            ],
+            [
+              "Sega Naomi / Atomiswave",
+              "naomi.zip, awbios.zip",
+              "roms\\arcade\\ ou bios\\"
+            ]
+          ]
+        }
+      }
     ]
   },
   {
@@ -4422,7 +4691,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.swf).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "fmtowns",
@@ -4491,7 +4761,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.m3u).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "fm7",
@@ -4556,7 +4827,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.wav).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "fpinball",
@@ -4604,7 +4876,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.fpt).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gaelco",
@@ -4656,7 +4929,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gamate",
@@ -4707,7 +4981,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gw",
@@ -4749,7 +5024,7 @@
     "theme": "gameandwatch",
     "isCustomRiescade": false,
     "summary": "Os portáteis de tela de LCD que começaram a história da Nintendo nos portáteis e introduziram o direcional em cruz, presente em quase todo controle desde então.",
-    "logo": "/images/platforms/logos/gameandwatch.webp",
+    "logo": "/images/platforms/logos/gw.webp",
     "image": "/images/platforms/systems/gameandwatch.webp",
     "notes": [],
     "instructions": [
@@ -4758,7 +5033,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.mgw).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gb",
@@ -4843,7 +5119,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.gb).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gb2players",
@@ -4892,7 +5169,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.gb).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gba",
@@ -4912,10 +5190,8 @@
     ],
     "recommendedFormat": ".gba",
     "biosRequired": false,
-    "biosFiles": [
-      "gba_bios.bin"
-    ],
-    "biosNotes": "Opcional na maioria dos emuladores (mGBA usa emulação de BIOS por padrão).",
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "libretro",
       "core": "mgba"
@@ -4979,7 +5255,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.gba).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gba2players",
@@ -5021,7 +5298,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.gba).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gbc",
@@ -5104,7 +5382,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.gbc).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gbc2players",
@@ -5153,7 +5432,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.gbc).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gamegear",
@@ -5229,7 +5509,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.gg).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gmaster",
@@ -5281,7 +5562,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gp32",
@@ -5332,7 +5614,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.smc).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gamepock",
@@ -5384,7 +5667,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gamecom",
@@ -5437,7 +5721,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "sgb-msu1",
@@ -5475,7 +5760,7 @@
     "theme": "sgb-msu1",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para GameBoy MSU no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/sgb-msu1.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -5484,7 +5769,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.gb).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gamecube",
@@ -5515,7 +5801,7 @@
     "recommendedFormat": ".rvz (melhor formato para Dolphin com redução de até 60% do tamanho)",
     "biosRequired": false,
     "biosFiles": [],
-    "biosNotes": "Dolphin roda jogos de GameCube direto sem BIOS obrigatória.",
+    "biosNotes": "Dolphin roda discos de GameCube diretamente sem BIOS obrigatória.",
     "defaultEmulator": {
       "name": "dolphin",
       "core": "dolphin"
@@ -5538,15 +5824,31 @@
     "summary": "Configurações, pasta de ROMs e instruções de instalação para GameCube no RIESCADE.",
     "logo": "/images/platforms/logos/gamecube.webp",
     "image": null,
-    "notes": [
-      "Formato recomendado: RVZ (.rvz). Reduz o tamanho da ISO descartando lixo e ruído de compressão do disco, mantendo hash 1:1 ao descompactar."
-    ],
+    "notes": [],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\gamecube\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.rvz (melhor formato para Dolphin com redução de até 60% do tamanho)).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "dolphin-rvz",
+        "title": "Formato RVZ: O Padrão Moderno do Dolphin",
+        "badge": "Altamente Recomendado",
+        "description": "O formato .rvz foi desenvolvido especificamente pela equipe do Dolphin. Ele compacta as imagens ISO sem perdas (lossless), elimina lixo de dados do disco e mantém o hash MD5 intacto.",
+        "callout": {
+          "type": "tip",
+          "title": "Economia Gigante de Espaço",
+          "text": "Um jogo como Super Smash Bros. Brawl pode cair de 7.9 GB em .iso para apenas 3.8 GB em .rvz sem nenhuma diferença visual ou de áudio."
+        }
+      },
+      {
+        "id": "wii-controls",
+        "title": "Controles no Wii: Controles Convencionais vs Wiimote Real",
+        "description": "O Dolphin já vem pré-configurado no RIESCADE para que controles padrão (Xbox, PS4, PS5 e 8BitDo) simulem o Wiimote com o analógico direito apontando na tela. Para jogar com Wiimote Físico real, recomendamos a barra Mayflash DolphinBar conectada em Modo 4."
+      }
     ]
   },
   {
@@ -5597,7 +5899,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.auto).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "starship",
@@ -5639,7 +5942,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.z64).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "gog",
@@ -5674,7 +5978,7 @@
     "theme": "gog",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para GOG.com no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/gog.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -5683,7 +5987,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bat).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "halflife",
@@ -5716,7 +6021,7 @@
     "theme": "halflife",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Half-Life no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/halflife.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -5725,7 +6030,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "hikaru",
@@ -5741,11 +6047,9 @@
       ".zip"
     ],
     "recommendedFormat": ".zip",
-    "biosRequired": true,
-    "biosFiles": [
-      "hikaru.zip"
-    ],
-    "biosNotes": "Coloque na pasta bios/.",
+    "biosRequired": false,
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "demul",
       "core": "hikaru"
@@ -5769,9 +6073,10 @@
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\hikaru\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
-      "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
+      "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "neogeo64",
@@ -5821,7 +6126,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "ikemen",
@@ -5868,7 +6174,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "jaguar",
@@ -5937,7 +6244,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "jaguarcd",
@@ -5994,7 +6302,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.cue).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "j2me",
@@ -6029,7 +6338,7 @@
     "theme": "j2me",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Java 2 MicroEdition no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/j2me.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -6038,7 +6347,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.jar).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "karaoke",
@@ -6082,7 +6392,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.cdg).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "kodi",
@@ -6095,6 +6406,7 @@
     "folder": "kodi",
     "folderPath": "roms\\kodi\\",
     "extensions": [
+      ".exe",
       ".exe"
     ],
     "recommendedFormat": ".exe",
@@ -6107,7 +6419,7 @@
     "theme": "kodi",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para KODI no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/kodi.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -6116,7 +6428,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.exe).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "daphne",
@@ -6176,7 +6489,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.daphne).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "lcdgames",
@@ -6226,7 +6540,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "library",
@@ -6236,8 +6551,8 @@
     "manufacturer": "Misc. System",
     "hardware": "system",
     "release": null,
-    "folder": "library",
-    "folderPath": "roms\\library\\",
+    "folder": ".riescade\\library",
+    "folderPath": "roms\\.riescade\\library\\",
     "extensions": [
       ".jpg",
       ".jpeg",
@@ -6267,16 +6582,17 @@
     "theme": "library",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Library no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/library.webp",
     "image": null,
     "notes": [],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
-      "Abra a pasta: roms\\library\\",
+      "Abra a pasta: roms\\.riescade\\library\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.jpg).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "love",
@@ -6323,7 +6639,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "lowresnx",
@@ -6367,7 +6684,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.nx).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "lutro",
@@ -6415,7 +6733,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.love).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "lynx",
@@ -6478,7 +6797,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.lnx).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "mame",
@@ -6498,9 +6818,9 @@
     "recommendedFormat": ".zip (ROMset não extraído)",
     "biosRequired": true,
     "biosFiles": [
-      "Arquivos de BIOS do ROMset MAME (ex: neogeo.zip, qsound.zip)"
+      "Arquivos de BIOS do ROMset MAME (neogeo.zip, qsound.zip, etc.)"
     ],
-    "biosNotes": "Mantenha na pasta roms/mame ou bios/.",
+    "biosNotes": "Devem permanecer compactados em formato .zip dentro de roms/mame/ ou bios/.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "mame"
@@ -6544,6 +6864,53 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip (ROMset não extraído)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "arcade-rule-no-unzip",
+        "title": "A Regra de Ouro do Arcade: NUNCA Extraia os Arquivos .zip",
+        "badge": "Regra Fundamental",
+        "description": "Diferente de jogos de PC ou consoles de CD, emuladores de arcade (MAME e FinalBurn Neo) lêem os chips individuais de ROM diretamente de dentro do arquivo .zip. Se você extrair o conteúdo do .zip, o jogo NÃO FUNCIONARÁ!",
+        "callout": {
+          "type": "danger",
+          "title": "Não altere os nomes dos arquivos .zip",
+          "text": "Os nomes como mslug.zip, kof98.zip, sf2.zip são códigos universais de identificação dos drivers da placa arcade. Nunca renomeie esses arquivos."
+        }
+      },
+      {
+        "id": "arcade-bios",
+        "title": "Arquivos de BIOS de Arcade",
+        "description": "Certos sistemas (como Neo Geo, PolyGame Master e Capcom QSound) exigem um arquivo de BIOS acompanhando a ROM:",
+        "table": {
+          "headers": [
+            "Placa Arcade",
+            "Arquivo de BIOS (.zip)",
+            "Localização"
+          ],
+          "rows": [
+            [
+              "SNK Neo Geo MVS/AES",
+              "neogeo.zip",
+              "roms\\arcade\\ ou bios\\"
+            ],
+            [
+              "Capcom CPS1 / CPS2 (Áudio)",
+              "qsound_hle.zip ou qsound.zip",
+              "roms\\arcade\\ ou bios\\"
+            ],
+            [
+              "IGS PolyGame Master (PGM)",
+              "pgm.zip",
+              "roms\\arcade\\ ou bios\\"
+            ],
+            [
+              "Sega Naomi / Atomiswave",
+              "naomi.zip, awbios.zip",
+              "roms\\arcade\\ ou bios\\"
+            ]
+          ]
+        }
+      }
     ]
   },
   {
@@ -6593,7 +6960,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "mastersystem",
@@ -6681,7 +7049,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "aquarius",
@@ -6731,7 +7100,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "intellivision",
@@ -6792,7 +7162,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.int).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "megadrive-msu",
@@ -6852,7 +7223,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.68k).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "megacd",
@@ -6873,14 +7245,14 @@
       ".chd",
       ".m3u"
     ],
-    "recommendedFormat": ".cue",
+    "recommendedFormat": ".chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)",
     "biosRequired": true,
     "biosFiles": [
-      "bios_CD_U.bin",
-      "bios_CD_E.bin",
-      "bios_CD_J.bin"
+      "bios_CD_U.bin (US)",
+      "bios_CD_E.bin (Europa)",
+      "bios_CD_J.bin (Japão)"
     ],
-    "biosNotes": "Coloque na pasta bios/. Essencial para rodar discos de Sega CD.",
+    "biosNotes": "Coloque na pasta bios/. Essencial para rodar imagens de CD do Mega CD.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "genesis_plus_gx"
@@ -6920,16 +7292,17 @@
     "theme": "megacd",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Mega CD no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/megacd.webp",
     "image": null,
     "notes": [],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\megacd\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.cue).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "megaduck",
@@ -6982,7 +7355,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "megadrive",
@@ -7072,7 +7446,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.68k).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "model2",
@@ -7091,7 +7466,7 @@
     "recommendedFormat": ".zip",
     "biosRequired": false,
     "biosFiles": [],
-    "biosNotes": "Emulador Model 2 Emulator já inclui arquivos internos de inicialização.",
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "m2emulator",
       "core": "multicpu"
@@ -7128,7 +7503,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "model3",
@@ -7147,7 +7523,7 @@
     "recommendedFormat": ".zip",
     "biosRequired": false,
     "biosFiles": [],
-    "biosNotes": "Supermodel já possui HLE das placas Sega Model 3.",
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "supermodel",
       "core": null
@@ -7177,7 +7553,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "msx1",
@@ -7203,12 +7580,13 @@
       ".ogv",
       ".sg",
       ".sc",
-      ".m3u"
+      ".m3u",
+      ".ogv"
     ],
     "recommendedFormat": ".zip",
     "biosRequired": false,
     "biosFiles": [],
-    "biosNotes": "Cores de MSX incluem BIOS aberta C-BIOS. Jogos comerciais podem exigir BIOS oficial.",
+    "biosNotes": "C-BIOS aberta inclusa. Jogos comerciais podem requerer MSX.ROM na pasta bios/.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "bluemsx"
@@ -7239,7 +7617,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "msxturbor",
@@ -7301,7 +7680,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "msx2",
@@ -7332,7 +7712,7 @@
     "recommendedFormat": ".zip",
     "biosRequired": false,
     "biosFiles": [],
-    "biosNotes": "C-BIOS inclusa. Dumps reais exigem MSX2.ROM e MSX2EXT.ROM na pasta bios/.",
+    "biosNotes": "C-BIOS inclusa. Dumps autênticos exigem MSX2.ROM e MSX2EXT.ROM na pasta bios/.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "bluemsx"
@@ -7363,7 +7743,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "msx2+",
@@ -7425,7 +7806,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "mugen",
@@ -7472,7 +7854,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "multivision",
@@ -7522,7 +7905,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.sms).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "ngage",
@@ -7565,7 +7949,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.ngage).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "namco2x6",
@@ -7611,7 +7996,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "namco3xx",
@@ -7646,7 +8032,7 @@
     "theme": "namco3xx",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Namco 357/369 no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/namco3xx.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -7655,7 +8041,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "naomi",
@@ -7676,12 +8063,9 @@
       ".decomp"
     ],
     "recommendedFormat": ".bin",
-    "biosRequired": true,
-    "biosFiles": [
-      "naomi.zip",
-      "naomi_boot.bin"
-    ],
-    "biosNotes": "Coloque na pasta bios/ ou bios/dc/.",
+    "biosRequired": false,
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "libretro",
       "core": "flycast"
@@ -7717,9 +8101,10 @@
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\naomi\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
-      "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
+      "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "naomi2",
@@ -7737,11 +8122,9 @@
       ".decomp"
     ],
     "recommendedFormat": ".zip",
-    "biosRequired": true,
-    "biosFiles": [
-      "naomi2.zip"
-    ],
-    "biosNotes": "Coloque na pasta bios/ ou bios/dc/.",
+    "biosRequired": false,
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "libretro",
       "core": "flycast"
@@ -7777,9 +8160,10 @@
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\naomi2\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
-      "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
+      "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "neogeo",
@@ -7797,12 +8181,10 @@
       ".neo",
       ".7z"
     ],
-    "recommendedFormat": ".zip",
-    "biosRequired": true,
-    "biosFiles": [
-      "neogeo.zip"
-    ],
-    "biosNotes": "Coloque o neogeo.zip junto com a rom na pasta roms/neogeo/ ou em bios/.",
+    "recommendedFormat": ".zip (ROMset não extraído)",
+    "biosRequired": false,
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "libretro",
       "core": null
@@ -7823,10 +8205,11 @@
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\neogeo\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
-      "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.zip (ROMset não extraído)).",
+      "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "neogeocd",
@@ -7848,12 +8231,9 @@
       ".7z"
     ],
     "recommendedFormat": ".m3u",
-    "biosRequired": true,
-    "biosFiles": [
-      "neocd.bin",
-      "neocd.zip"
-    ],
-    "biosNotes": "Coloque na pasta bios/ ou bios/neocd/.",
+    "biosRequired": false,
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "libretro",
       "core": "neocd"
@@ -7882,9 +8262,10 @@
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\neogeocd\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.m3u).",
-      "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
+      "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "ngp",
@@ -7950,7 +8331,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.ngp).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "ngpc",
@@ -8016,7 +8398,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.ngp).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "3ds",
@@ -8046,12 +8429,10 @@
       ".7z",
       ".squashfs"
     ],
-    "recommendedFormat": ".3ds",
+    "recommendedFormat": ".cci ou .3ds descriptografado",
     "biosRequired": false,
-    "biosFiles": [
-      "aes_keys.txt (se roms forem criptografadas)"
-    ],
-    "biosNotes": "Utilize ROMs descriptografadas (.cci ou .3ds) para rodar direto sem chaves.",
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "azahar",
       "core": null
@@ -8083,10 +8464,11 @@
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\3ds\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.3ds).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.cci ou .3ds descriptografado).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "n64",
@@ -8110,7 +8492,7 @@
     "recommendedFormat": ".v64",
     "biosRequired": false,
     "biosFiles": [],
-    "biosNotes": "A maioria dos cores roda sem BIOS. Somente 64DD precisa de BIOS específica.",
+    "biosNotes": "Emulação HLE no Simple64 e Mupen64Plus dispensa BIOS para cartuchos comerciais.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "mupen64plus_next"
@@ -8166,7 +8548,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.v64).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "n64dd",
@@ -8188,12 +8571,9 @@
       ".ndd"
     ],
     "recommendedFormat": ".v64",
-    "biosRequired": true,
-    "biosFiles": [
-      "64DD_IPL_US.bin",
-      "64DD_IPL_JP.bin"
-    ],
-    "biosNotes": "Coloque na pasta bios/.",
+    "biosRequired": false,
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "mupen64",
       "core": null
@@ -8232,9 +8612,10 @@
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\n64dd\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.v64).",
-      "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
+      "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "nds",
@@ -8254,12 +8635,8 @@
     ],
     "recommendedFormat": ".nds",
     "biosRequired": false,
-    "biosFiles": [
-      "bios7.bin",
-      "bios9.bin",
-      "firmware.bin"
-    ],
-    "biosNotes": "MeloDS e DeSmuME rodam sem BIOS, mas usar BIOS original melhora fidelidade e áudio.",
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "libretro",
       "core": "melondsds"
@@ -8300,7 +8677,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.nds).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "nes",
@@ -8377,7 +8755,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.fds).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "fds",
@@ -8398,9 +8777,9 @@
     "recommendedFormat": ".nes",
     "biosRequired": true,
     "biosFiles": [
-      "disksys.rom"
+      "disksys.rom (Famicom Disk System BIOS)"
     ],
-    "biosNotes": "Coloque na pasta bios/. Obrigatório para rodar jogos do Famicom Disk System.",
+    "biosNotes": "Coloque na pasta bios/. Obrigatório para jogos em formato .fds do Famicom Disk System.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "fceumm"
@@ -8438,7 +8817,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.nes).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "switch",
@@ -8459,14 +8839,14 @@
       ".kip",
       ".decomp"
     ],
-    "recommendedFormat": ".nso",
+    "recommendedFormat": ".nsp ou .xci",
     "biosRequired": true,
     "biosFiles": [
-      "prod.keys",
+      "prod.keys (Chaves de criptografia)",
       "title.keys",
-      "Firmware oficial"
+      "Firmware oficial do Nintendo Switch"
     ],
-    "biosNotes": "Coloque em bios/switch/keys/ e instale o firmware no emulador Ryujinx/Citron.",
+    "biosNotes": "Coloque as chaves em bios/switch/keys/ e instale os arquivos de firmware descompactados em bios/switch/registered/.",
     "defaultEmulator": {
       "name": "eden",
       "core": null
@@ -8499,13 +8879,51 @@
     "summary": "O híbrido da Nintendo, que funciona na TV e no modo portátil. The Legend of Zelda: Breath of the Wild, Super Mario Odyssey e Animal Crossing estão entre os destaques. Emular o Switch exige firmware e chaves do próprio console.",
     "logo": "/images/platforms/logos/switch.webp",
     "image": "/images/platforms/systems/switch.webp",
-    "notes": [],
+    "notes": [
+      "Requer chaves prod.keys atualizadas na mesma versão do firmware instalado no emulador para descriptografar os títulos.",
+      "DLCs e atualizações (updates) devem ser instalados dentro do emulador Ryujinx/Citron."
+    ],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\switch\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.nso).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.nsp ou .xci).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "switch-keys",
+        "title": "Arquivos de Chaves de Criptografia (prod.keys e title.keys)",
+        "badge": "Obrigatório",
+        "description": "Sem as chaves criptográficas (prod.keys), nenhum emulador de Switch conseguirá ler suas ROMs.",
+        "steps": [
+          {
+            "stepNumber": 1,
+            "title": "Obtenha os arquivos prod.keys e title.keys",
+            "text": "As chaves devem ser da mesma versão ou mais recentes que o firmware do jogo que você pretende rodar."
+          },
+          {
+            "stepNumber": 2,
+            "title": "Copie para a pasta de chaves do RIESCADE",
+            "text": "Cole os arquivos em: bios\\switch\\keys\\ (ou em bios\\ryujinx\\system\\)."
+          }
+        ],
+        "callout": {
+          "type": "info",
+          "title": "Facilidade para Membros",
+          "text": "O pacote de BIOS da RIESCADE já inclui as chaves prod.keys e title.keys atualizadas na versão mais recente."
+        }
+      },
+      {
+        "id": "switch-firmware",
+        "title": "Instalação do Firmware do Console",
+        "description": "Para jogos que utilizam fontes do sistema, menus Mii ou shaders avançados, o firmware oficial é exigido. Extraia os arquivos .nca do firmware dentro de bios\\switch\\registered\\."
+      },
+      {
+        "id": "switch-updates",
+        "title": "Como Aplicar Updates e DLCs no Ryujinx",
+        "description": "Mantenha os arquivos base (.nsp/.xci) em roms\\switch\\. No Ryujinx, clique com o botão direito no jogo e selecione \"Manage Title Updates\" ou \"Manage DLC\" para vincular as atualizações."
+      }
     ]
   },
   {
@@ -8556,7 +8974,7 @@
     "theme": "odyssey2",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Odyssey² - Videopac no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/odyssey2.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -8565,7 +8983,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "openbor",
@@ -8611,7 +9030,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.pak).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "opengoal",
@@ -8653,7 +9073,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.opengoal).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "openjazz",
@@ -8695,7 +9116,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.openjazz).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "openlara",
@@ -8739,7 +9161,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.croft).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "oricatmos",
@@ -8790,7 +9213,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.dsk).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "p2000t",
@@ -8835,7 +9259,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.cas).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pcengine",
@@ -8914,7 +9339,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.pce).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pcenginecd",
@@ -8940,12 +9366,12 @@
       ".7z",
       ".squashfs"
     ],
-    "recommendedFormat": ".pce",
+    "recommendedFormat": ".chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)",
     "biosRequired": true,
     "biosFiles": [
-      "syscard3.pce"
+      "syscard3.pce (Super CD-ROM System V3.00)"
     ],
-    "biosNotes": "Coloque na pasta bios/. Obrigatório para jogos de TurboGrafx-CD / PC Engine CD.",
+    "biosNotes": "Coloque na pasta bios/. Obrigatório para jogos em CD de PC Engine / TurboGrafx-CD.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "mednafen_pce"
@@ -8988,10 +9414,11 @@
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\pcenginecd\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.pce).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pc88",
@@ -9037,7 +9464,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.d88).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pc98",
@@ -9105,7 +9533,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.d98).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pcfx",
@@ -9124,7 +9553,7 @@
       ".toc",
       ".chd"
     ],
-    "recommendedFormat": ".cue",
+    "recommendedFormat": ".chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)",
     "biosRequired": true,
     "biosFiles": [
       "pcfx.rom"
@@ -9160,10 +9589,11 @@
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\pcfx\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.cue).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pegasus",
@@ -9214,7 +9644,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pdark",
@@ -9256,7 +9687,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.z64).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "cdi",
@@ -9313,7 +9745,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.chd).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pico8",
@@ -9364,7 +9797,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.png).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pinballfx",
@@ -9414,7 +9848,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.table).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pinballfx2",
@@ -9465,7 +9900,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.pxp).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pinballm",
@@ -9515,7 +9951,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.table).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "laseractive",
@@ -9551,7 +9988,7 @@
     "theme": "laseractive",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Pioneer Laserdisc no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/laseractive.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -9560,7 +9997,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.mmi).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "psx",
@@ -9589,14 +10027,14 @@
       ".squashfs",
       ".decomp"
     ],
-    "recommendedFormat": ".cue",
+    "recommendedFormat": ".chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)",
     "biosRequired": true,
     "biosFiles": [
-      "scph5501.bin",
-      "scph5502.bin",
-      "scph5500.bin"
+      "scph5501.bin (US - MD5: 490f666e1afb15b7362b406ed1cea246)",
+      "scph5502.bin (EU - MD5: 32736f17079d0b2b7024407c39bd3050)",
+      "scph5500.bin (JP - MD5: ff3eeb8c664e0536ead8d8724e72505a)"
     ],
-    "biosNotes": "Coloque na pasta bios/. Essencial para compatibilidade máxima com DuckStation e SwanStation.",
+    "biosNotes": "Coloque na pasta bios/. Essencial para compatibilidade máxima com DuckStation, SwanStation e Beetle PSX HW.",
     "defaultEmulator": {
       "name": "libretro",
       "core": "mednafen_psx_hw"
@@ -9634,9 +10072,99 @@
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\psx\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.cue).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "psx-m3u",
+        "title": "Jogos Multi-Disco: Como Criar Arquivos .m3u",
+        "badge": "Essencial para RPGs",
+        "description": "Para jogos que possuem mais de um disco (como Final Fantasy VII, VIII, IX, Metal Gear Solid e Resident Evil 2), utilize uma playlist .m3u. Isso permite trocar de disco facilmente no DuckStation ou RetroArch sem perder o progresso e sem poluir sua lista com vários itens do mesmo jogo.",
+        "steps": [
+          {
+            "stepNumber": 1,
+            "title": "Coloque todos os discos na pasta",
+            "text": "Coloque os arquivos dos discos (preferencialmente em formato .chd) na pasta roms\\psx\\."
+          },
+          {
+            "stepNumber": 2,
+            "title": "Crie o arquivo de texto .m3u",
+            "text": "Crie um arquivo com o nome do jogo e extensão .m3u (exemplo: Final Fantasy VII.m3u)."
+          },
+          {
+            "stepNumber": 3,
+            "title": "Liste o nome exato de cada disco",
+            "text": "Escreva o nome do arquivo de cada disco, um por linha, respeitando as extensões."
+          }
+        ],
+        "snippets": [
+          {
+            "filename": "Final Fantasy VII.m3u",
+            "language": "text",
+            "description": "Exemplo de playlist .m3u para Final Fantasy VII (3 Discos):",
+            "code": "Final Fantasy VII (Disc 1).chd\nFinal Fantasy VII (Disc 2).chd\nFinal Fantasy VII (Disc 3).chd"
+          },
+          {
+            "filename": "Metal Gear Solid.m3u",
+            "language": "text",
+            "description": "Exemplo para Metal Gear Solid (2 Discos):",
+            "code": "Metal Gear Solid (Disc 1).chd\nMetal Gear Solid (Disc 2).chd"
+          }
+        ]
+      },
+      {
+        "id": "psx-chd",
+        "title": "Compressão CHD: Mais Espaço e Sem Perda de Áudio",
+        "description": "O formato .chd (Compressed Hunks of Data) é o padrão ouro para discos de PlayStation 1. Ele reduz o tamanho das imagens .cue/.bin em até 60% e mantém todas as faixas de áudio CD-DA perfeitamente sincronizadas."
+      },
+      {
+        "id": "psx-bios-table",
+        "title": "Tabela de BIOS Oficiais do PlayStation 1",
+        "description": "Coloque as BIOS na pasta bios\\ do RIESCADE para compatibilidade total com DuckStation, SwanStation e Beetle PSX HW.",
+        "table": {
+          "headers": [
+            "Região",
+            "Arquivo BIOS",
+            "Hash MD5 Verificado",
+            "Uso"
+          ],
+          "rows": [
+            [
+              "América do Norte (NTSC-U)",
+              "scph5501.bin",
+              "490f666e1afb15b7362b406ed1cea246",
+              "Requerido para jogos dos EUA"
+            ],
+            [
+              "Europa (PAL)",
+              "scph5502.bin",
+              "32736f17079d0b2b7024407c39bd3050",
+              "Requerido para jogos europeus"
+            ],
+            [
+              "Japão (NTSC-J)",
+              "scph5500.bin",
+              "ff3eeb8c664e0536ead8d8724e72505a",
+              "Requerido para jogos japoneses"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "psx-hd-textures",
+        "title": "Pacotes de Texturas HD no DuckStation",
+        "description": "O DuckStation suporta substituição de texturas em tempo real por texturas remasterizadas pela comunidade.",
+        "snippets": [
+          {
+            "filename": "Caminho das texturas",
+            "language": "text",
+            "description": "Extraia os pacotes de textura no seguinte diretório:",
+            "code": "emulators\\duckstation\\textures\\<GAME_ID>\\replacements\\\nExemplo: emulators\\duckstation\\textures\\SLUS-00067\\replacements\\"
+          }
+        ]
+      }
     ]
   },
   {
@@ -9662,12 +10190,14 @@
       ".squashfs",
       ".decomp"
     ],
-    "recommendedFormat": ".iso",
+    "recommendedFormat": ".chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)",
     "biosRequired": true,
     "biosFiles": [
-      "SCPH-70004.bin (ou qualquer BIOS SCPH-3xxxx a 9xxxx)"
+      "SCPH-70004.bin (ou qualquer BIOS SCPH-3xxxx a SCPH-9xxxx)",
+      "rom1.bin (opcional)",
+      "rom2.bin (opcional)"
     ],
-    "biosNotes": "Coloque na pasta bios/ ou bios/pcsx2/bios/. Necessário para rodar o PCSX2.",
+    "biosNotes": "Coloque na pasta bios/ ou bios/pcsx2/bios/. Necessário para rodar o emulador PCSX2.",
     "defaultEmulator": {
       "name": "pcsx2",
       "core": "pcsx2"
@@ -9700,9 +10230,53 @@
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\ps2\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.iso).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "ps2-formats",
+        "title": "Formatos Recomendados: .chd e .iso",
+        "description": "O emulador PCSX2 v2.x modernizado no RIESCADE possui suporte nativo integral a imagens .chd compactadas. Jogos convertidos para .chd economizam centenas de gigabytes no seu SSD sem nenhuma perda de performance."
+      },
+      {
+        "id": "ps2-bios",
+        "title": "Configuração da BIOS do PlayStation 2",
+        "description": "Coloque os arquivos de BIOS de PS2 dentro de bios\\ ou bios\\pcsx2\\bios\\.",
+        "table": {
+          "headers": [
+            "Modelo",
+            "Arquivo Recomendado",
+            "Notas"
+          ],
+          "rows": [
+            [
+              "PS2 Slim (Universal)",
+              "SCPH-70004.bin ou SCPH-77001.bin",
+              "Maior compatibilidade global"
+            ],
+            [
+              "PS2 Fat",
+              "SCPH-39001.bin",
+              "Excelente para títulos clássicos"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "ps2-hd-textures",
+        "title": "Remasterização com Texturas HD Comunitárias",
+        "description": "O PCSX2 suporta texturas HD substitutas. Basta baixar o pacote comunitário do seu jogo e extrair na pasta de texturas:",
+        "snippets": [
+          {
+            "filename": "Caminho das texturas do PCSX2",
+            "language": "text",
+            "description": "Diretório de substituição de texturas:",
+            "code": "emulators\\pcsx2\\textures\\<SERIAL_DO_JOGO>\\replacements\\\nExemplo para Black: emulators\\pcsx2\\textures\\SLUS-21376\\replacements\\"
+          }
+        ]
+      }
     ]
   },
   {
@@ -9726,12 +10300,12 @@
       ".squashfs",
       ".decomp"
     ],
-    "recommendedFormat": ".m3u",
+    "recommendedFormat": "Pasta do jogo com PS3_GAME (formato JB Folder) ou .pkg com licença .rap",
     "biosRequired": true,
     "biosFiles": [
-      "PS3UPDAT.PUP (Firmware oficial da Sony)"
+      "PS3UPDAT.PUP (Firmware oficial Sony PlayStation 3)"
     ],
-    "biosNotes": "Instalado dentro do emulador RPCS3 (File -> Install Firmware) ou via pacote automático de BIOS da RIESCADE.",
+    "biosNotes": "Instale dentro do RPCS3 através do menu File → Install Firmware ou use o instalador do RIESCADE.",
     "defaultEmulator": {
       "name": "rpcs3",
       "core": null
@@ -9752,9 +10326,53 @@
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\ps3\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.m3u).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (Pasta do jogo com PS3_GAME (formato JB Folder) ou .pkg com licença .rap).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "ps3-firmware",
+        "title": "Instalação Obrigatória do Firmware Oficial",
+        "badge": "Obrigatório",
+        "description": "O RPCS3 necessita que os módulos oficiais da Sony estejam instalados no disco virtual.",
+        "steps": [
+          {
+            "stepNumber": 1,
+            "title": "Baixe o firmware oficial da Sony",
+            "text": "O arquivo chama-se PS3UPDAT.PUP (membros RIESCADE podem baixar direto pelo pacote de BIOS)."
+          },
+          {
+            "stepNumber": 2,
+            "title": "Instale no RPCS3",
+            "text": "Abra o emulador RPCS3, clique no menu superior File → Install Firmware e selecione o PS3UPDAT.PUP."
+          },
+          {
+            "stepNumber": 3,
+            "title": "Aguarde a compilação dos módulos PPU",
+            "text": "O emulador compilará os arquivos do sistema. Uma mensagem de sucesso confirmará a instalação."
+          }
+        ]
+      },
+      {
+        "id": "ps3-game-formats",
+        "title": "Estrutura dos Jogos: JB Folder (.ps3dir) e Pacotes .pkg",
+        "description": "O RIESCADE suporta tanto jogos em formato de pasta quanto instaladores digitais .pkg com chaves .rap.",
+        "snippets": [
+          {
+            "filename": "Estrutura de pasta (JB Folder)",
+            "language": "text",
+            "description": "Coloque a pasta do jogo dentro de roms\\ps3\\:",
+            "code": "roms\\ps3\\Demon's Souls [BLES00932]\\PS3_GAME\\USRDIR\\EBOOT.BIN\nroms\\ps3\\Demon's Souls [BLES00932]\\PS3_DISC.SFB"
+          },
+          {
+            "filename": "Licenças .rap para jogos .pkg",
+            "language": "text",
+            "description": "Coloque as licenças .rap das compras digitais na pasta exdata do RPCS3:",
+            "code": "emulators\\rpcs3\\dev_hdd0\\home\\00000001\\exdata\\<NOME_DA_LICENCA>.rap"
+          }
+        ]
+      }
     ]
   },
   {
@@ -9800,7 +10418,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.ps4).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "ps5",
@@ -9814,7 +10433,10 @@
     "folderPath": "roms\\ps5\\",
     "extensions": [
       ".ps5",
+      ".ps5",
       ".game",
+      ".game",
+      ".zar",
       ".zar"
     ],
     "recommendedFormat": ".ps5",
@@ -9844,7 +10466,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.ps5).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "psp",
@@ -9867,10 +10490,10 @@
       ".7z",
       ".squashfs"
     ],
-    "recommendedFormat": ".iso",
+    "recommendedFormat": ".cso ou .chd (economizam espaço) ou .iso",
     "biosRequired": false,
     "biosFiles": [],
-    "biosNotes": "PPSSPP tem HLE BIOS embutida, roda direto sem arquivos adicionais.",
+    "biosNotes": "PPSSPP tem HLE BIOS embutida de alta performance, iniciando os jogos imediatamente.",
     "defaultEmulator": {
       "name": "ppsspp",
       "core": null
@@ -9897,10 +10520,11 @@
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\psp\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.iso).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.cso ou .chd (economizam espaço) ou .iso).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "psvita",
@@ -9920,9 +10544,10 @@
     "recommendedFormat": ".m3u",
     "biosRequired": true,
     "biosFiles": [
-      "PSP2UPDAT.PUP (Firmware Vita)"
+      "PSP2UPDAT.PUP (Firmware oficial PS Vita)",
+      "font package oficial"
     ],
-    "biosNotes": "Necessário para o emulador Vita3K.",
+    "biosNotes": "Instale o firmware através da interface gráfica do Vita3K.",
     "defaultEmulator": {
       "name": "vita3k",
       "core": null
@@ -9946,7 +10571,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.m3u).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pokemini",
@@ -9992,7 +10618,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.min).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "ports",
@@ -10034,7 +10661,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.libretro).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "powerbomberman",
@@ -10067,7 +10695,7 @@
     "theme": "powerbomberman",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Power Bomberman no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/powerbomberman.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -10076,7 +10704,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.pb).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "pv1000",
@@ -10128,7 +10757,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "quake",
@@ -10168,7 +10798,7 @@
     "theme": "quake",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Quake no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/quake.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -10177,7 +10807,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.pak).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "quake2",
@@ -10220,7 +10851,7 @@
     "theme": "quake2",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Quake II no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/quake2.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -10229,7 +10860,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.pak).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "raze",
@@ -10271,7 +10903,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.raze).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "rtcw",
@@ -10304,7 +10937,7 @@
     "theme": "rtcw",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para RealRTCW no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/rtcw.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -10313,7 +10946,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.rtcw).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "reminiscence",
@@ -10357,7 +10991,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.rem).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "samcoupe",
@@ -10404,7 +11039,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.dsk).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "satellaview",
@@ -10461,7 +11097,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.st).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "saturn",
@@ -10483,13 +11120,14 @@
       ".iso",
       ".cso",
       ".mds",
+      ".chd",
       ".squashfs"
     ],
     "recommendedFormat": ".chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)",
     "biosRequired": true,
     "biosFiles": [
-      "sega_101.bin (Japão)",
-      "mpr-17933.bin (EUA/Europa)"
+      "sega_101.bin (Japão - MD5: 224b752f3434603c62ab0b03704efc38)",
+      "mpr-17933.bin (EUA/Europa - MD5: 4f1345d312bc85d21469e882a176d634)"
     ],
     "biosNotes": "Coloque na pasta bios/. Necessário para Mednafen / Beetle Saturn e Kronos.",
     "defaultEmulator": {
@@ -10537,17 +11175,15 @@
     "summary": "O Sega Saturn é lembrado pelos jogos 2D impecáveis e pelas conversões de arcade, como Panzer Dragoon Saga, NiGHTS into Dreams, Guardian Heroes e Radiant Silvergun.",
     "logo": "/images/platforms/logos/saturn.webp",
     "image": "/images/platforms/systems/saturn.webp",
-    "notes": [
-      "Formato recomendado: CHD (.chd). Converte múltiplos .bin/.cue em um único arquivo compactado sem perda de qualidade de áudio.",
-      "Jogos multidisco (CD 1, CD 2, etc.): crie um arquivo .m3u com o nome do jogo listando cada disco em uma linha para salvar o progresso unificado."
-    ],
+    "notes": [],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\saturn\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.chd (reduz em até 60% o tamanho da ISO/BIN mantendo áudio perfeito)).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "screenshots",
@@ -10557,8 +11193,8 @@
     "manufacturer": "Misc. System",
     "hardware": "console",
     "release": null,
-    "folder": "screenshots",
-    "folderPath": "roms\\screenshots\\",
+    "folder": ".riescade\\screenshots",
+    "folderPath": "roms\\.riescade\\screenshots\\",
     "extensions": [
       ".jpg",
       ".jpeg",
@@ -10592,16 +11228,17 @@
     "theme": "screenshots",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Screenshots no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/screenshots.webp",
     "image": null,
     "notes": [],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
-      "Abra a pasta: roms\\screenshots\\",
+      "Abra a pasta: roms\\.riescade\\screenshots\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.jpg).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "scummvm",
@@ -10653,7 +11290,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.scummvm).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "lindbergh",
@@ -10690,7 +11328,7 @@
     "theme": "lindbergh",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Sega Lindbergh no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/lindbergh.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -10699,7 +11337,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "sg1000",
@@ -10762,7 +11401,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.sms).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "x1",
@@ -10817,7 +11457,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.dx1).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "x68000",
@@ -10880,7 +11521,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.dim).",
       "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "soh",
@@ -10923,7 +11565,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.z64).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "singe",
@@ -10974,7 +11617,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.hypseus).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "solarus",
@@ -11021,7 +11665,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.solarus).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "sonic3-air",
@@ -11054,7 +11699,7 @@
     "theme": "sonic3-air",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Sonic 3 AIR no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/sonic3-air.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -11063,7 +11708,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "sonic-mania",
@@ -11096,7 +11742,7 @@
     "theme": "sonic-mania",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Sonic Mania no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/sonic-mania.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -11105,7 +11751,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.rsdk).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "sonicretro",
@@ -11151,7 +11798,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.rsdk).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "spectravideo",
@@ -11198,7 +11846,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.cas).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "segastv",
@@ -11258,7 +11907,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "steam",
@@ -11292,7 +11942,7 @@
     "theme": "steam",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Steam no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/steam.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -11301,7 +11951,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bat).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "sufami",
@@ -11358,7 +12009,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.st).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "supracan",
@@ -11409,7 +12061,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "scv",
@@ -11461,7 +12114,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "sgb",
@@ -11526,7 +12180,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.gb).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "superbroswar",
@@ -11570,7 +12225,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.sbw).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "snes-msu1",
@@ -11619,7 +12275,7 @@
     "theme": "snes-msu1",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Super NES MSU-1 no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/snes-msu1.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -11628,7 +12284,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.smc).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "snes",
@@ -11722,7 +12379,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.smc).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "supergrafx",
@@ -11799,7 +12457,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.pce).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "teknoparrot",
@@ -11846,7 +12505,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.teknoparrot).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "theforceengine",
@@ -11888,7 +12548,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.game).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "thomson",
@@ -11939,7 +12600,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "ti99",
@@ -11990,7 +12652,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.rpk).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "tic80",
@@ -12040,7 +12703,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.tic).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "triforce",
@@ -12059,11 +12723,9 @@
       ".7z"
     ],
     "recommendedFormat": ".iso",
-    "biosRequired": true,
-    "biosFiles": [
-      "triforce.zip"
-    ],
-    "biosNotes": "Coloque na pasta bios/triforce/.",
+    "biosRequired": false,
+    "biosFiles": [],
+    "biosNotes": null,
     "defaultEmulator": {
       "name": "dolphin",
       "core": "dolphin"
@@ -12103,9 +12765,10 @@
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\triforce\\",
       "Copie seus jogos para dentro desta pasta no formato recomendado (.iso).",
-      "Verifique se o pacote de BIOS está instalado em bios\\ (assinantes RIESCADE instalam com 1 clique no app).",
+      "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "coco",
@@ -12165,7 +12828,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.wav).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "tutor",
@@ -12218,7 +12882,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "tvgames",
@@ -12269,7 +12934,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "uzebox",
@@ -12319,7 +12985,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.uze).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "vsmile",
@@ -12370,7 +13037,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "vc4000",
@@ -12422,7 +13090,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "vectrex",
@@ -12476,7 +13145,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.bin).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "vg5k",
@@ -12526,7 +13196,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "c20",
@@ -12579,7 +13250,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.nib).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "vircon32",
@@ -12624,7 +13296,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.v32).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "virtualboy",
@@ -12678,7 +13351,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.vb).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "vpinball",
@@ -12725,7 +13399,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.vpx).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "wasm4",
@@ -12770,7 +13445,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.wasm).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "supervision",
@@ -12816,7 +13492,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.sv).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "wii",
@@ -12844,10 +13521,10 @@
       ".elf",
       ".decomp"
     ],
-    "recommendedFormat": ".wbfs ou .rvz (RVZ é altamente recomendado por economia de espaço)",
+    "recommendedFormat": ".rvz (RVZ é altamente recomendado por economia de espaço e integridade)",
     "biosRequired": false,
     "biosFiles": [],
-    "biosNotes": "Dolphin emula o sistema operacional do Wii internamente.",
+    "biosNotes": "Dolphin emula o IOS e o sistema do Wii por HLE sem requerer BIOS externa.",
     "defaultEmulator": {
       "name": "dolphin",
       "core": "dolphin"
@@ -12870,15 +13547,31 @@
     "summary": "O Wii conquistou o público com controles de movimento em Wii Sports, Super Mario Galaxy, Mario Kart Wii e The Legend of Zelda: Twilight Princess. No PC, os jogos rodam em alta definição.",
     "logo": "/images/platforms/logos/wii.webp",
     "image": "/images/platforms/systems/wii.webp",
-    "notes": [
-      "Formato recomendado: RVZ (.rvz). Reduz o tamanho da ISO descartando lixo e ruído de compressão do disco, mantendo hash 1:1 ao descompactar."
-    ],
+    "notes": [],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\wii\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.wbfs ou .rvz (RVZ é altamente recomendado por economia de espaço)).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.rvz (RVZ é altamente recomendado por economia de espaço e integridade)).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "dolphin-rvz",
+        "title": "Formato RVZ: O Padrão Moderno do Dolphin",
+        "badge": "Altamente Recomendado",
+        "description": "O formato .rvz foi desenvolvido especificamente pela equipe do Dolphin. Ele compacta as imagens ISO sem perdas (lossless), elimina lixo de dados do disco e mantém o hash MD5 intacto.",
+        "callout": {
+          "type": "tip",
+          "title": "Economia Gigante de Espaço",
+          "text": "Um jogo como Super Smash Bros. Brawl pode cair de 7.9 GB em .iso para apenas 3.8 GB em .rvz sem nenhuma diferença visual ou de áudio."
+        }
+      },
+      {
+        "id": "wii-controls",
+        "title": "Controles no Wii: Controles Convencionais vs Wiimote Real",
+        "description": "O Dolphin já vem pré-configurado no RIESCADE para que controles padrão (Xbox, PS4, PS5 e 8BitDo) simulem o Wiimote com o analógico direito apontando na tela. Para jogar com Wiimote Físico real, recomendamos a barra Mayflash DolphinBar conectada em Modo 4."
+      }
     ]
   },
   {
@@ -12899,13 +13592,13 @@
       ".wua",
       ".m3u"
     ],
-    "recommendedFormat": ".iso",
+    "recommendedFormat": ".wua (formato compactado único) ou pasta extraída com .rpx",
     "biosRequired": false,
     "biosFiles": [
       "otp.bin",
       "seeprom.bin"
     ],
-    "biosNotes": "Cemu roda a maioria dos jogos em formato RPX ou WUA sem dump de console.",
+    "biosNotes": "O emulador Cemu roda a maioria dos jogos em formato RPX ou WUA sem exigir dump da memória do console.",
     "defaultEmulator": {
       "name": "cemu",
       "core": null
@@ -12926,14 +13619,15 @@
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\wiiu\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.iso).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.wua (formato compactado único) ou pasta extraída com .rpx).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "Windows",
-    "slug": "Windows",
+    "slug": "windows",
     "name": "Windows",
     "fullname": "Windows",
     "manufacturer": "Microsoft",
@@ -12957,7 +13651,7 @@
       ".rar",
       ".wsquashfs"
     ],
-    "recommendedFormat": ".exe",
+    "recommendedFormat": ".game (executáveis locais) ou .url / .lnk (Steam, Epic, Xbox)",
     "biosRequired": false,
     "biosFiles": [],
     "biosNotes": null,
@@ -12977,13 +13671,261 @@
     "summary": "Jogos de PC para Windows, organizados na mesma biblioteca dos consoles e iniciados com um clique, com controle e sem sair da interface.",
     "logo": "/images/platforms/logos/windows.webp",
     "image": "/images/platforms/systems/windows.webp",
-    "notes": [],
+    "notes": [
+      "Não necessita de emulador: os jogos são executados diretamente pelo Windows de forma nativa.",
+      "Suporta atalhos diretos (.url) de lojas como Steam, Epic Games Store e Amazon Games.",
+      "Para jogos do Xbox Game Pass, é fundamental criar o arquivo .uwp com o ID da aplicação para pausar a música de fundo.",
+      "Para jogos com launchers (Rockstar, 2K, EA), use o truque do arquivo .gameexe para evitar música tocando durante a gameplay."
+    ],
     "instructions": [
       "Localize a pasta de instalação do RIESCADE no seu disco (ex: C:\\RIESCADE).",
       "Abra a pasta: roms\\windows\\",
-      "Copie seus jogos para dentro desta pasta no formato recomendado (.exe).",
+      "Copie seus jogos para dentro desta pasta no formato recomendado (.game (executáveis locais) ou .url / .lnk (Steam, Epic, Xbox)).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
+    ],
+    "sections": [
+      {
+        "id": "overview-folders",
+        "title": "Informações Gerais e Estrutura de Pastas",
+        "description": "Os jogos de Windows rodam nativamente no seu sistema operacional, sem passar por camadas lentas de emulação. O RIESCADE organiza os jogos em pastas dedicadas para facilitar o gerenciamento de cada loja ou formato.",
+        "callout": {
+          "type": "info",
+          "title": "Subpastas Dedicadas por Loja",
+          "text": "Você pode colocar todos os atalhos diretamente em roms\\windows\\ ou organizá-los nas subpastas específicas da sua loja favorita."
+        },
+        "table": {
+          "headers": [
+            "Loja / Tipo de Jogo",
+            "Pasta no RIESCADE",
+            "Formatos Recomendados"
+          ],
+          "rows": [
+            [
+              "Jogos Nativos / Portáteis / Outros",
+              "roms\\windows\\",
+              ".game, .lnk, .bat, .exe"
+            ],
+            [
+              "Steam",
+              "roms\\steam\\ ou roms\\windows\\",
+              ".url (atalho do Steam) ou .lnk"
+            ],
+            [
+              "Epic Games Store",
+              "roms\\epic\\ ou roms\\windows\\",
+              ".url (atalho da Epic)"
+            ],
+            [
+              "Amazon Games",
+              "roms\\amazon\\ ou roms\\windows\\",
+              ".url (atalho da Amazon)"
+            ],
+            [
+              "EA Games / EA App",
+              "roms\\eagames\\ ou roms\\windows\\",
+              ".lnk, .url"
+            ],
+            [
+              "GOG Galaxy",
+              "roms\\gog\\ ou roms\\windows\\",
+              ".lnk, .game, .bat"
+            ],
+            [
+              "Xbox Game Pass / Microsoft Store",
+              "roms\\windows\\",
+              ".lnk + arquivo .uwp obrigatório"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "auto-scan",
+        "title": "Varredura Automática de Lojas (Auto-Scan)",
+        "description": "O RIESCADE possui um scanner nativo capaz de identificar automaticamente os jogos que você já tem instalados no seu PC nas plataformas Steam, Epic Games, GOG, EA App e Amazon Games, sem necessidade de criar atalhos manuais.",
+        "steps": [
+          {
+            "stepNumber": 1,
+            "title": "Abra o Menu Principal",
+            "text": "Na interface do RIESCADE, pressione a tecla de menu (ou botão Start do controle)."
+          },
+          {
+            "stepNumber": 2,
+            "title": "Navegue até as Configurações de Jogos de Windows",
+            "text": "Acesse: Menu Principal → Configurações de Jogos → Jogos de Windows (Main Menu → Game Settings → Windows Games)."
+          },
+          {
+            "stepNumber": 3,
+            "title": "Habilite as Lojas Desejadas",
+            "text": "Ative os seletores correspondentes à Steam, Epic, GOG, EA ou Amazon. O RIESCADE atualizará a lista de jogos a cada inicialização."
+          }
+        ]
+      },
+      {
+        "id": "method-game-file",
+        "title": "Método 1: Jogos Nativos e Portáteis (Arquivo .game)",
+        "badge": "Recomendado para Jogos Standalone",
+        "description": "O método mais limpo e confiável para jogos instalados no PC ou versões portáteis. Consiste em criar um arquivo de texto com o caminho exato do executável.",
+        "steps": [
+          {
+            "stepNumber": 1,
+            "title": "Copie o caminho do executável do seu jogo",
+            "text": "No Windows Explorer, localize o arquivo .exe do jogo (exemplo: C:\\Games\\Dead Cells\\DeadCells.exe)."
+          },
+          {
+            "stepNumber": 2,
+            "title": "Crie o arquivo de texto",
+            "text": "Abra o Bloco de Notas, cole o caminho completo do executável na primeira linha e salve com o nome do jogo."
+          },
+          {
+            "stepNumber": 3,
+            "title": "Altere a extensão para .game",
+            "text": "Renomeie o arquivo de .txt para .game (exemplo: Dead Cells.game) e mova para roms\\windows\\."
+          }
+        ],
+        "snippets": [
+          {
+            "filename": "Dead Cells.game",
+            "language": "text",
+            "description": "Conteúdo do arquivo Dead Cells.game salvo em roms\\windows\\:",
+            "code": "C:\\Games\\Dead Cells\\DeadCells.exe"
+          }
+        ]
+      },
+      {
+        "id": "method-store-shortcuts",
+        "title": "Método 2: Jogos Steam, Epic Games e Amazon (.url / .lnk)",
+        "description": "Você pode usar diretamente os atalhos criados pelas lojas no seu Desktop.",
+        "steps": [
+          {
+            "stepNumber": 1,
+            "title": "Crie o atalho na Área de Trabalho",
+            "text": "Dentro do client da Steam ou Epic Games, clique com o botão direito no jogo instalado e selecione \"Criar atalho na Área de Trabalho\"."
+          },
+          {
+            "stepNumber": 2,
+            "title": "Mova o atalho para a pasta roms\\windows\\",
+            "text": "Recorte o atalho gerado (.url ou .lnk) e cole na pasta roms\\windows\\ (ou na subpasta correspondente da loja)."
+          },
+          {
+            "stepNumber": 3,
+            "title": "Atualize a lista no RIESCADE",
+            "text": "Pressione F5 no RIESCADE para que o jogo apareça com suas capas e metadados."
+          }
+        ],
+        "callout": {
+          "type": "warning",
+          "title": "Atenção com a música de fundo",
+          "text": "Se a música do menu continuar tocando enquanto o jogo estiver aberto, aplique o truque do arquivo .gameexe detalhado abaixo!"
+        }
+      },
+      {
+        "id": "method-xbox-gamepass",
+        "title": "Método 3: Jogos do Microsoft Xbox Game Pass e UWP",
+        "badge": "Xbox Game Pass",
+        "description": "Jogos do Xbox Game Pass são protegidos e empacotados em formato UWP ou pastas criptografadas do Windows. Para que o RIESCADE gerencie a execução corretamente, siga o procedimento com o arquivo .uwp.",
+        "steps": [
+          {
+            "stepNumber": 1,
+            "title": "Crie o atalho pelo aplicativo Xbox",
+            "text": "No app Xbox no Windows, clique com o botão direito no jogo instalado e selecione \"Criar atalho na Área de Trabalho\"."
+          },
+          {
+            "stepNumber": 2,
+            "title": "Mova o atalho para roms\\windows\\",
+            "text": "Copie o atalho criado para dentro da pasta roms\\windows\\ (ex: Forza Horizon 5.lnk)."
+          },
+          {
+            "stepNumber": 3,
+            "title": "Copie o nome do aplicativo UWP",
+            "text": "Clique com o botão direito no atalho → Propriedades. Na aba Atalho, copie o texto do Destino ou nome do pacote UWP (ex: Microsoft.624F8B84B80_8wekyb3d8bbwe!ForzaHorizon5)."
+          },
+          {
+            "stepNumber": 4,
+            "title": "Crie o arquivo com extensão .uwp",
+            "text": "Crie um arquivo de texto ao lado do atalho com o mesmo nome e extensão .uwp, contendo apenas o nome do pacote UWP na primeira linha."
+          }
+        ],
+        "snippets": [
+          {
+            "filename": "Forza Horizon 5.uwp",
+            "language": "text",
+            "description": "Arquivo Forza Horizon 5.uwp salvo em roms\\windows\\ ao lado de Forza Horizon 5.lnk:",
+            "code": "Microsoft.624F8B84B80_8wekyb3d8bbwe!ForzaHorizon5"
+          }
+        ],
+        "callout": {
+          "type": "info",
+          "title": "Por que o arquivo .uwp é obrigatório?",
+          "text": "O Windows gerencia jogos da Microsoft Store de forma isolada. Sem o arquivo .uwp, o RIESCADE não consegue detectar quando o jogo fecha e continuará tocando a música de fundo durante a gameplay."
+        }
+      },
+      {
+        "id": "method-ubisoft",
+        "title": "Método 4: Jogos Ubisoft Connect via Script Batch (.bat)",
+        "description": "Os jogos da Ubisoft abrem através do Ubisoft Connect e fecham o processo disparador inicial. O script .bat mantém o EmulationStation em espera monitorando o executável real do jogo em loop.",
+        "snippets": [
+          {
+            "filename": "Assassin_Creed_Valhalla.bat",
+            "language": "batch",
+            "description": "Script .bat que monitora o jogo e fecha o Ubisoft Connect ao terminar:",
+            "code": "@echo OFF\n\nREM Insira aqui o AppID do jogo Ubisoft (obtido nas propriedades do atalho desktop):\nSTART uplay://launch/5059/0\n\nTIMEOUT /t 30\n:RUNNING\n\nREM Nome exato do processo do executável em execução no Gerenciador de Tarefas:\ntasklist|findstr \"ACValhalla.exe\" > nul\n\nIF %errorlevel%==1 timeout /t 5 & taskkill /F /IM upc.exe /T & GOTO ENDLOOP\ntimeout /t 2\nGOTO RUNNING\n:ENDLOOP"
+          },
+          {
+            "filename": "Rayman_Legends_NoKill.bat",
+            "language": "batch",
+            "description": "Script .bat que NÃO fecha o Ubisoft Connect (inicia mais rápido nas próximas vezes):",
+            "code": "@echo OFF\n\nREM Insira aqui o comando uplay:// do jogo:\nSTART uplay://launch/80/0\n\nTIMEOUT /t 20\n:RUNNING\n\ntasklist|findstr \"Rayman Legends.exe\" > nul\n\nIF %errorlevel%==1 timeout /t 5 & GOTO ENDLOOP\ntimeout /t 2\nGOTO RUNNING\n:ENDLOOP"
+          }
+        ]
+      },
+      {
+        "id": "method-gameexe-trick",
+        "title": "O Truque do Arquivo .gameexe (Música tocando em segundo plano)",
+        "badge": "Dica Crucial",
+        "description": "Este problema ocorre quando o jogo possui um launcher intermediário (como Rockstar Launcher, 2K Launcher, EA App, Origin ou iniciadores de mods). O RIESCADE detecta o fechamento do launcher e acha que o jogo encerrou, voltando a tocar a música do menu por cima do jogo.",
+        "steps": [
+          {
+            "stepNumber": 1,
+            "title": "Abra o jogo fora do RIESCADE",
+            "text": "Inicie o jogo e aguarde até estar na tela de título ou gameplay."
+          },
+          {
+            "stepNumber": 2,
+            "title": "Abra o Gerenciador de Tarefas do Windows",
+            "text": "Pressione Ctrl + Shift + Esc (ou Ctrl + Alt + Del) e localize o nome exato do executável do jogo (exemplo: RDR2.exe)."
+          },
+          {
+            "stepNumber": 3,
+            "title": "Crie o arquivo .gameexe",
+            "text": "Na pasta roms\\windows\\, crie um arquivo de texto com o mesmo nome do seu atalho ou arquivo de jogo e extensão .gameexe (exemplo: Red Dead Redemption 2.gameexe)."
+          },
+          {
+            "stepNumber": 4,
+            "title": "Cole o nome do processo SEM o .exe",
+            "text": "Escreva apenas o nome do executável dentro do arquivo (exemplo: RDR2). Salve o arquivo."
+          }
+        ],
+        "snippets": [
+          {
+            "filename": "Red Dead Redemption 2.gameexe",
+            "language": "text",
+            "description": "Conteúdo do arquivo Red Dead Redemption 2.gameexe:",
+            "code": "RDR2"
+          },
+          {
+            "filename": "JogoComDoisProcessos.gameexe",
+            "language": "text",
+            "description": "Se o jogo alternar entre dois executáveis durante a partida, adicione o segundo na linha 2:",
+            "code": "LauncherProcess\nGameProcess"
+          }
+        ],
+        "callout": {
+          "type": "tip",
+          "title": "Compatibilidade Universal",
+          "text": "O arquivo .gameexe funciona perfeitamente ao lado de atalhos .lnk, atalhos .url e arquivos .game."
+        }
+      }
     ]
   },
   {
@@ -13048,7 +13990,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.ws).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "wswanc",
@@ -13112,7 +14055,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.wsc).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "xbox",
@@ -13160,7 +14104,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.xbe).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "xbox360",
@@ -13224,7 +14169,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.iso).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "zaccariapinball",
@@ -13269,7 +14215,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.table).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "zeebo",
@@ -13282,6 +14229,7 @@
     "folder": "zeebo",
     "folderPath": "roms\\zeebo\\",
     "extensions": [
+      ".zip",
       ".zip"
     ],
     "recommendedFormat": ".zip",
@@ -13311,7 +14259,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "zeldaclassic",
@@ -13352,7 +14301,7 @@
     "theme": "zeldac",
     "isCustomRiescade": false,
     "summary": "Configurações, pasta de ROMs e instruções de instalação para Zelda Classic no RIESCADE.",
-    "logo": null,
+    "logo": "/images/platforms/logos/pc.webp",
     "image": null,
     "notes": [],
     "instructions": [
@@ -13361,7 +14310,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.qst).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "zinc",
@@ -13421,7 +14371,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.zip).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "zx81",
@@ -13436,6 +14387,7 @@
     "extensions": [
       ".tzx",
       ".tap",
+      ".z80",
       ".z80",
       ".rzx",
       ".scl",
@@ -13475,7 +14427,8 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.tzx).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   },
   {
     "id": "zxspectrum",
@@ -13538,6 +14491,7 @@
       "Copie seus jogos para dentro desta pasta no formato recomendado (.tzx).",
       "Este sistema não exige BIOS obrigatória, os jogos iniciam imediatamente.",
       "Abra o RIESCADE, abra o menu principal e escolha \"Atualizar Lista de Jogos\" (ou pressione F5 no teclado). Pronto para jogar!"
-    ]
+    ],
+    "sections": []
   }
 ]
