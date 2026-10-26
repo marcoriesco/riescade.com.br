@@ -196,6 +196,7 @@ export function WikiExplorer({ systems }: WikiExplorerProps) {
                           src={system.logo}
                           alt={system.name}
                           fill
+                          unoptimized
                           className="object-contain"
                         />
                       </div>
@@ -306,6 +307,7 @@ export function WikiExplorer({ systems }: WikiExplorerProps) {
                           src={system.logo}
                           alt=""
                           fill
+                          unoptimized
                           className="object-contain transition-transform group-hover:scale-105"
                         />
                       </div>

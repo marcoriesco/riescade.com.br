@@ -31,7 +31,19 @@ export const revalidate = 86400;
 const SITE_URL = "https://www.riescade.com.br";
 
 export function generateStaticParams() {
-  return getAllWikiSystems().map((system) => ({ system: system.slug }));
+  const params: { system: string }[] = [];
+  const seen = new Set<string>();
+  for (const s of getAllWikiSystems()) {
+    if (!seen.has(s.slug)) {
+      seen.add(s.slug);
+      params.push({ system: s.slug });
+    }
+    if (s.id && !seen.has(s.id)) {
+      seen.add(s.id);
+      params.push({ system: s.id });
+    }
+  }
+  return params;
 }
 
 export async function generateMetadata({
@@ -142,6 +154,7 @@ export default async function WikiSystemPage({
                   src={system.logo}
                   alt={`Logo de ${system.name}`}
                   fill
+                  unoptimized
                   sizes="144px"
                   className="object-contain p-1"
                   priority

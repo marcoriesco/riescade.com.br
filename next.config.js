@@ -18,7 +18,7 @@ const nextConfig = {
       { protocol: "https", hostname: "riescade.com" },
       { protocol: "https", hostname: "image.pollinations.ai" }
     ],
-    unoptimized: false, // Habilitar otimização para obter melhor qualidade
+    unoptimized: true, // Evita erro 402 da Vercel Image Optimization
   },
   // Configuração de segurança para permitir o proxy de imagens
   async headers() {
@@ -30,7 +30,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              `default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://checkout.stripe.com; img-src 'self' https: data:; media-src 'self' ${supabaseMediaOrigin}; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https:; upgrade-insecure-requests;`,
+              `default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://checkout.stripe.com; img-src 'self' https: data:; media-src 'self' ${supabaseMediaOrigin}; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://checkout.stripe.com; frame-src 'self' https://js.stripe.com https://checkout.stripe.com; connect-src 'self' https:; upgrade-insecure-requests;`,
           },
           { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
           { key: "X-Content-Type-Options", value: "nosniff" },
