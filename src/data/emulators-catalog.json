@@ -293,6 +293,12 @@
 			"installDir": "kega-fusion",
 			"executable": "kega-fusion/Fusion.exe"
 		},
+		"kitsune": {
+			"name": "Kitsune",
+			"installDir": "kitsune",
+			"executable": "kitsune/current/kitsune.exe",
+			"preserve": ["data", "cache", "library/registry.json", "library/library.json"]
+		},
 		"kronos": {
 			"name": "kronos",
 			"installDir": "kronos"

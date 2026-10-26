@@ -8,6 +8,10 @@ describe("RetroBat marker snapshot",()=>{
     const result=buildRetrobatCatalog([{...row,platform:"arcadedumps",filename:"Halo Fireteam Raven.extract.zip"}],[{id:"arcadedumps",extensions:[".bat",".cmd"]}]);
     expect(result.assets[0]).toMatchObject({platform:"arcadedumps",download_name:"Halo Fireteam Raven.extract.zip",launch_path:"Halo Fireteam Raven.bat",install_mode:"extract"});
   });
+  it("exports Kitsune packages with .game launchers",()=>{
+    const result=buildRetrobatCatalog([{...row,platform:"pgm3viper",filename:"Silent Scope EX.extract.zip"}],[{id:"pgm3viper",extensions:[".game"]}]);
+    expect(result.assets[0]).toMatchObject({platform:"pgm3viper",download_name:"Silent Scope EX.extract.zip",launch_path:"Silent Scope EX.game",install_mode:"extract"});
+  });
   it("exports PS5 only as direct ZAR files",()=>{
     const rows=["Test.zar","Old.game","Old.extract.zip"].map((filename,index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"ps5",filename}));
     const result=buildRetrobatCatalog(rows,[{id:"ps5",extensions:[".game",".zar",".zip"]}]);

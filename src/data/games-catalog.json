@@ -7,6 +7,11 @@
 			"name": "Arcade Dumps",
 			"extensions": [".bat", ".cmd"]
 		},
+		{
+			"id": "pgm3viper",
+			"name": "IGS / Konami Viper",
+			"extensions": [".game"]
+		},
 		{ "id": "ios", "name": "Apple iOS", "extensions": [".ipa"] },
 		{
 			"id": "flash",
