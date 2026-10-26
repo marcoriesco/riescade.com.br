@@ -123,7 +123,7 @@ const FAQS = [
 
 export default function TutorialPage() {
   return (
-    <div className="site-page relative flex min-h-screen flex-col bg-background">
+    <div className="site-page relative min-h-screen bg-background">
       <Header />
 
       <script
@@ -159,23 +159,23 @@ export default function TutorialPage() {
       <main
         id="main-content"
         tabIndex={-1}
-        className="relative z-10 mx-auto w-full max-w-6xl flex-grow px-6 pb-24 pt-28 md:px-10"
+        className="mx-auto max-w-6xl px-6 pt-24 pb-28"
       >
-        {/* Breadcrumb Clean */}
-        <nav aria-label="Navegação estrutural" className="mb-6 flex items-center gap-2 text-xs text-muted-foreground">
-          <Link href="/" className="hover:text-primary transition-colors">
+        {/* Breadcrumb Navigation idêntico ao wiki/[system] */}
+        <nav aria-label="Navegação estrutural" className="pt-10 text-sm text-muted-foreground">
+          <Link href="/" className="hover:text-foreground transition-colors">
             Início
           </Link>
-          <span className="text-border">/</span>
+          <span className="mx-2">/</span>
           <span className="text-foreground">Tutorial</span>
         </nav>
 
         {/* Tutorial Header */}
-        <header className="pb-12 pt-4">
+        <header className="pb-12 pt-8">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-primary/15 border border-primary/30 px-2.5 py-1 font-mono text-[11px] font-bold text-primary">
+            <span className="inline-flex items-center gap-1 rounded-md bg-primary/15 border border-primary/30 px-2 py-0.5 font-mono text-[11px] font-bold text-primary">
               <Sparkles className="h-3 w-3" />
-              Guia Oficial de Instalação
+              Guia Oficial
             </span>
             <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
               Windows 10 & 11 · +240 Plataformas
@@ -186,7 +186,7 @@ export default function TutorialPage() {
             <h1 className="max-w-4xl font-display text-4xl font-extrabold tracking-tight md:text-6xl text-foreground">
               Como instalar e configurar o <span className="text-primary">RIESCADE</span>
             </h1>
-            <p className="mt-5 max-w-3xl text-lg text-muted-foreground leading-relaxed">
+            <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
               Do download ao primeiro jogo em poucos minutos. Baixe o aplicativo oficial, instale o pacote de BIOS
               e tenha acesso a uma central completa com mais de 240 sistemas retrô e modernos com downloads sob demanda.
             </p>
@@ -196,15 +196,15 @@ export default function TutorialPage() {
           <div className="mt-10 grid gap-px overflow-hidden rounded-lg bg-border text-sm sm:grid-cols-3 [&>div]:bg-card [&>div]:px-5 [&>div]:py-4">
             <div>
               <p className="text-muted-foreground text-xs uppercase tracking-wider font-mono">Compatibilidade</p>
-              <p className="mt-1 font-semibold text-foreground">Windows 10 ou 11 (64-bit)</p>
+              <p className="mt-1 font-mono text-base text-foreground">Windows 10 / 11 (64-bit)</p>
             </div>
             <div>
               <p className="text-muted-foreground text-xs uppercase tracking-wider font-mono">Autenticação</p>
-              <p className="mt-1 font-semibold text-primary">Login com Google (1 clique)</p>
+              <p className="mt-1 font-mono text-base text-primary">Login com Google</p>
             </div>
             <div>
               <p className="text-muted-foreground text-xs uppercase tracking-wider font-mono">Arquivos essenciais</p>
-              <p className="mt-1 font-semibold text-foreground">App RIESCADE + Pack de BIOS</p>
+              <p className="mt-1 font-mono text-base text-foreground">App + Pack de BIOS</p>
             </div>
           </div>
         </header>
@@ -214,7 +214,7 @@ export default function TutorialPage() {
           {/* Main Content Article */}
           <article className="max-w-3xl divide-y divide-border/60">
             {/* SEÇÃO 01: REQUISITOS */}
-            <section id="requisitos" className="pb-12 pt-8 scroll-mt-28">
+            <section id="requisitos" className="scroll-mt-24 py-12 first:border-t-0 first:pt-4">
               <div className="flex items-center gap-3">
                 <span className="font-mono text-xs font-semibold text-primary">01</span>
                 <span className="text-border">/</span>
@@ -250,7 +250,7 @@ export default function TutorialPage() {
             </section>
 
             {/* SEÇÃO 02: PASSO A PASSO */}
-            <section id="instalacao" className="pb-12 pt-8 scroll-mt-28">
+            <section id="instalacao" className="scroll-mt-24 py-12">
               <div className="flex items-center gap-3">
                 <span className="font-mono text-xs font-semibold text-primary">02</span>
                 <span className="text-border">/</span>
@@ -266,7 +266,6 @@ export default function TutorialPage() {
               <ol className="mt-8 space-y-0">
                 {INSTALL_STEPS.map((step) => (
                   <li key={step.step} className="relative grid grid-cols-[2rem_1fr] gap-4 pb-8 last:pb-0">
-                    {/* Linha vertical conectora estilo Lovable */}
                     <span className="absolute bottom-0 left-[0.7rem] top-7 w-px bg-border" />
                     <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 font-mono text-xs font-bold text-primary ring-4 ring-background">
                       {step.step}
@@ -281,8 +280,8 @@ export default function TutorialPage() {
                 ))}
               </ol>
 
-              {/* Callout de dica */}
-              <div className="mt-8 border-l-2 border-primary bg-card/60 p-4 rounded-r-lg text-sm text-muted-foreground leading-relaxed">
+              {/* Callout de dica no padrão border-l do Lovable */}
+              <div className="mt-8 border-l-2 border-primary pl-4 text-sm text-muted-foreground leading-relaxed">
                 <div className="flex items-center gap-2 font-semibold text-foreground mb-1">
                   <CheckCircle2 className="h-4 w-4 text-primary" />
                   Pronto para jogar
@@ -293,7 +292,7 @@ export default function TutorialPage() {
             </section>
 
             {/* SEÇÃO 03: ADICIONAR JOGOS PRÓPRIOS */}
-            <section id="adicionar-jogos" className="pb-12 pt-8 scroll-mt-28">
+            <section id="adicionar-jogos" className="scroll-mt-24 py-12">
               <div className="flex items-center gap-3">
                 <span className="font-mono text-xs font-semibold text-primary">03</span>
                 <span className="text-border">/</span>
@@ -314,7 +313,7 @@ export default function TutorialPage() {
                   </h3>
                   <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
                     Dentro do diretório onde instalou o RIESCADE, acesse a pasta <code className="font-mono text-primary">roms\</code>.
-                    Cada sistema possui sua própria subpasta dedicada. Por exemplo:
+                    Cada sistema possui sua própria subpasta dedicada:
                   </p>
                   <ul className="mt-3 space-y-1 font-mono text-xs text-muted-foreground">
                     <li>• Super Nintendo: <code className="text-foreground">roms\snes\</code></li>
@@ -331,7 +330,7 @@ export default function TutorialPage() {
                   </h3>
                   <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
                     Para consoles de CD/DVD (PS1, PS2, Saturn), recomendamos utilizar o formato <code className="text-primary font-mono font-semibold">.chd</code> para economizar até 60% de espaço.
-                    Para jogos de cartucho (Mega Drive, SNES, N64), formatos <code className="text-foreground font-mono">.zip</code> ou ROMs puras funcionam perfeitamente.
+                    Para jogos de cartucho (Mega Drive, SNES, N64), formatos <code className="text-foreground font-mono">.zip</code> ou ROMs puras funcionam direto.
                   </p>
                 </div>
 
@@ -348,7 +347,7 @@ export default function TutorialPage() {
               </div>
 
               {/* Botão para consultar a Wiki completa */}
-              <div className="mt-6 flex items-center justify-between rounded-lg border border-primary/30 bg-primary/10 p-4">
+              <div className="mt-6 flex items-center justify-between rounded-lg border border-border bg-card p-4">
                 <div>
                   <p className="text-sm font-semibold text-foreground">Consulte as pastas e extensões de cada console</p>
                   <p className="text-xs text-muted-foreground">Mais de 240 sistemas documentados com formatos recomendados e BIOS necessárias.</p>
@@ -364,7 +363,7 @@ export default function TutorialPage() {
             </section>
 
             {/* SEÇÃO 04: TEMAS */}
-            <section id="temas" className="pb-12 pt-8 scroll-mt-28">
+            <section id="temas" className="scroll-mt-24 py-12">
               <div className="flex items-center gap-3">
                 <span className="font-mono text-xs font-semibold text-primary">04</span>
                 <span className="text-border">/</span>
@@ -387,7 +386,7 @@ export default function TutorialPage() {
             </section>
 
             {/* SEÇÃO 05: FAQ */}
-            <section id="faq" className="pb-12 pt-8 scroll-mt-28">
+            <section id="faq" className="scroll-mt-24 py-12">
               <div className="flex items-center gap-3">
                 <span className="font-mono text-xs font-semibold text-primary">05</span>
                 <span className="text-border">/</span>
@@ -417,7 +416,7 @@ export default function TutorialPage() {
             </section>
 
             {/* SEÇÃO 06: SUPORTE */}
-            <section id="suporte" className="pb-12 pt-8 scroll-mt-28">
+            <section id="suporte" className="scroll-mt-24 py-12">
               <div className="flex items-center gap-3">
                 <span className="font-mono text-xs font-semibold text-primary">06</span>
                 <span className="text-border">/</span>

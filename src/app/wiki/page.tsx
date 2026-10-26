@@ -52,27 +52,27 @@ export default function WikiPage() {
   const systems = getAllWikiSystems();
 
   return (
-    <div className="site-page relative flex min-h-screen flex-col bg-background">
+    <div className="site-page relative min-h-screen bg-background">
       <Header />
 
       <main
         id="main-content"
         tabIndex={-1}
-        className="relative z-10 mx-auto w-full max-w-7xl flex-grow px-6 pb-24 pt-28 md:px-12"
+        className="mx-auto max-w-6xl px-6 pt-24 pb-28"
       >
-        {/* Breadcrumb Clean Lovable */}
-        <nav aria-label="Navegação estrutural" className="mb-6 flex items-center gap-2 text-xs text-muted-foreground">
-          <Link href="/" className="hover:text-primary transition-colors">
+        {/* Breadcrumb Navigation idêntico ao wiki/[system] */}
+        <nav aria-label="Navegação estrutural" className="pt-10 text-sm text-muted-foreground">
+          <Link href="/" className="hover:text-foreground transition-colors">
             Início
           </Link>
-          <span className="text-border">/</span>
+          <span className="mx-2">/</span>
           <span className="text-foreground">Wiki</span>
         </nav>
 
         {/* Wiki Header */}
-        <header className="pb-10 pt-2">
+        <header className="pb-12 pt-8">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-primary/15 border border-primary/30 px-2.5 py-1 font-mono text-[11px] font-bold text-primary">
+            <span className="inline-flex items-center gap-1 rounded-md bg-primary/15 border border-primary/30 px-2 py-0.5 font-mono text-[11px] font-bold text-primary">
               <BookOpen className="h-3 w-3" />
               Documentação Oficial
             </span>
@@ -86,7 +86,7 @@ export default function WikiPage() {
               <h1 className="max-w-4xl font-display text-4xl font-extrabold tracking-tight md:text-6xl text-foreground">
                 Wiki de Instalação de <span className="text-primary">ROMs & Sistemas</span>
               </h1>
-              <p className="mt-4 max-w-3xl text-lg text-muted-foreground leading-relaxed">
+              <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
                 Consulte a pasta exata de cada console, extensões recomendadas, BIOS necessárias e os emuladores
                 configurados no RIESCADE para adicionar suas próprias ROMs e jogos no PC.
               </p>

@@ -397,7 +397,6 @@ export default function DashboardClient() {
 
   // Release metadata is public; it only fills versions and sizes on the cards.
   useEffect(() => {
-    fetchJson<ReleaseInfo>("/api/app/update/latest").then(setOsRelease);
     fetchJson<ReleaseInfo>("/api/app/retrobat/latest").then(setRetroBatRelease);
     fetchJson<{ themes: RetroBatTheme[] }>("/api/app/retrobat/themes").then((body) =>
       setRetroBatThemes(body?.themes ?? [])

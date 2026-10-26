@@ -125,96 +125,96 @@ export default async function PlatformPage({
   ];
 
   return (
-    <div className="site-page relative flex min-h-screen flex-col bg-background">
+    <div className="site-page relative min-h-screen bg-background">
       <Header />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
-      <main id="main-content" tabIndex={-1} className="relative z-10 mx-auto w-full max-w-7xl flex-grow px-6 pb-24 pt-28 md:px-12">
-        {/* Breadcrumb Clean Lovable */}
-        <nav aria-label="Navegação estrutural" className="mb-6 flex items-center gap-2 text-xs text-muted-foreground">
-          <Link href="/" className="hover:text-primary transition-colors">Início</Link>
-          <span className="text-border">/</span>
-          <Link href="/platforms" className="hover:text-primary transition-colors">Plataformas</Link>
-          <span className="text-border">/</span>
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-6xl px-6 pt-24 pb-28">
+        {/* Breadcrumb Navigation idêntico ao wiki/[system] */}
+        <nav aria-label="Navegação estrutural" className="pt-10 text-sm text-muted-foreground">
+          <Link href="/" className="hover:text-foreground transition-colors">Início</Link>
+          <span className="mx-2">/</span>
+          <Link href="/platforms" className="hover:text-foreground transition-colors">Plataformas</Link>
+          <span className="mx-2">/</span>
           <span className="text-foreground">{platform.name}</span>
         </nav>
 
         {/* HERO SECTION */}
-        <section className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] pb-12">
-          <div>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-md bg-primary/15 border border-primary/30 px-2.5 py-1 font-mono text-[11px] font-bold text-primary">
-                <Gamepad2 className="h-3 w-3" />
-                {platform.kindLabel || "Plataforma"}
-              </span>
-              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-                {[platform.content?.maker, platform.content?.year].filter(Boolean).join(" · ")}
+        <header className="pb-12 pt-8">
+          <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
+            <div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1 rounded-md bg-primary/15 border border-primary/30 px-2 py-0.5 font-mono text-[11px] font-bold text-primary">
+                  <Gamepad2 className="h-3 w-3" />
+                  {platform.kindLabel || "Plataforma"}
+                </span>
+                <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                  {[platform.content?.maker, platform.content?.year].filter(Boolean).join(" · ")}
+                </p>
+              </div>
+
+              <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight md:text-6xl text-foreground">
+                Jogue <span className="text-primary">{platform.name}</span> no PC
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+                {platform.content?.summary ??
+                  `Os jogos de ${platform.name} organizados na biblioteca do RIESCADE, prontos para jogar no Windows com controle, capas e downloads sob demanda.`}
               </p>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/dashboard#downloads"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-primary px-6 font-mono text-xs font-bold text-black transition-all hover:bg-accent shadow-sm"
+                >
+                  <Download className="size-4" />
+                  Baixar RIESCADE
+                </Link>
+                <Link
+                  href={`/wiki/${platform.slug}`}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-card px-6 font-mono text-xs font-semibold text-foreground transition-all hover:border-primary hover:text-primary"
+                >
+                  <BookOpen className="size-4" />
+                  Ver guia na Wiki
+                </Link>
+              </div>
             </div>
 
-            <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight md:text-6xl text-foreground">
-              Jogue <span className="text-primary">{platform.name}</span> no PC
-            </h1>
-            <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
-              {platform.content?.summary ??
-                `Os jogos de ${platform.name} organizados na biblioteca do RIESCADE, prontos para jogar no Windows com controle, capas e downloads sob demanda.`}
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/dashboard#downloads"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 font-mono text-xs font-bold text-black transition-all hover:bg-accent shadow-sm"
-              >
-                <Download className="size-4" />
-                Baixar RIESCADE
-              </Link>
-              <Link
-                href={`/wiki/${platform.slug}`}
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-border bg-card px-6 font-mono text-xs font-semibold text-foreground transition-all hover:border-primary hover:text-primary"
-              >
-                <BookOpen className="size-4" />
-                Ver guia na Wiki
-              </Link>
+            <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg border border-border bg-card p-6">
+              {art ? (
+                <Image
+                  src={art}
+                  alt={platform.name}
+                  fill
+                  priority
+                  unoptimized
+                  sizes="(max-width: 1024px) 100vw, 560px"
+                  className="object-contain p-6"
+                />
+              ) : (
+                <Gamepad2 className="size-20 text-muted-foreground/30" />
+              )}
             </div>
           </div>
 
-          <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg border border-border bg-card p-6">
-            {art ? (
-              <Image
-                src={art}
-                alt={platform.name}
-                fill
-                priority
-                unoptimized
-                sizes="(max-width: 1024px) 100vw, 560px"
-                className="object-contain p-6"
-              />
-            ) : (
-              <Gamepad2 className="size-20 text-muted-foreground/30" />
-            )}
-          </div>
-        </section>
-
-        {/* FICHA (Lovable hairline style) */}
-        <section aria-label={`Ficha de ${platform.name}`} className="mt-4">
-          <div className="grid gap-px overflow-hidden rounded-lg bg-border text-sm sm:grid-cols-2 lg:grid-cols-5 [&>div]:bg-card [&>div]:px-5 [&>div]:py-4">
+          {/* FICHA (Lovable hairline style) */}
+          <div className="mt-10 grid gap-px overflow-hidden rounded-lg bg-border text-sm sm:grid-cols-2 lg:grid-cols-5 [&>div]:bg-card [&>div]:px-5 [&>div]:py-4">
             {facts.map((fact) => (
               <div key={fact.label}>
                 <p className="text-muted-foreground text-xs uppercase tracking-wider font-mono flex items-center gap-1.5">
                   <fact.icon className="size-3 text-primary" />
                   {fact.label}
                 </p>
-                <p className="mt-1 font-semibold text-foreground text-base">{fact.value}</p>
+                <p className="mt-1 font-mono text-base text-foreground font-semibold">{fact.value}</p>
               </div>
             ))}
           </div>
-        </section>
+        </header>
 
         {/* COMO JOGAR */}
-        <section className="mt-16 border-t border-border/60 pt-12">
+        <section className="mt-8 border-t border-border/60 pt-12">
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs font-semibold text-primary">01</span>
             <span className="text-border">/</span>
