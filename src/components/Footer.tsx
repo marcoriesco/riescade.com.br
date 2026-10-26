@@ -112,8 +112,10 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} RIESCADE. Todos os direitos reservados.</p>
-          <nav aria-label="Links legais" className="flex flex-wrap gap-x-4 gap-y-2">
+          <nav aria-label="Links úteis e legais" className="flex flex-wrap gap-x-4 gap-y-2">
             {[
+              ["/tutorial", "Tutorial"],
+              ["/wiki", "Wiki de ROMs"],
               ["/politica", "Privacidade"],
               ["/termos", "Termos"],
               ["/app-data", "Exclusão de dados"],

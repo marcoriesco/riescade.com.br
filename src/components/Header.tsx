@@ -144,6 +144,12 @@ export function Header() {
               Tutorial
             </Link>
             <Link
+              href="/wiki"
+              className="text-sm text-muted-foreground transition-colors hover:text-primary"
+            >
+              Wiki
+            </Link>
+            <Link
               href="/#about"
               className="text-sm text-muted-foreground transition-colors hover:text-primary"
             >
@@ -240,6 +246,13 @@ export function Header() {
                 onClick={handleLinkClick}
               >
                 Tutorial
+              </Link>
+              <Link
+                href="/wiki"
+                className="text-muted-foreground hover:text-primary transition-colors py-2 border-b border-border"
+                onClick={handleLinkClick}
+              >
+                Wiki
               </Link>
               <Link
                 href="/#about"
