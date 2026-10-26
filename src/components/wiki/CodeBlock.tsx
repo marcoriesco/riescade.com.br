@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, Terminal, FileCode } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 
 interface CodeBlockProps {
   code: string;
@@ -10,7 +10,7 @@ interface CodeBlockProps {
   description?: string;
 }
 
-export function CodeBlock({ code, language = "text", filename, description }: CodeBlockProps) {
+export function CodeBlock({ code, filename, description }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -24,54 +24,36 @@ export function CodeBlock({ code, language = "text", filename, description }: Co
   };
 
   return (
-    <div className="my-4 overflow-hidden rounded-2xl border border-white/10 bg-[#0d1117] shadow-lg">
-      {(filename || language) && (
-        <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-mono">
-          <div className="flex items-center gap-2 text-foreground/80">
-            {filename ? (
-              <>
-                <FileCode className="h-3.5 w-3.5 text-primary" />
-                <span className="font-semibold text-foreground">{filename}</span>
-              </>
-            ) : (
-              <>
-                <Terminal className="h-3.5 w-3.5 text-primary" />
-                <span className="uppercase text-muted-foreground">{language}</span>
-              </>
-            )}
-          </div>
-
-          <button
-            onClick={handleCopy}
-            className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium text-foreground transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
-            aria-label="Copiar código"
-          >
-            {copied ? (
-              <>
-                <Check className="h-3 w-3 text-emerald-400" />
-                <span className="text-emerald-400">Copiado!</span>
-              </>
-            ) : (
-              <>
-                <Copy className="h-3 w-3 text-muted-foreground" />
-                <span>Copiar</span>
-              </>
-            )}
-          </button>
-        </div>
-      )}
-
-      {description && (
-        <div className="border-b border-white/5 bg-black/20 px-4 py-2 text-xs text-muted-foreground leading-relaxed">
-          {description}
-        </div>
-      )}
-
-      <div className="relative">
-        <pre className="overflow-x-auto p-4 font-mono text-xs md:text-sm text-foreground/90 leading-relaxed scrollbar-thin scrollbar-thumb-white/10">
-          <code>{code}</code>
-        </pre>
+    <div className="mt-6">
+      <div className="flex items-center justify-between">
+        {filename ? (
+          <span className="font-mono text-sm font-medium text-primary">{filename}</span>
+        ) : (
+          <span />
+        )}
+        <button
+          onClick={handleCopy}
+          type="button"
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-primary"
+          aria-label="Copiar código"
+        >
+          {copied ? (
+            <>
+              <Check className="h-3.5 w-3.5 text-emerald-400" />
+              <span className="text-emerald-400">Copiado</span>
+            </>
+          ) : (
+            <>
+              <Copy className="h-3.5 w-3.5" />
+              <span>Copiar</span>
+            </>
+          )}
+        </button>
       </div>
+      {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
+      <pre className="mt-3 overflow-x-auto rounded-md bg-card border border-border/50 p-4 font-mono text-sm leading-6 text-foreground">
+        <code>{code}</code>
+      </pre>
     </div>
   );
 }

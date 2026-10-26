@@ -6,9 +6,10 @@ import { Copy, Check } from "lucide-react";
 interface CopyPathButtonProps {
   path: string;
   className?: string;
+  label?: string;
 }
 
-export function CopyPathButton({ path, className = "" }: CopyPathButtonProps) {
+export function CopyPathButton({ path, className = "", label = "Copiar" }: CopyPathButtonProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -21,18 +22,18 @@ export function CopyPathButton({ path, className = "" }: CopyPathButtonProps) {
     <button
       onClick={handleCopy}
       type="button"
-      className={`inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-muted-foreground transition-all hover:border-primary/50 hover:bg-primary/20 hover:text-primary ${className}`}
+      className={`inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-primary ${className}`}
       title="Copiar caminho da pasta"
     >
       {copied ? (
         <>
-          <Check className="h-3.5 w-3.5 text-green-400" />
-          <span className="text-green-400 font-medium">Copiado!</span>
+          <Check className="h-3.5 w-3.5 text-emerald-400" />
+          <span className="text-emerald-400 font-medium">Copiado</span>
         </>
       ) : (
         <>
           <Copy className="h-3.5 w-3.5" />
-          <span>Copiar pasta</span>
+          <span>{label}</span>
         </>
       )}
     </button>

@@ -11,19 +11,12 @@ import {
   getWikiSystem,
   getRelatedWikiSystems,
   HARDWARE_LABELS,
+  WikiSection,
 } from "@/lib/wiki";
 import {
-  Folder,
-  Cpu,
   Sparkles,
-  AlertCircle,
-  AlertTriangle,
-  CheckCircle2,
-  ChevronRight,
-  ArrowLeft,
   Gamepad2,
-  Info,
-  Lightbulb,
+  AlertCircle,
 } from "lucide-react";
 
 export const revalidate = 86400;
@@ -55,8 +48,8 @@ export async function generateMetadata({
   const system = getWikiSystem(slug);
   if (!system) return { title: "Sistema não encontrado - Wiki RIESCADE", robots: { index: false } };
 
-  const title = `Como instalar ROMs de ${system.name} no RIESCADE - Wiki`;
-  const description = `Guia completo de instalação de ${system.name} no RIESCADE: pasta ${system.folderPath}, extensões ${system.extensions.slice(0, 5).join(", ")}, requisitos de BIOS e emuladores.`;
+  const title = `Como instalar jogos de ${system.name} — Wiki RIESCADE`;
+  const description = `Guia completo para adicionar jogos de ${system.name} ao RIESCADE: pasta ${system.folderPath}, extensões ${system.extensions.slice(0, 5).join(", ")}, BIOS e emuladores.`;
   const image = system.logo || system.image || "/images/og-image.webp";
 
   return {
@@ -91,467 +84,507 @@ export default async function WikiSystemPage({
   const related = getRelatedWikiSystems(system);
   const hardwareLabel = HARDWARE_LABELS[system.hardware] || system.hardware;
 
+  // Build the unified sections list for page & sidebar table of contents
+  interface NavSection {
+    id: string;
+    title: string;
+    type: "custom" | "instructions" | "formats" | "bios" | "emulators" | "notes";
+    customSection?: WikiSection;
+  }
+
+  const navSections: NavSection[] = [];
+
+  if (system.sections && system.sections.length > 0) {
+    system.sections.forEach((s) => {
+      navSections.push({
+        id: s.id,
+        title: s.title,
+        type: "custom",
+        customSection: s,
+      });
+    });
+  }
+
+  // Standard instructions section
+  if (system.instructions && system.instructions.length > 0) {
+    navSections.push({
+      id: "resumo",
+      title: system.sections && system.sections.length > 0 ? "Resumo" : "Passo a passo",
+      type: "instructions",
+    });
+  }
+
+  // Formats section
+  if (system.extensions && system.extensions.length > 0) {
+    navSections.push({
+      id: "formatos",
+      title: "Formatos aceitos",
+      type: "formats",
+    });
+  }
+
+  // BIOS section (if required or has files)
+  if (system.biosRequired || system.biosFiles.length > 0) {
+    navSections.push({
+      id: "bios",
+      title: "Requisitos de BIOS",
+      type: "bios",
+    });
+  }
+
+  // Emulators section (if multiple emulators)
+  if (system.emulators && system.emulators.length > 1) {
+    navSections.push({
+      id: "emuladores",
+      title: "Emuladores e configurações",
+      type: "emulators",
+    });
+  }
+
+  // Tips and notes section
+  if (system.notes && system.notes.length > 0 && (!system.sections || system.sections.length === 0)) {
+    navSections.push({
+      id: "dicas",
+      title: "Dicas e particularidades",
+      type: "notes",
+    });
+  }
+
   return (
-    <div className="site-page relative flex min-h-screen flex-col bg-background">
-      {/* Glow background */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[600px] bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.12)_0%,transparent_65%)]" />
+    <div className="site-page relative min-h-screen bg-background">
       <Header />
 
-      <main
-        id="main-content"
-        tabIndex={-1}
-        className="relative z-10 mx-auto w-full max-w-7xl flex-grow px-6 pb-24 pt-32 md:px-12"
-      >
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-6xl px-6 pt-24 pb-28">
         {/* Breadcrumb Navigation */}
-        <nav aria-label="Navegação estrutural" className="mb-8 flex items-center gap-2 text-xs text-muted-foreground">
-          <Link href="/" className="hover:text-primary transition-colors">
+        <nav aria-label="Navegação estrutural" className="pt-10 text-sm text-muted-foreground">
+          <Link href="/" className="hover:text-foreground transition-colors">
             Início
           </Link>
-          <ChevronRight className="h-3 w-3" />
-          <Link href="/wiki" className="hover:text-primary transition-colors">
+          <span className="mx-2">/</span>
+          <Link href="/wiki" className="hover:text-foreground transition-colors">
             Wiki
           </Link>
-          <ChevronRight className="h-3 w-3" />
-          <span className="text-foreground font-medium truncate">{system.name}</span>
+          <span className="mx-2">/</span>
+          <span className="text-foreground">{system.name}</span>
         </nav>
 
         {/* System Header */}
-        <div className="rounded-3xl border border-white/10 bg-card/60 p-6 md:p-10 backdrop-blur-md shadow-xl shadow-black/20">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="space-y-3">
-              <div className="flex flex-wrap items-center gap-2">
-                {system.isCustomRiescade && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/20 border border-primary/40 px-2.5 py-0.5 font-mono text-[11px] font-bold text-primary">
-                    <Sparkles className="h-3 w-3" />
-                    Exclusivo RIESCADE
-                  </span>
-                )}
-                <span className="rounded-full bg-white/5 border border-white/10 px-3 py-0.5 font-mono text-xs text-muted-foreground">
-                  {hardwareLabel}
-                </span>
-                {system.release && (
-                  <span className="rounded-full bg-white/5 border border-white/10 px-3 py-0.5 font-mono text-xs text-muted-foreground">
-                    Ano: {system.release}
-                  </span>
-                )}
-                <span className="rounded-full bg-white/5 border border-white/10 px-3 py-0.5 font-mono text-xs text-muted-foreground">
-                  {system.manufacturer}
-                </span>
-              </div>
+        <header className="pb-12 pt-8">
+          <div className="flex flex-wrap items-center gap-2">
+            {system.isCustomRiescade && (
+              <span className="inline-flex items-center gap-1 rounded-md bg-primary/15 border border-primary/30 px-2 py-0.5 font-mono text-[11px] font-bold text-primary">
+                <Sparkles className="h-3 w-3" />
+                Exclusivo RIESCADE
+              </span>
+            )}
+            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+              {[hardwareLabel, system.release, system.manufacturer !== "Vários" ? system.manufacturer : null]
+                .filter(Boolean)
+                .join(" · ")}
+            </p>
+          </div>
 
-              <h1 className="font-display text-3xl font-extrabold tracking-tight text-foreground md:text-5xl">
-                Como instalar ROMs de <span className="text-gradient-primary">{system.name}</span>
+          <div className="mt-4 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+              <h1 className="max-w-3xl font-display text-4xl font-extrabold tracking-tight md:text-6xl text-foreground">
+                Como instalar jogos de <span className="text-primary">{system.name}</span>
               </h1>
-
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-3xl">
+              <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
                 {system.summary}
               </p>
             </div>
 
             {system.logo && (
-              <div className="relative h-20 w-36 flex-shrink-0 self-center md:self-start bg-black/30 p-2 rounded-2xl border border-white/5">
+              <div className="relative h-16 w-36 flex-shrink-0 self-start md:self-auto">
                 <Image
                   src={system.logo}
                   alt={`Logo de ${system.name}`}
                   fill
                   unoptimized
                   sizes="144px"
-                  className="object-contain p-1"
+                  className="object-contain"
                   priority
                 />
               </div>
             )}
           </div>
 
-          {/* Big Folder Location Card */}
-          <div className="mt-8 rounded-2xl border border-primary/40 bg-gradient-to-r from-primary/15 via-black/40 to-primary/5 p-4 md:p-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-black flex-shrink-0 shadow-md">
-                  <Folder className="h-6 w-6" />
-                </div>
-                <div>
-                  <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                    Pasta de instalação no PC:
-                  </span>
-                  <div className="mt-0.5 font-mono text-base md:text-lg font-bold text-foreground select-all">
-                    {system.folderPath}
-                  </div>
-                </div>
-              </div>
-
-              <CopyPathButton path={system.folderPath} className="self-start sm:self-auto" />
+          {/* Quick Info Grid 3 Cols (Lovable hairline style) */}
+          <div className="mt-10 grid gap-px overflow-hidden rounded-lg bg-border text-sm sm:grid-cols-3 [&>div]:bg-card [&>div]:px-5 [&>div]:py-4">
+            <div>
+              <p className="text-muted-foreground text-xs uppercase tracking-wider font-mono">Pasta</p>
+              <p className="mt-1 flex items-center gap-3 font-mono text-base text-foreground">
+                {system.folderPath}
+                <CopyPathButton path={system.folderPath} label="Copiar" />
+              </p>
+            </div>
+            <div>
+              <p className="text-muted-foreground text-xs uppercase tracking-wider font-mono">BIOS</p>
+              <p className={`mt-1 text-base font-semibold ${system.biosRequired ? "text-amber-400" : "text-emerald-400"}`}>
+                {system.biosRequired ? "Obrigatória" : "Não necessária"}
+              </p>
+            </div>
+            <div>
+              <p className="text-muted-foreground text-xs uppercase tracking-wider font-mono">Emulador padrão</p>
+              <p className="mt-1 font-mono text-base text-foreground">
+                {system.defaultEmulator?.name || "windows"}
+              </p>
             </div>
           </div>
-        </div>
+        </header>
 
-        {/* Content Grid */}
-        <div className="mt-10 grid gap-8 md:grid-cols-3">
-          {/* Main Info Column (2 cols) */}
-          <div className="space-y-8 md:col-span-2">
-            {/* Rich Detailed Technical Sections (e.g. Windows, PS1, PS2, PS3, Switch, Arcade, Exclusives) */}
-            {system.sections && system.sections.length > 0 && (
-              <div className="space-y-8">
-                {system.sections.map((section, sIdx) => (
+        {/* 2-Column Layout: Main Article and Sticky "Nesta página" Sidebar */}
+        <div className="grid gap-16 lg:grid-cols-[1fr_220px]">
+          {/* Main Content Article */}
+          <article className="max-w-3xl divide-y divide-border/60">
+            {navSections.map((nav, sIdx) => {
+              const sectionNum = String(sIdx + 1).padStart(2, "0");
+
+              // 1. Custom Detailed Section (e.g. Windows stores, .game, .uwp, .gameexe, PSX m3u, etc.)
+              if (nav.type === "custom" && nav.customSection) {
+                const s = nav.customSection;
+                return (
                   <section
-                    key={section.id || sIdx}
-                    id={section.id}
-                    className="rounded-3xl border border-white/10 bg-card/40 p-6 md:p-8 backdrop-blur-sm shadow-lg shadow-black/10"
+                    key={s.id || sIdx}
+                    id={s.id}
+                    className="scroll-mt-24 py-12 first:border-t-0 first:pt-4"
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                      <h2 className="text-xl md:text-2xl font-bold tracking-tight text-foreground flex items-center gap-2.5">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/20 text-primary text-xs font-mono font-bold">
-                          {sIdx + 1}
-                        </span>
-                        {section.title}
-                      </h2>
-                      {section.badge && (
-                        <span className="rounded-full bg-primary/10 border border-primary/30 px-3 py-0.5 font-mono text-[11px] font-bold text-primary">
-                          {section.badge}
-                        </span>
+                    <p className="font-mono text-xs text-primary">{sectionNum}</p>
+                    <h2 className="mt-2 font-display text-2xl font-bold tracking-tight md:text-3xl text-foreground">
+                      {s.title}
+                    </h2>
+
+                    <div className="mt-4 leading-7 text-muted-foreground [&_strong]:text-foreground">
+                      {s.description && <p>{s.description}</p>}
+
+                      {/* Callout */}
+                      {s.callout && (
+                        <div className="mt-6 border-l-2 border-primary pl-4">
+                          {s.callout.title && (
+                            <p className="font-semibold text-foreground">{s.callout.title}</p>
+                          )}
+                          <p className="mt-1 text-muted-foreground leading-relaxed">{s.callout.text}</p>
+                        </div>
+                      )}
+
+                      {/* Steps with vertical connecting line */}
+                      {s.steps && s.steps.length > 0 && (
+                        <ol className="mt-6">
+                          {s.steps.map((st, stepIdx) => {
+                            const isLast = stepIdx === s.steps!.length - 1;
+                            return (
+                              <li key={stepIdx} className="relative grid grid-cols-[2rem_1fr] gap-3 pb-6 last:pb-0">
+                                {!isLast && (
+                                  <span className="absolute bottom-0 left-[0.7rem] top-7 w-px bg-border" />
+                                )}
+                                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 font-mono text-xs text-primary">
+                                  {st.stepNumber || stepIdx + 1}
+                                </span>
+                                <div>
+                                  <p className="font-semibold text-foreground">{st.title}</p>
+                                  <p className="mt-1 text-muted-foreground leading-relaxed">{st.text}</p>
+                                  {st.code && (
+                                    <div className="mt-3">
+                                      <CodeBlock code={st.code} language={st.codeLang || "text"} />
+                                    </div>
+                                  )}
+                                </div>
+                              </li>
+                            );
+                          })}
+                        </ol>
+                      )}
+
+                      {/* Code Snippets */}
+                      {s.snippets && s.snippets.length > 0 && (
+                        <div className="space-y-4">
+                          {s.snippets.map((snip, snipIdx) => (
+                            <CodeBlock
+                              key={snipIdx}
+                              code={snip.code}
+                              language={snip.language}
+                              filename={snip.filename}
+                              description={snip.description}
+                            />
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Table */}
+                      {s.table && (
+                        <div className="mt-6 overflow-x-auto">
+                          <table className="w-full text-left text-sm">
+                            <thead className="text-xs uppercase tracking-wider text-muted-foreground border-b border-border/40">
+                              <tr>
+                                {s.table.headers.map((h, i) => (
+                                  <th key={i} className="pb-3 font-normal">
+                                    {h}
+                                  </th>
+                                ))}
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-border/40 font-mono">
+                              {s.table.rows.map((row, rIdx) => (
+                                <tr key={rIdx}>
+                                  {row.map((cell, cIdx) => (
+                                    <td
+                                      key={cIdx}
+                                      className={`py-3 ${
+                                        cIdx === 0
+                                          ? "font-sans text-foreground font-medium"
+                                          : cIdx === row.length - 1
+                                          ? "text-primary"
+                                          : "text-muted-foreground"
+                                      }`}
+                                    >
+                                      {cell}
+                                    </td>
+                                  ))}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
                       )}
                     </div>
+                  </section>
+                );
+              }
 
-                    {section.description && (
-                      <p className="text-sm md:text-base text-foreground/90 leading-relaxed mt-2 mb-4">
-                        {section.description}
-                      </p>
-                    )}
-
-                    {/* Section Callout */}
-                    {section.callout && (
-                      <div
-                        className={`my-4 flex items-start gap-3 rounded-2xl border p-4 text-sm leading-relaxed ${
-                          section.callout.type === "warning"
-                            ? "border-amber-500/30 bg-amber-500/10 text-amber-200"
-                            : section.callout.type === "danger"
-                            ? "border-rose-500/30 bg-rose-500/10 text-rose-200"
-                            : section.callout.type === "tip"
-                            ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200"
-                            : "border-primary/30 bg-primary/10 text-foreground"
-                        }`}
-                      >
-                        {section.callout.type === "warning" ? (
-                          <AlertTriangle className="h-5 w-5 text-amber-400 flex-shrink-0 mt-0.5" />
-                        ) : section.callout.type === "danger" ? (
-                          <AlertCircle className="h-5 w-5 text-rose-400 flex-shrink-0 mt-0.5" />
-                        ) : section.callout.type === "tip" ? (
-                          <Lightbulb className="h-5 w-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                        ) : (
-                          <Info className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                        )}
-                        <div>
-                          {section.callout.title && (
-                            <strong className="block font-semibold mb-1">
-                              {section.callout.title}
-                            </strong>
-                          )}
-                          <span>{section.callout.text}</span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Section Steps */}
-                    {section.steps && section.steps.length > 0 && (
-                      <div className="my-5 space-y-4">
-                        {section.steps.map((st, stepIdx) => (
-                          <div
-                            key={stepIdx}
-                            className="rounded-2xl border border-white/5 bg-black/30 p-4 transition-colors hover:border-white/10"
-                          >
-                            <div className="flex items-start gap-3">
-                              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/20 text-xs font-mono font-bold text-primary flex-shrink-0 mt-0.5">
-                                {st.stepNumber || stepIdx + 1}
+              // 2. Instructions / Summary Section (Clean connected list)
+              if (nav.type === "instructions") {
+                return (
+                  <section
+                    key="resumo"
+                    id="resumo"
+                    className="scroll-mt-24 py-12 first:border-t-0 first:pt-4"
+                  >
+                    <p className="font-mono text-xs text-primary">{sectionNum}</p>
+                    <h2 className="mt-2 font-display text-2xl font-bold tracking-tight md:text-3xl text-foreground">
+                      {nav.title}
+                    </h2>
+                    <div className="mt-4 leading-7 text-muted-foreground [&_strong]:text-foreground">
+                      <ol className="mt-6">
+                        {system.instructions.map((step, idx) => {
+                          const isLast = idx === system.instructions.length - 1;
+                          return (
+                            <li key={idx} className="relative grid grid-cols-[2rem_1fr] gap-3 pb-6 last:pb-0">
+                              {!isLast && (
+                                <span className="absolute bottom-0 left-[0.7rem] top-7 w-px bg-border" />
+                              )}
+                              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 font-mono text-xs text-primary">
+                                {idx + 1}
                               </span>
-                              <div className="flex-1">
-                                <h4 className="font-semibold text-sm text-foreground">
-                                  {st.title}
-                                </h4>
-                                <p className="mt-1 text-xs md:text-sm text-muted-foreground leading-relaxed">
-                                  {st.text}
-                                </p>
+                              <div>
+                                <p className="text-muted-foreground leading-relaxed">{step}</p>
                               </div>
-                            </div>
-                            {st.code && (
-                              <div className="mt-3 pl-9">
-                                <CodeBlock code={st.code} language={st.codeLang || "text"} />
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                            </li>
+                          );
+                        })}
+                      </ol>
+                    </div>
+                  </section>
+                );
+              }
 
-                    {/* Section Code Snippets */}
-                    {section.snippets && section.snippets.length > 0 && (
-                      <div className="my-4 space-y-3">
-                        {section.snippets.map((snip, snipIdx) => (
-                          <CodeBlock
-                            key={snipIdx}
-                            code={snip.code}
-                            language={snip.language}
-                            filename={snip.filename}
-                            description={snip.description}
-                          />
+              // 3. Accepted Formats Section
+              if (nav.type === "formats") {
+                return (
+                  <section
+                    key="formatos"
+                    id="formatos"
+                    className="scroll-mt-24 py-12 first:border-t-0 first:pt-4"
+                  >
+                    <p className="font-mono text-xs text-primary">{sectionNum}</p>
+                    <h2 className="mt-2 font-display text-2xl font-bold tracking-tight md:text-3xl text-foreground">
+                      Formatos aceitos
+                    </h2>
+                    <div className="mt-4 leading-7 text-muted-foreground [&_strong]:text-foreground">
+                      {system.recommendedFormat && (
+                        <p className="mb-4">
+                          Formato recomendado:{" "}
+                          <strong className="font-mono text-primary">{system.recommendedFormat}</strong>
+                        </p>
+                      )}
+                      <p className="font-mono text-sm leading-8">
+                        {system.extensions.map((ext) => (
+                          <span key={ext} className="mr-4 text-foreground">
+                            {ext}
+                          </span>
                         ))}
-                      </div>
-                    )}
+                      </p>
+                    </div>
+                  </section>
+                );
+              }
 
-                    {/* Section Table */}
-                    {section.table && (
-                      <div className="my-5 overflow-x-auto rounded-2xl border border-white/10 bg-black/40">
-                        <table className="w-full text-left text-xs md:text-sm">
-                          <thead className="border-b border-white/10 bg-white/[0.04] text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-                            <tr>
-                              {section.table.headers.map((h, hIdx) => (
-                                <th key={hIdx} className="px-4 py-3 font-semibold">
-                                  {h}
-                                </th>
+              // 4. BIOS Requirements Section
+              if (nav.type === "bios") {
+                return (
+                  <section
+                    key="bios"
+                    id="bios"
+                    className="scroll-mt-24 py-12 first:border-t-0 first:pt-4"
+                  >
+                    <p className="font-mono text-xs text-primary">{sectionNum}</p>
+                    <h2 className="mt-2 font-display text-2xl font-bold tracking-tight md:text-3xl text-foreground">
+                      Requisitos de BIOS
+                    </h2>
+                    <div className="mt-4 leading-7 text-muted-foreground [&_strong]:text-foreground">
+                      {system.biosRequired ? (
+                        <div>
+                          <p>
+                            Este sistema exige arquivos de BIOS para inicializar os jogos com compatibilidade total.
+                          </p>
+                          {system.biosFiles.length > 0 && (
+                            <ul className="mt-4 space-y-2 font-mono text-sm">
+                              {system.biosFiles.map((file) => (
+                                <li key={file} className="flex items-center gap-2 text-foreground">
+                                  <AlertCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                                  <span>{file}</span>
+                                </li>
                               ))}
+                            </ul>
+                          )}
+                          {system.biosNotes && (
+                            <p className="mt-4 text-sm text-muted-foreground">{system.biosNotes}</p>
+                          )}
+                          <div className="mt-6 border-l-2 border-primary pl-4">
+                            <p className="font-semibold text-foreground">Instalação automática</p>
+                            <p className="mt-1 text-muted-foreground">
+                              Membros RIESCADE instalam o pacote completo de BIOS com 1 clique pela Central de Downloads.
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <p>
+                          Este sistema não exige arquivos de BIOS externos. O emulador inicia as ROMs imediatamente via HLE.
+                        </p>
+                      )}
+                    </div>
+                  </section>
+                );
+              }
+
+              // 5. Emulators Section
+              if (nav.type === "emulators") {
+                return (
+                  <section
+                    key="emuladores"
+                    id="emuladores"
+                    className="scroll-mt-24 py-12 first:border-t-0 first:pt-4"
+                  >
+                    <p className="font-mono text-xs text-primary">{sectionNum}</p>
+                    <h2 className="mt-2 font-display text-2xl font-bold tracking-tight md:text-3xl text-foreground">
+                      Emuladores e configurações
+                    </h2>
+                    <div className="mt-4 leading-7 text-muted-foreground [&_strong]:text-foreground">
+                      <p>
+                        Emulador padrão:{" "}
+                        <strong className="font-mono text-primary">
+                          {system.defaultEmulator?.name}
+                          {system.defaultEmulator?.core ? ` (${system.defaultEmulator.core})` : ""}
+                        </strong>
+                      </p>
+
+                      <div className="mt-6 overflow-x-auto">
+                        <table className="w-full text-left text-sm">
+                          <thead className="text-xs uppercase tracking-wider text-muted-foreground border-b border-border/40">
+                            <tr>
+                              <th className="pb-3 font-normal">Emulador</th>
+                              <th className="pb-3 font-normal">Cores Disponíveis</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-white/5 font-mono">
-                            {section.table.rows.map((row, rIdx) => (
-                              <tr key={rIdx} className="hover:bg-white/[0.02] transition-colors">
-                                {row.map((cell, cIdx) => (
-                                  <td
-                                    key={cIdx}
-                                    className={`px-4 py-3 text-foreground/90 ${
-                                      cIdx === 0 ? "font-semibold text-foreground" : ""
-                                    }`}
-                                  >
-                                    {cell}
-                                  </td>
-                                ))}
+                          <tbody className="divide-y divide-border/40 font-mono">
+                            {system.emulators.map((emu, eIdx) => (
+                              <tr key={eIdx}>
+                                <td className="py-3 font-sans font-medium text-foreground">{emu.name}</td>
+                                <td className="py-3 text-muted-foreground">
+                                  {emu.cores.length > 0 ? emu.cores.join(", ") : "Standalone"}
+                                </td>
                               </tr>
                             ))}
                           </tbody>
                         </table>
                       </div>
-                    )}
+
+                      <div className="mt-6 border-l-2 border-primary pl-4">
+                        <p className="font-semibold text-foreground">Como trocar de emulador</p>
+                        <p className="mt-1 text-muted-foreground">
+                          No menu de jogos do RIESCADE, pressione X (ou botão de opções do controle) sobre o título e acesse Opções Avançadas do Jogo → Emulador.
+                        </p>
+                      </div>
+                    </div>
                   </section>
-                ))}
-              </div>
-            )}
+                );
+              }
 
-            {/* Standard Step-by-step Guide */}
-            <section aria-labelledby="steps-title" className="rounded-3xl border border-white/10 bg-card/40 p-6 md:p-8 backdrop-blur-sm">
-              <h2 id="steps-title" className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/20 text-primary text-sm font-mono font-bold">
-                  {system.sections && system.sections.length > 0 ? system.sections.length + 1 : 1}
-                </span>
-                Resumo Prático de Instalação
-              </h2>
+              // 6. Notes Section
+              if (nav.type === "notes") {
+                return (
+                  <section
+                    key="dicas"
+                    id="dicas"
+                    className="scroll-mt-24 py-12 first:border-t-0 first:pt-4"
+                  >
+                    <p className="font-mono text-xs text-primary">{sectionNum}</p>
+                    <h2 className="mt-2 font-display text-2xl font-bold tracking-tight md:text-3xl text-foreground">
+                      Dicas e particularidades
+                    </h2>
+                    <div className="mt-4 leading-7 text-muted-foreground [&_strong]:text-foreground space-y-4">
+                      {system.notes.map((n, nIdx) => (
+                        <div key={nIdx} className="border-l-2 border-primary pl-4">
+                          <p>{n}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                );
+              }
 
-              <ol className="mt-6 space-y-4">
-                {system.instructions.map((step, idx) => (
-                  <li key={idx} className="flex gap-4">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-xs font-mono font-semibold text-primary flex-shrink-0 mt-0.5">
-                      {idx + 1}
-                    </span>
-                    <p className="text-sm text-foreground/90 leading-relaxed">
-                      {step}
-                    </p>
+              return null;
+            })}
+          </article>
+
+          {/* Sticky Right Sidebar "Nesta página" */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-28 border-l border-border pl-5 pt-2">
+              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                Nesta página
+              </p>
+              <ul className="mt-4 space-y-2 text-sm">
+                {navSections.map((nav) => (
+                  <li key={nav.id}>
+                    <a
+                      href={`#${nav.id}`}
+                      className="text-muted-foreground transition-colors hover:text-primary block leading-snug"
+                    >
+                      {nav.title}
+                    </a>
                   </li>
                 ))}
-              </ol>
-            </section>
+              </ul>
 
-            {/* Formats and Extensions */}
-            <section aria-labelledby="formats-title" className="rounded-3xl border border-white/10 bg-card/40 p-6 md:p-8 backdrop-blur-sm">
-              <h2 id="formats-title" className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/20 text-primary text-sm font-mono font-bold">
-                  {system.sections && system.sections.length > 0 ? system.sections.length + 2 : 2}
-                </span>
-                Formatos & Extensões Aceitas
-              </h2>
-
-              {/* Recommended format callout */}
-              <div className="mt-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4">
-                <span className="block font-mono text-[11px] uppercase tracking-wider text-emerald-400 font-semibold">
-                  Formato recomendado:
-                </span>
-                <p className="mt-1 font-bold text-base text-foreground">
-                  {system.recommendedFormat}
-                </p>
-              </div>
-
-              {/* All accepted extensions */}
-              <div className="mt-5">
-                <span className="block text-xs text-muted-foreground font-mono uppercase tracking-wider mb-2">
-                  Todas as extensões suportadas pelo emulador:
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {system.extensions.map((ext) => (
-                    <span
-                      key={ext}
-                      className="rounded-lg border border-white/10 bg-black/40 px-3 py-1 font-mono text-xs text-foreground"
-                    >
-                      {ext}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* Special notes & tips */}
-            {system.notes.length > 0 && (
-              <section aria-labelledby="notes-title" className="rounded-3xl border border-white/10 bg-card/40 p-6 md:p-8 backdrop-blur-sm">
-                <h2 id="notes-title" className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/20 text-primary text-sm font-mono font-bold">
-                    {system.sections && system.sections.length > 0 ? system.sections.length + 3 : 3}
-                  </span>
-                  Dicas e Particularidades
-                </h2>
-
-                <div className="mt-6 space-y-3">
-                  {system.notes.map((note, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-3 rounded-2xl border border-white/5 bg-black/30 p-4 text-sm text-foreground/90 leading-relaxed"
-                    >
-                      <Info className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span>{note}</span>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-          </div>
-
-          {/* Sidebar Column (1 col) */}
-          <div className="space-y-6">
-            {/* BIOS Requirements Card */}
-            <div className="rounded-3xl border border-white/10 bg-card/50 p-6 backdrop-blur-sm">
-              <h3 className="font-bold text-base text-foreground flex items-center gap-2">
-                <AlertCircle className="h-4 w-4 text-primary" />
-                Requisitos de BIOS
-              </h3>
-
-              <div className="mt-4">
-                {system.biosRequired ? (
-                  <div className="space-y-3">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 px-3 py-1 text-xs font-semibold text-amber-400">
-                      <AlertCircle className="h-3.5 w-3.5" />
-                      Obrigatória para iniciar
-                    </span>
-
-                    {system.biosFiles.length > 0 && (
-                      <div className="mt-3">
-                        <span className="block text-[11px] font-mono uppercase tracking-wider text-muted-foreground mb-1">
-                          Arquivos necessários:
-                        </span>
-                        <ul className="space-y-1">
-                          {system.biosFiles.map((file) => (
-                            <li
-                              key={file}
-                              className="rounded-lg border border-white/10 bg-black/40 px-2.5 py-1 font-mono text-xs text-foreground break-all"
-                            >
-                              {file}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {system.biosNotes && (
-                      <p className="text-xs text-muted-foreground leading-relaxed pt-2">
-                        {system.biosNotes}
-                      </p>
-                    )}
-
-                    <div className="mt-4 rounded-xl border border-primary/30 bg-primary/10 p-3 text-xs text-muted-foreground">
-                      💡 <strong className="text-foreground">Dica RIESCADE:</strong> Assinantes instalam o pack completo de BIOS com 1 clique pelo menu de downloads do aplicativo.
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 text-xs font-semibold text-emerald-400">
-                      <CheckCircle2 className="h-3.5 w-3.5" />
-                      Dispensada / Emulação HLE
-                    </span>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      Este sistema não exige arquivos de BIOS para rodar jogos. O emulador inicia suas ROMs imediatamente.
-                    </p>
-                  </div>
-                )}
+              <div className="mt-8 pt-6 border-t border-border/60">
+                <Link
+                  href="/wiki"
+                  className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1.5"
+                >
+                  ← Todos os sistemas
+                </Link>
               </div>
             </div>
-
-            {/* Emulators Card */}
-            <div className="rounded-3xl border border-white/10 bg-card/50 p-6 backdrop-blur-sm">
-              <h3 className="font-bold text-base text-foreground flex items-center gap-2">
-                <Cpu className="h-4 w-4 text-primary" />
-                Emuladores no RIESCADE
-              </h3>
-
-              <div className="mt-4 space-y-4">
-                {system.defaultEmulator && (
-                  <div>
-                    <span className="block text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-                      Emulador padrão:
-                    </span>
-                    <p className="mt-1 font-mono text-sm font-bold text-primary">
-                      {system.defaultEmulator.name}
-                      {system.defaultEmulator.core && (
-                        <span className="block font-normal text-xs text-muted-foreground">
-                          Core: {system.defaultEmulator.core}
-                        </span>
-                      )}
-                    </p>
-                  </div>
-                )}
-
-                {system.emulators.length > 1 && (
-                  <div className="pt-2 border-t border-white/5">
-                    <span className="block text-[11px] font-mono uppercase tracking-wider text-muted-foreground mb-2">
-                      Emuladores alternativos:
-                    </span>
-                    <div className="space-y-2">
-                      {system.emulators
-                        .filter((e) => e.name !== system.defaultEmulator?.name)
-                        .map((emu) => (
-                          <div
-                            key={emu.name}
-                            className="rounded-xl border border-white/5 bg-black/30 p-2 text-xs font-mono"
-                          >
-                            <span className="text-foreground font-semibold">{emu.name}</span>
-                            {emu.cores.length > 0 && (
-                              <span className="block text-[11px] text-muted-foreground mt-0.5">
-                                Cores: {emu.cores.slice(0, 3).join(", ")}
-                                {emu.cores.length > 3 ? "..." : ""}
-                              </span>
-                            )}
-                          </div>
-                        ))}
-                    </div>
-                  </div>
-                )}
-
-                <p className="text-[11px] text-muted-foreground/80 leading-relaxed pt-2 border-t border-white/5">
-                  Para trocar o emulador no RIESCADE, selecione o jogo, pressione <kbd className="font-mono text-[10px] text-foreground">X</kbd> (ou botão de opções do controle) e acesse <strong className="text-foreground">Opções Avançadas do Jogo → Emulador</strong>.
-                </p>
-              </div>
-            </div>
-
-            {/* Back link */}
-            <div className="pt-2">
-              <Link
-                href="/wiki"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs font-semibold text-foreground transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                <span>Voltar para a Wiki</span>
-              </Link>
-            </div>
-          </div>
+          </aside>
         </div>
 
-        {/* Related Systems */}
+        {/* Related Systems in the bottom */}
         {related.length > 0 && (
-          <section aria-labelledby="related-title" className="mt-20 border-t border-white/10 pt-12">
-            <h2 id="related-title" className="text-lg font-bold tracking-tight text-foreground mb-6">
-              Outros sistemas {system.manufacturer !== "Vários" ? `da ${system.manufacturer}` : `da categoria ${hardwareLabel}`}
+          <section aria-labelledby="related-title" className="mt-24 border-t border-border pt-12">
+            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
+              Explorar mais
+            </p>
+            <h2 id="related-title" className="text-xl font-bold tracking-tight text-foreground mb-8">
+              Outros sistemas {system.manufacturer !== "Vários" ? `da ${system.manufacturer}` : `de ${hardwareLabel}`}
             </h2>
 
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
@@ -559,26 +592,30 @@ export default async function WikiSystemPage({
                 <Link
                   key={item.id}
                   href={`/wiki/${item.slug}`}
-                  className="group flex flex-col items-center text-center rounded-2xl border border-white/10 bg-card/40 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:bg-card/70"
+                  className="group flex flex-col justify-between rounded-lg border border-border/80 bg-card p-4 transition-all duration-200 hover:border-primary/50 hover:bg-card/70"
                 >
-                  <div className="relative h-12 w-20 mb-3">
+                  <div className="relative h-12 w-full mb-3 flex items-center justify-center">
                     {item.logo ? (
                       <Image
                         src={item.logo}
                         alt=""
                         fill
+                        unoptimized
+                        sizes="96px"
                         className="object-contain transition-transform group-hover:scale-105"
                       />
                     ) : (
-                      <Gamepad2 className="h-8 w-8 text-muted-foreground mx-auto" />
+                      <Gamepad2 className="h-7 w-7 text-muted-foreground" />
                     )}
                   </div>
-                  <h3 className="text-xs font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-                    {item.name}
-                  </h3>
-                  <span className="font-mono text-[10px] text-muted-foreground mt-1">
-                    {item.folderPath}
-                  </span>
+                  <div>
+                    <h3 className="text-xs font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                      {item.name}
+                    </h3>
+                    <span className="font-mono text-[10px] text-muted-foreground mt-1 block truncate">
+                      {item.folderPath}
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>
