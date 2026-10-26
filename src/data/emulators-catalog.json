@@ -510,6 +510,12 @@
 			"executable": "ryujinx/Ryujinx.exe",
 			"preserve": ["portable", "bis", "sdcard", "system"]
 		},
+		"nextendo": {
+			"name": "Nextendo",
+			"installDir": "nextendo",
+			"executable": "nextendo/Ryujinx.exe",
+			"preserve": ["portable", "bis", "sdcard", "system", "nextendo_accounts"]
+		},
 		"scummvm": {
 			"name": "scummvm",
 			"installDir": "scummvm",
