@@ -19,7 +19,7 @@ describe("RetroBat marker snapshot",()=>{
     expect(result.assets[0]).toMatchObject({download_name:"Test.zar",launch_path:"Test.zar",install_mode:"file"});
   });
   it("uses all verified Lindbergh paths and rejects outdated package mappings",()=>{
-    const rows=Object.entries(extractPaths).map(([key,value],index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"lindbergh",filename:key.split("/")[1],file_size:value.file_size,md5_checksum:value.md5}));
+    const rows=Object.entries(extractPaths).filter(([key])=>key.startsWith("lindbergh/")).map(([key,value],index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"lindbergh",filename:key.split("/")[1],file_size:value.file_size,md5_checksum:value.md5}));
     const result=buildRetrobatCatalog(rows,[{id:"lindbergh",extensions:[".game"]}]);
     expect(result.assets).toHaveLength(26);
     for(const asset of result.assets){expect(asset.launch_path).toBe(extractPaths[`lindbergh/${asset.download_name}` as keyof typeof extractPaths].launch_path);}
@@ -31,9 +31,30 @@ describe("RetroBat marker snapshot",()=>{
     expect(result.platforms).toEqual(["snes"]);expect(result.total).toBe(1);
     expect(JSON.stringify(result)).not.toContain("secret");
   });
+  it("keeps Japanese packages and shared media in the single 3do catalog",()=>{
+    const rows=Object.entries(extractPaths).filter(([key,value])=>key.startsWith("3do/")&&value.launch_path.startsWith("+japan/")).map(([key,value],index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"3do",filename:key.slice(4),file_size:value.file_size,md5_checksum:value.md5}));
+    const media={...row,id:"f".repeat(64),platform:"3do",filename:"_media.zip"};
+    const result=buildRetrobatCatalog([...rows,media,{...row,platform:"3doj"}],[{id:"3do",extensions:[".cue",".iso",".chd"]}]);
+    expect(result.assets).toHaveLength(38);
+    expect(result.platforms).toEqual(["3do"]);
+    expect(result.media).toHaveLength(1);
+    for(const asset of result.assets){
+      expect(asset.install_mode).toBe("extract");
+      expect(asset.launch_path).toBe(`+japan/${asset.download_name.replace(/\.extract\.zip$/, ".chd")}`);
+    }
+  });
   it("excludes unsafe names, media and unsupported systems",()=>{
     const rows=["../Mario.zip","CON.zip","_media.zip","Mario.exe"].map(filename=>({...row,filename}));
     expect(buildRetrobatCatalog([...rows,{...row,platform:"unknown"}],platforms).total).toBe(0);
+  });
+  it("exports all four verified 3DO multidisc packages through their M3U entry",()=>{
+    const rows=Object.entries(extractPaths).filter(([key,value])=>key.startsWith("3do/")&&value.launch_path.endsWith(".m3u")).map(([key,value],index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"3do",filename:key.slice(4),file_size:value.file_size,md5_checksum:value.md5}));
+    const result=buildRetrobatCatalog(rows,[{id:"3do",extensions:[".cue",".iso",".chd",".m3u"]}]);
+    expect(result.assets).toHaveLength(4);
+    for(const asset of result.assets){
+      expect(asset.install_mode).toBe("extract");
+      expect(asset.launch_path).toBe(asset.download_name.replace(/\.extract\.zip$/, ".m3u"));
+    }
   });
   it("includes extract packages with separate download and launch names",()=>{
     const result=buildRetrobatCatalog([{...row,filename:"Mario.extract.zip"}],platforms);

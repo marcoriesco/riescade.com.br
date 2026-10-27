@@ -1,0 +1,164 @@
+Vercel CLI 62.7.0 (Node.js 24.14.0)
+Retrieving project…
+Deploying marco-riescos-projects/riescade.com.br
+Uploading [--------------------] (0.0B/13.5MB)
+Uploading [=====---------------] (3.4MB/13.5MB)
+Uploading [==========----------] (6.8MB/13.5MB)
+Uploading [===============-----] (10.1MB/13.5MB)
+Uploading [====================] (13.5MB/13.5MB)
+  Inspect         https://vercel.com/marco-riescos-projects/riescade.com.br/81Ybacmw9oGG6wStFw6bn2CyuvWy
+  Production      https://riescadecom-lzduf20p6-marco-riescos-projects.vercel.app
+Building…
+Building…
+Running build in Washington, D.C., USA (East) – iad1
+Build machine configuration: 2 cores, 8 GB
+Retrieving list of deployment files...
+Downloading 2316 deployment files...
+Restored build cache from previous deployment (5yr43z2zrMnLZzD5K6HPw9egdTVK)
+Running "vercel build"
+Vercel CLI 65.1.0
+Installing dependencies...
+up to date in 2s
+210 packages are looking for funding
+run `npm fund` for details
+Detected Next.js version: 15.5.22
+Running "npm run build"
+> riescade-saas@1.0.0 build
+> next build
+⚠ Runtime config is deprecated and the `serverRuntimeConfig` configuration option will be removed in Next.js 16.
+▲ Next.js 15.5.22
+Creating an optimized production build ...
+✓ Compiled successfully in 25.8s
+Linting and checking validity of types ...
+Collecting page data ...
+⚠ Using edge runtime on a page currently disables static generation for that page
+Generating static pages (0/548) ...
+Generating static pages (137/548)
+Generating static pages (274/548)
+Generating static pages (411/548)
+✓ Generating static pages (548/548)
+Finalizing page optimization ...
+Collecting build traces ...
+Route (app)                                         Size  First Load JS  Revalidate  Expire
+┌ ○ /                                            44.3 kB         244 kB
+├ ○ /_not-found                                    260 B         103 kB
+├ ○ /admin/instagram                             3.86 kB         175 kB
+├ ƒ /api/admin/instagram                           260 B         103 kB
+├ ƒ /api/admin/instagram/callback                  260 B         103 kB
+├ ƒ /api/app/auth/authorize                        260 B         103 kB
+├ ƒ /api/app/auth/exchange                         260 B         103 kB
+├ ƒ /api/app/auth/logout                           260 B         103 kB
+├ ƒ /api/app/bios/catalog                          260 B         103 kB
+├ ƒ /api/app/bios/downloads/[assetId]              260 B         103 kB
+├ ƒ /api/app/catalog                               260 B         103 kB
+├ ƒ /api/app/downloads/[assetId]                   260 B         103 kB
+├ ƒ /api/app/emulators/catalog                     260 B         103 kB
+├ ƒ /api/app/emulators/downloads/[assetId]         260 B         103 kB
+├ ƒ /api/app/friends                               260 B         103 kB
+├ ƒ /api/app/friends/avatar                        260 B         103 kB
+├ ƒ /api/app/friends/relay                         260 B         103 kB
+├ ƒ /api/app/friends/sessions                      260 B         103 kB
+├ ƒ /api/app/library                               260 B         103 kB
+├ ƒ /api/app/media/downloads                       260 B         103 kB
+├ ƒ /api/app/platform-downloads/[assetId]          260 B         103 kB
+├ ƒ /api/app/retrobat/download                     260 B         103 kB
+├ ƒ /api/app/retrobat/latest                       260 B         103 kB
+├ ƒ /api/app/retrobat/themes                       260 B         103 kB
+├ ƒ /api/app/retrobat/themes/[themeId]/download    260 B         103 kB
+├ ƒ /api/app/retrobat/updates                      260 B         103 kB
+├ ƒ /api/app/romset-catalog                        260 B         103 kB
+├ ƒ /api/app/romset-updates                        260 B         103 kB
+├ ƒ /api/app/subscription                          260 B         103 kB
+├ ƒ /api/app/subscription/portal                   260 B         103 kB
+├ ƒ /api/app/themes/catalog                        260 B         103 kB
+├ ƒ /api/app/themes/downloads/[assetId]            260 B         103 kB
+├ ƒ /api/app/update/download                       260 B         103 kB
+├ ƒ /api/app/update/latest                         260 B         103 kB
+├ ƒ /api/cancel-subscription                       260 B         103 kB
+├ ƒ /api/create-checkout-session                   260 B         103 kB
+├ ƒ /api/internal/google-drive/sync                260 B         103 kB
+├ ƒ /api/internal/instagram/publish                260 B         103 kB
+├ ƒ /api/internal/releases/publish                 260 B         103 kB
+├ ƒ /api/keepalive                                 260 B         103 kB
+├ ƒ /api/og-fallback                               260 B         103 kB
+├ ƒ /api/update-post-views                         260 B         103 kB
+├ ƒ /api/verify-session                            260 B         103 kB
+├ ƒ /api/webhooks/stripe                           260 B         103 kB
+├ ƒ /api/xml-check                                 260 B         103 kB
+├ ○ /app-data                                    3.51 kB         203 kB
+├ ○ /app-login                                    2.4 kB         172 kB
+├ ○ /app-politica                                2.77 kB         202 kB
+├ ○ /apple-icon.png                                  0 B            0 B
+├ ƒ /blog                                        2.51 kB         198 kB
+├ ● /blog/[slug]                                 6.28 kB         202 kB
+├ ƒ /blog/category/[slug]                          260 B         103 kB
+├ ○ /dashboard                                   11.9 kB         211 kB
+├ ○ /icon.png                                        0 B            0 B
+├ ○ /platforms                                   2.51 kB         198 kB          1d      1y
+├ ● /platforms/[platform]                        2.51 kB         198 kB          1d      1y
+├   ├ /platforms/3dnes                                                           1d      1y
+├   ├ /platforms/3do                                                             1d      1y
+├   ├ /platforms/archimedes                                                      1d      1y
+├   └ [+264 more paths]
+├ ○ /politica                                    3.03 kB         202 kB
+├ ○ /sitemap.xml                                   260 B         103 kB          1h      1y
+├ ○ /termos                                      3.59 kB         203 kB
+├ ○ /tutorial                                    2.51 kB         198 kB
+├ ○ /wiki                                        2.49 kB         200 kB          1d      1y
+└ ● /wiki/[system]                                 864 B         199 kB          1d      1y
+├ /wiki/arcadedumps                                                          1d      1y
+├ /wiki/arcadews                                                             1d      1y
+├ /wiki/pgm3viper                                                            1d      1y
+└ [+247 more paths]
++ First Load JS shared by all                     102 kB
+├ chunks/1255-31f47ebe9b12c7e5.js              46.3 kB
+├ chunks/4bd1b696-f785427dddbba9fb.js          54.2 kB
+└ other shared chunks (total)                  1.95 kB
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+Traced Next.js server files in: 41.221ms
+Created all serverless functions in: 575.439ms
+Collected static files (public/, static/, .next/static): 105.787ms
+Build Completed in /vercel/output [1m]
+Deploying outputs...
+[2K[1A[2K[G  Production      https://riescadecom-lzduf20p6-marco-riescos-projects.vercel.app
+Completing…
+▲ Aliased         https://www.riescade.com.br
+{
+  "status": "ok",
+  "deployment": {
+    "id": "dpl_81Ybacmw9oGG6wStFw6bn2CyuvWy",
+    "url": "https://riescadecom-lzduf20p6-marco-riescos-projects.vercel.app",
+    "productionUrl": "https://www.riescade.com.br",
+    "inspectorUrl": "https://vercel.com/marco-riescos-projects/riescade.com.br/81Ybacmw9oGG6wStFw6bn2CyuvWy",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_81Ybacmw9oGG6wStFw6bn2CyuvWy",
+    "buildMachine": {
+      "cores": 2,
+      "memory": 8192,
+      "machine": "basic",
+      "selectionType": "fixed",
+      "selectionSource": "plan-default"
+    },
+    "deploymentProtection": [
+      "vercel_authentication"
+    ]
+  },
+  "message": "Deployment riescadecom-lzduf20p6-marco-riescos-projects.vercel.app ready. Production URL: https://www.riescade.com.br",
+  "next": [
+    {
+      "command": "vercel curl https://www.riescade.com.br",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect riescadecom-lzduf20p6-marco-riescos-projects.vercel.app",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod",
+      "when": "Promote to production"
+    }
+  ]
+}

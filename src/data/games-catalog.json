@@ -467,7 +467,7 @@
 		{
 			"id": "3do",
 			"name": "3DO",
-			"extensions": [".cue", ".iso", ".chd"]
+			"extensions": [".cue", ".iso", ".chd", ".m3u"]
 		},
 		{
 			"id": "amiga500",
@@ -1828,11 +1828,6 @@
 			"id": "reminiscence",
 			"name": "REminiscence",
 			"extensions": [".rem"]
-		},
-		{
-			"id": "3doj",
-			"name": "3DO Japan",
-			"extensions": [".m3u", ".cue", ".iso", ".chd", ".zip"]
 		},
 		{
 			"id": "AAE",

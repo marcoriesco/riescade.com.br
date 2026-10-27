@@ -1,0 +1,369 @@
+Synchronizing the complete Google Drive catalog
+{
+  "folders": 61,
+  "assets": 10967,
+  "skipped": 10,
+  "platforms": [
+    {
+      "platform": "arcadedumps",
+      "folderId": "133_lLSKLzLxP49WeWcjDJNG5wt7z6GnQ",
+      "assets": 4,
+      "skipped": 0
+    },
+    {
+      "platform": "pgm3viper",
+      "folderId": "1ACPORKd5zW2HDLJqi8gOburobqsrpLGo",
+      "assets": 32,
+      "skipped": 0
+    },
+    {
+      "platform": "ios",
+      "folderId": "1kW6FnRh2FUZRdKKkI7Pp6jZxiR9nKKRw",
+      "assets": 6,
+      "skipped": 0
+    },
+    {
+      "platform": "hbmame",
+      "folderId": "1qnbXVgloNiFEahxF1fNPAD5nq4I7sYG2",
+      "assets": 10,
+      "skipped": 0
+    },
+    {
+      "platform": "fbneo",
+      "folderId": "14I3wWYMOaINICPz1NK5cwwC60y5dc1Vv",
+      "assets": 570,
+      "skipped": 0
+    },
+    {
+      "platform": "daphne",
+      "folderId": "1PKPodWgITTGGCAJRPA8E67BCIvDs-t1J",
+      "assets": 18,
+      "skipped": 0
+    },
+    {
+      "platform": "singe",
+      "folderId": "1xE6kV5RGxd-IZEEyrW8I1HA5-1mL436J",
+      "assets": 95,
+      "skipped": 0
+    },
+    {
+      "platform": "actionmax",
+      "folderId": "1tST_RaZl6obynP6cnPGjTFXDNafPLGnc",
+      "assets": 2,
+      "skipped": 0
+    },
+    {
+      "platform": "neogeo",
+      "folderId": "1sAoFixQQXH2FLh0_oRBN4P2ptPldtr_z",
+      "assets": 199,
+      "skipped": 0
+    },
+    {
+      "platform": "model2",
+      "folderId": "1krvT9vAL1wbOY7llFkMjbBd-EKf8wYO7",
+      "assets": 31,
+      "skipped": 0
+    },
+    {
+      "platform": "model3",
+      "folderId": "15jFeWcDz1iHH7d5b9h3ulBnx5TIIZNVJ",
+      "assets": 25,
+      "skipped": 0
+    },
+    {
+      "platform": "atomiswave",
+      "folderId": "1G9LQboR4_7oKcgaxTxWFqSp3HAHD8MB0",
+      "assets": 28,
+      "skipped": 0
+    },
+    {
+      "platform": "naomi",
+      "folderId": "1WSK9s7y-VdNIGxHnMrOaUV7OJhDSV8pU",
+      "assets": 125,
+      "skipped": 0
+    },
+    {
+      "platform": "naomi2",
+      "folderId": "1KApR8aeC1zPhtMcIrP95sJ8GaCmZAg-T",
+      "assets": 13,
+      "skipped": 0
+    },
+    {
+      "platform": "hikaru",
+      "folderId": "1_D392EDc23nYgoNvhCymIj_MhorxK1T_",
+      "assets": 7,
+      "skipped": 0
+    },
+    {
+      "platform": "chihiro",
+      "folderId": "1NCefr8yzzs25o8z3KTzj8KXt5-yXuiAJ",
+      "assets": 8,
+      "skipped": 0
+    },
+    {
+      "platform": "triforce",
+      "folderId": "1tE1V6PKgdbakIAF13ftVoWkFJCw6G8I8",
+      "assets": 5,
+      "skipped": 0
+    },
+    {
+      "platform": "lindbergh",
+      "folderId": "1IcKs3bNkhdt0bIFRfp1WkN29VJkADHSC",
+      "assets": 27,
+      "skipped": 0
+    },
+    {
+      "platform": "megadrive",
+      "folderId": "19fgEgCfgdYvuFYS8Gq4JVqm2uCIIZc7a",
+      "assets": 783,
+      "skipped": 0
+    },
+    {
+      "platform": "saturn",
+      "folderId": "1PISMeE8hU6N18CBRwy0LwkVBsvb6wdL6",
+      "assets": 248,
+      "skipped": 0
+    },
+    {
+      "platform": "dreamcast",
+      "folderId": "1HHmG-6RuvPIccSlR7TwSC_8fixMP1KWb",
+      "assets": 29,
+      "skipped": 0
+    },
+    {
+      "platform": "nes",
+      "folderId": "1sAL5Ic5ijDAAr5wgc5kTO3e5YT6UGjtM",
+      "assets": 886,
+      "skipped": 0
+    },
+    {
+      "platform": "snes",
+      "folderId": "1T80HXd-2EpwZ6IFzeka8H_VSpghuoKv3",
+      "assets": 771,
+      "skipped": 0
+    },
+    {
+      "platform": "n64",
+      "folderId": "1D7ocb19MUiikRywGfPfMEpeR09aS1QWx",
+      "assets": 401,
+      "skipped": 0
+    },
+    {
+      "platform": "wiiu",
+      "folderId": "1B1SATHqduM-OAYv6VGVJ09g4pf1BwyFy",
+      "assets": 21,
+      "skipped": 0
+    },
+    {
+      "platform": "switch",
+      "folderId": "1X8-nOWbZjr9i-OpSQYosLkn3gU84v11Y",
+      "assets": 391,
+      "skipped": 0
+    },
+    {
+      "platform": "psx",
+      "folderId": "1Yb4byV1BujkN5UhBqBDKiUWHY8HZjqe5",
+      "assets": 1639,
+      "skipped": 0
+    },
+    {
+      "platform": "ps2",
+      "folderId": "1d_PzCQpbBfSERGOWudCDcrNu56QrB55a",
+      "assets": 22,
+      "skipped": 0
+    },
+    {
+      "platform": "ps3",
+      "folderId": "1iXOJrXvRxXn9ULr7k9JBiTm6GRpD-wOP",
+      "assets": 3,
+      "skipped": 0
+    },
+    {
+      "platform": "ps4",
+      "folderId": "1PumqLDLhU56D7ywTvCZiq5VZCiuNFfGd",
+      "assets": 5,
+      "skipped": 0
+    },
+    {
+      "platform": "ps5",
+      "folderId": "1fCvekXy07BO2-zHg1UJcOqjUV61ia0F6",
+      "assets": 6,
+      "skipped": 0
+    },
+    {
+      "platform": "xbox",
+      "folderId": "1ZUIrwZbgTlXt-hgRoW6pu6AmZtCOreM7",
+      "assets": 9,
+      "skipped": 0
+    },
+    {
+      "platform": "xbox360",
+      "folderId": "1nXm4xvEzEEoV7PJCv1OQew2WXsHdtzCB",
+      "assets": 8,
+      "skipped": 0
+    },
+    {
+      "platform": "3do",
+      "folderId": "1Kf_Xx1q0cT96gc2Ls4-Xqm8FwXjz_ZOG",
+      "assets": 89,
+      "skipped": 0
+    },
+    {
+      "platform": "atari2600",
+      "folderId": "1UWxWB8wZ2WhWo3Q_kni5LdYQFuOpN6ND",
+      "assets": 664,
+      "skipped": 0
+    },
+    {
+      "platform": "atari5200",
+      "folderId": "11nXLnl9OQzyiDMyn9eIuAmATNmymID2R",
+      "assets": 99,
+      "skipped": 0
+    },
+    {
+      "platform": "atari7800",
+      "folderId": "1NtNP_HZHRTQM_aYqMq4W6fz2_D1H0-D9",
+      "assets": 60,
+      "skipped": 0
+    },
+    {
+      "platform": "jaguar",
+      "folderId": "1ca0TyERWPnjuAvAvK-L-nBpQBlrIiOkx",
+      "assets": 56,
+      "skipped": 0
+    },
+    {
+      "platform": "intellivision",
+      "folderId": "1InabAp1ik3LMqO2ZIIV3HOhzcwt5tyMF",
+      "assets": 162,
+      "skipped": 0
+    },
+    {
+      "platform": "aquarius",
+      "folderId": "1eSjx0_kvCjMjRXx6kknAiVtoln4Efg9H",
+      "assets": 10,
+      "skipped": 0
+    },
+    {
+      "platform": "vectrex",
+      "folderId": "1UyMY9UjYDS52llSQMbjPSTO8QjpplV-d",
+      "assets": 23,
+      "skipped": 0
+    },
+    {
+      "platform": "gamegear",
+      "folderId": "1ou77PdO5D1L8Zhxv2XcOBK8E6WcspvHq",
+      "assets": 385,
+      "skipped": 0
+    },
+    {
+      "platform": "gba",
+      "folderId": "1zKwRKVKqziG-NYRmm0G_TI9v19UruUoX",
+      "assets": 936,
+      "skipped": 1
+    },
+    {
+      "platform": "3ds",
+      "folderId": "1mKokyYciqQS_cga5QqelT0HVfwh3uAzV",
+      "assets": 26,
+      "skipped": 0
+    },
+    {
+      "platform": "psp",
+      "folderId": "1K6MJPkwCuJ2WMLWvtgwpBbUR7sbBs3Fa",
+      "assets": 342,
+      "skipped": 0
+    },
+    {
+      "platform": "ngp",
+      "folderId": "14JnRKp1ycGPYb_dtoqliWG_U9Y0wKQaJ",
+      "assets": 9,
+      "skipped": 0
+    },
+    {
+      "platform": "ngpc",
+      "folderId": "1jamrfvp5SaL5_-o0zIOS9yMn2VDI2Ckg",
+      "assets": 68,
+      "skipped": 0
+    },
+    {
+      "platform": "ikemen",
+      "folderId": "1CVjhcMagnsUd1TTREBjdpx0cT2RersFO",
+      "assets": 5,
+      "skipped": 0
+    },
+    {
+      "platform": "teknoparrot",
+      "folderId": "1cc7w3pF2ex4hsmtX5HJ89JzjlrICBZZZ",
+      "assets": 16,
+      "skipped": 0
+    },
+    {
+      "platform": "zinc",
+      "folderId": "14ZjXpyIFsfC85x460_-wzcAVA_pFn3Tz",
+      "assets": 33,
+      "skipped": 0
+    },
+    {
+      "platform": "namco2x6",
+      "folderId": "1X44BNYxj71omaYhP6NZkiVykv8mO0PJ_",
+      "assets": 48,
+      "skipped": 0
+    },
+    {
+      "platform": "windows",
+      "folderId": "17df9i_TzAkN3iGpcd1kQPk03V-z_9S9j",
+      "assets": 12,
+      "skipped": 0
+    },
+    {
+      "platform": "recomp",
+      "folderId": "1DVEUVu1tPVZ-sL6ycM7JRZKvWm9WdfeQ",
+      "assets": 7,
+      "skipped": 0
+    },
+    {
+      "platform": "neogeo64",
+      "folderId": "1jYNJIxIbne4or2BwH8JuvFBA0Scg7M1S",
+      "assets": 8,
+      "skipped": 0
+    },
+    {
+      "platform": "arcade",
+      "folderId": "1uVJFTiOG0OYnQKjZotcaOgXQSCFMuEXY",
+      "assets": 1134,
+      "skipped": 0
+    },
+    {
+      "platform": "fightcade",
+      "folderId": "1n4yI9j0B1CBNDNDiQB7MJ0QMhApBipBd",
+      "assets": 51,
+      "skipped": 0
+    },
+    {
+      "platform": "nes3d",
+      "folderId": "1pNO-KYmjqq_QlBdY8yWQRm3KdyaP1N4I",
+      "assets": 83,
+      "skipped": 0
+    },
+    {
+      "platform": "zeebo",
+      "folderId": "1rFIisKbWLeVkzULjWbHeA4GMs9KFgaS4",
+      "assets": 62,
+      "skipped": 0
+    }
+  ],
+  "unmappedFolders": [],
+  "emulators": {
+    "folderId": "1oXIY2Np6HcjZrxrsRZV-w4hCjlYBdM8J",
+    "assets": 147,
+    "skipped": 2
+  },
+  "themes": {
+    "folderId": "1KZNsfmSRRamu9DlVpvL76JwPn6H3r3Yg",
+    "assets": 4,
+    "skipped": 7
+  }
+}
+Generating the complete RetroBat marker catalog
+RetroBat catalog: 10779 games, 58 systems. Saved to D:\DEV\Web\riescade\riescade.com.br\public\catalogs\retrobat.json

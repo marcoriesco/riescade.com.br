@@ -196,5 +196,257 @@
     "file_size": 841532682,
     "md5": "ac0f2c1a10899ecb156493bbc43ed560",
     "launch_size": 24
+  },
+  "3do/AutoBahn Tokio (Japan).extract.zip": {
+    "launch_path": "+japan/AutoBahn Tokio (Japan).chd",
+    "file_size": 68674724,
+    "md5": "b981437af521771af4a84d371be72558",
+    "launch_size": 68674560
+  },
+  "3do/Battle Pinball (Japan).extract.zip": {
+    "launch_path": "+japan/Battle Pinball (Japan).chd",
+    "file_size": 86334445,
+    "md5": "13194ac69991b42008205d21a841b995",
+    "launch_size": 86334281
+  },
+  "3do/Belzerion (Japan).extract.zip": {
+    "launch_path": "+japan/Belzerion (Japan).chd",
+    "file_size": 287634301,
+    "md5": "11b086a5b615c6ecf7148703531f491b",
+    "launch_size": 287634147
+  },
+  "3do/Crayon Shin-chan - Puzzle Daimaou no Nazo (Japan).extract.zip": {
+    "launch_path": "+japan/Crayon Shin-chan - Puzzle Daimaou no Nazo (Japan).chd",
+    "file_size": 235172635,
+    "md5": "f74f9531b7a4a09f5cfacc619da782f4",
+    "launch_size": 235172417
+  },
+  "3do/Doctor Hauzer (Japan).extract.zip": {
+    "launch_path": "+japan/Doctor Hauzer (Japan).chd",
+    "file_size": 149661207,
+    "md5": "cddb054033aed11d655437c583661031",
+    "launch_size": 149661045
+  },
+  "3do/Dragon Tycoon Edge (Japan).extract.zip": {
+    "launch_path": "+japan/Dragon Tycoon Edge (Japan).chd",
+    "file_size": 331846772,
+    "md5": "d0a85d7b22238756841239d6381f1f0a",
+    "launch_size": 331846600
+  },
+  "3do/F1GP (Japan).extract.zip": {
+    "launch_path": "+japan/F1GP (Japan).chd",
+    "file_size": 124789215,
+    "md5": "79dc8d84606db3c03ffddfba4d9f6e71",
+    "launch_size": 124789071
+  },
+  "3do/Hello Kitty - Asobi no Omochabako (Japan).extract.zip": {
+    "launch_path": "+japan/Hello Kitty - Asobi no Omochabako (Japan).chd",
+    "file_size": 64615604,
+    "md5": "0b9fa0060f0f01874e35a93dca1a6708",
+    "launch_size": 64615402
+  },
+  "3do/Idol Mahjong - Final Romance 2 - Hyper Edition (Japan).extract.zip": {
+    "launch_path": "+japan/Idol Mahjong - Final Romance 2 - Hyper Edition (Japan).chd",
+    "file_size": 63641804,
+    "md5": "975a119373f430e5930cb9fdc2f989eb",
+    "launch_size": 63641576
+  },
+  "3do/Insector War (Japan).extract.zip": {
+    "launch_path": "+japan/Insector War (Japan).chd",
+    "file_size": 261740508,
+    "md5": "9e8fb2e9418f41343f80e9732d6581d3",
+    "launch_size": 261740348
+  },
+  "3do/J.League Virtual Stadium '95 (Japan).extract.zip": {
+    "launch_path": "+japan/J.League Virtual Stadium '95 (Japan).chd",
+    "file_size": 126642202,
+    "md5": "97ea0da8fa4b5521cbcad427961b8ee4",
+    "launch_size": 126642010
+  },
+  "3do/J.League Virtual Stadium (Japan).extract.zip": {
+    "launch_path": "+japan/J.League Virtual Stadium (Japan).chd",
+    "file_size": 434672407,
+    "md5": "3a9ad8eba5d53b020b25170ec2e973c4",
+    "launch_size": 434672223
+  },
+  "3do/Mahjong-kyou Jidai - AV Gal Seifuku-hen (Japan).extract.zip": {
+    "launch_path": "+japan/Mahjong-kyou Jidai - AV Gal Seifuku-hen (Japan).chd",
+    "file_size": 217271399,
+    "md5": "e819bbc3b24abbc33f28c332adb0b309",
+    "launch_size": 217271185
+  },
+  "3do/Mahjong-kyou Jidai Cogal Houkago-hen (Japan).extract.zip": {
+    "launch_path": "+japan/Mahjong-kyou Jidai Cogal Houkago-hen (Japan).chd",
+    "file_size": 372431358,
+    "md5": "fd1988d6757006534f749e6e2868b0ce",
+    "launch_size": 372431150
+  },
+  "3do/Murphy da yo Zen'in Shuugou!! (Japan).extract.zip": {
+    "launch_path": "+japan/Murphy da yo Zen'in Shuugou!! (Japan).chd",
+    "file_size": 304125187,
+    "md5": "6cc11d8979ce6e6f057b460a618cbb40",
+    "launch_size": 304124993
+  },
+  "3do/N.O.B. (Neo Organic Bioform) (Japan).extract.zip": {
+    "launch_path": "+japan/N.O.B. (Neo Organic Bioform) (Japan).chd",
+    "file_size": 285976353,
+    "md5": "3e9ea6200a7ce3fd2101437ac0017e5c",
+    "launch_size": 285976161
+  },
+  "3do/Nice Body - For Professional Use (Japan).extract.zip": {
+    "launch_path": "+japan/Nice Body - For Professional Use (Japan).chd",
+    "file_size": 138405840,
+    "md5": "a8c083cab4d7d66bb5d299455f125a68",
+    "launch_size": 138405640
+  },
+  "3do/Onee-san to Issho! Janken Paradise (Japan).extract.zip": {
+    "launch_path": "+japan/Onee-san to Issho! Janken Paradise (Japan).chd",
+    "file_size": 292465613,
+    "md5": "20308ee308e945070dae121fedbd7406",
+    "launch_size": 292465409
+  },
+  "3do/Onee-san to Issho! Kisekae Paradise (Japan).extract.zip": {
+    "launch_path": "+japan/Onee-san to Issho! Kisekae Paradise (Japan).chd",
+    "file_size": 374406211,
+    "md5": "d10fb90f10ba93105e7af649ed80a98e",
+    "launch_size": 374406005
+  },
+  "3do/Oyaji Hunter Mahjong (Japan).extract.zip": {
+    "launch_path": "+japan/Oyaji Hunter Mahjong (Japan).chd",
+    "file_size": 347880697,
+    "md5": "a8d470b1756ad70b702865cc8855b03d",
+    "launch_size": 347880521
+  },
+  "3do/Peter Frankl - Puzzle no Tou (Japan).extract.zip": {
+    "launch_path": "+japan/Peter Frankl - Puzzle no Tou (Japan).chd",
+    "file_size": 216487597,
+    "md5": "7b39b160286d32cd3a9ed397cc79d7ce",
+    "launch_size": 216487405
+  },
+  "3do/Pretty Soldier SailorMoon S (Japan).extract.zip": {
+    "launch_path": "+japan/Pretty Soldier SailorMoon S (Japan).chd",
+    "file_size": 369690437,
+    "md5": "4c395d258a344f528026affa3e6373c7",
+    "launch_size": 369690247
+  },
+  "3do/Pro Stadium (Japan).extract.zip": {
+    "launch_path": "+japan/Pro Stadium (Japan).chd",
+    "file_size": 110576199,
+    "md5": "0b18d953e3a540e3483e5ad5754c1a03",
+    "launch_size": 110576041
+  },
+  "3do/Pro Yakyuu Virtual Stadium - Professional Baseball (Japan).extract.zip": {
+    "launch_path": "+japan/Pro Yakyuu Virtual Stadium - Professional Baseball (Japan).chd",
+    "file_size": 377141200,
+    "md5": "bfcb3db69370fe01b77c57c49fb62a85",
+    "launch_size": 377140964
+  },
+  "3do/Pyramid Intruder (Japan).extract.zip": {
+    "launch_path": "+japan/Pyramid Intruder (Japan).chd",
+    "file_size": 316940873,
+    "md5": "f736d3cd1ecec032d69f22d2fdd4868d",
+    "launch_size": 316940705
+  },
+  "3do/Royal Pro Wrestling - Jikkyou Live!! (Japan).extract.zip": {
+    "launch_path": "+japan/Royal Pro Wrestling - Jikkyou Live!! (Japan).chd",
+    "file_size": 158422359,
+    "md5": "bc91404c2860119e79629c6f9d4a5099",
+    "launch_size": 158422151
+  },
+  "3do/Short Warp - Warp's Short Game Collection (Japan).extract.zip": {
+    "launch_path": "+japan/Short Warp - Warp's Short Game Collection (Japan).chd",
+    "file_size": 163067300,
+    "md5": "9410b5374a89a40777d4b23dc1997071",
+    "launch_size": 163067082
+  },
+  "3do/Super Real Mahjong P.V (Japan).extract.zip": {
+    "launch_path": "+japan/Super Real Mahjong P.V (Japan).chd",
+    "file_size": 287335870,
+    "md5": "eb006ea2777d721f08c4d4c30583b2e2",
+    "launch_size": 287335690
+  },
+  "3do/Super Real Mahjong PIV + Aishou Shindan (Japan).extract.zip": {
+    "launch_path": "+japan/Super Real Mahjong PIV + Aishou Shindan (Japan).chd",
+    "file_size": 63572512,
+    "md5": "418426ae80b092eedc85c20cc356fa27",
+    "launch_size": 63572298
+  },
+  "3do/T&E VR Golf - Masters - Harukanaru Augusta 3 (Japan).extract.zip": {
+    "launch_path": "+japan/T&E VR Golf - Masters - Harukanaru Augusta 3 (Japan).chd",
+    "file_size": 467929144,
+    "md5": "28d9408e86fee0e2ca7c0b6ad0c2896b",
+    "launch_size": 467928920
+  },
+  "3do/Taiketsu Rumiizu! (Japan).extract.zip": {
+    "launch_path": "+japan/Taiketsu Rumiizu! (Japan).chd",
+    "file_size": 413975885,
+    "md5": "a90de95f161148eb2953cbab71d96f9b",
+    "launch_size": 413975715
+  },
+  "3do/Tokimeki Mahjong Paradise Special - Koi no Tenpai Beat (Japan).extract.zip": {
+    "launch_path": "+japan/Tokimeki Mahjong Paradise Special - Koi no Tenpai Beat (Japan).chd",
+    "file_size": 240209700,
+    "md5": "c2e61fe20efabb10771336501da0235a",
+    "launch_size": 240209456
+  },
+  "3do/Totsugeki Karakuri! Megadas!! (Japan).extract.zip": {
+    "launch_path": "+japan/Totsugeki Karakuri! Megadas!! (Japan).chd",
+    "file_size": 69149394,
+    "md5": "0246fbe8da7d78f7c124d3537081e392",
+    "launch_size": 69149200
+  },
+  "3do/Twinkle Knights (Japan).extract.zip": {
+    "launch_path": "+japan/Twinkle Knights (Japan).chd",
+    "file_size": 370599288,
+    "md5": "fe541f511aed3c91df1a0cf141891f3c",
+    "launch_size": 370599122
+  },
+  "3do/Uchuu Seibutsu Flopon-kun (Japan).extract.zip": {
+    "launch_path": "+japan/Uchuu Seibutsu Flopon-kun (Japan).chd",
+    "file_size": 93171607,
+    "md5": "07c65cdf19a8174557e3ddda036fdb28",
+    "launch_size": 93171421
+  },
+  "3do/Ultraman Powered (Japan).extract.zip": {
+    "launch_path": "+japan/Ultraman Powered (Japan).chd",
+    "file_size": 449102491,
+    "md5": "ec929dd5515e36805eb80b0b941c9469",
+    "launch_size": 449102323
+  },
+  "3do/V Goal Soccer '96 (Japan).extract.zip": {
+    "launch_path": "+japan/V Goal Soccer '96 (Japan).chd",
+    "file_size": 210311772,
+    "md5": "c8e8e81708d6ace34f7a2849fc8c1452",
+    "launch_size": 210311602
+  },
+  "3do/Yu Yu Hakusho (Japan).extract.zip": {
+    "launch_path": "+japan/Yu Yu Hakusho (Japan).chd",
+    "file_size": 314231670,
+    "md5": "9ff2d1302577351f784f14fdf193dc85",
+    "launch_size": 314231508
+  },
+  "3do/Wing Commander III - Heart of the Tiger.extract.zip": {
+    "launch_path": "Wing Commander III - Heart of the Tiger.m3u",
+    "launch_size": 210,
+    "file_size": 2302967943,
+    "md5": "354372d467bb65964237983f8e3db4e5"
+  },
+  "3do/Shockwave 2 - Beyond the Gate.extract.zip": {
+    "launch_path": "Shockwave 2 - Beyond the Gate.m3u",
+    "launch_size": 84,
+    "file_size": 836978889,
+    "md5": "522b30578276c072cf7992e4cb5eacbc"
+  },
+  "3do/Daedalus Encounter, The.extract.zip": {
+    "launch_path": "Daedalus Encounter, The.m3u",
+    "launch_size": 146,
+    "file_size": 1689661754,
+    "md5": "ce3627c75dfb58cc40e0183dcfbe6628"
+  },
+  "3do/D.extract.zip": {
+    "launch_path": "D.m3u",
+    "launch_size": 28,
+    "file_size": 712246179,
+    "md5": "382f48df17ef5a6919bc53336b079697"
   }
 }

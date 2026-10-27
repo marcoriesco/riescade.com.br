@@ -126,7 +126,6 @@ export const PLATFORM_CONTENT: Record<string, PlatformContent> = {
 
   // Outros consoles
   "3do": { maker: "Panasonic e outros", year: 1993, kind: "console", bios: true, summary: "Console em CD licenciado para vários fabricantes, com Road Rash, Star Control II e The Need for Speed." },
-  "3doj": { maker: "Panasonic e outros", year: 1993, kind: "console", bios: true, summary: "Jogos japoneses do 3DO, incluindo títulos lançados apenas no Japão." },
   colecovision: { maker: "Coleco", year: 1982, kind: "console", bios: true, summary: "O ColecoVision trouxe conversões de arcade muito fiéis para a época, como Donkey Kong, Zaxxon e Venture." },
   intellivision: { maker: "Mattel", year: 1979, kind: "console", bios: true, summary: "O grande rival do Atari 2600, com gráficos mais detalhados e controle com teclado numérico." },
   vectrex: { maker: "Smith Engineering", year: 1982, kind: "console", summary: "Console com monitor vetorial embutido e gráficos em linhas, como nos arcades Asteroids e Tempest." },

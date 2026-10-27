@@ -852,10 +852,6 @@
   "bigfish": {
     "logo": "/images/platforms/logos/bigfish.webp"
   },
-  "3doj": {
-    "system": "/images/platforms/systems/3doj.webp",
-    "logo": "/images/platforms/logos/3doj.webp"
-  },
   "3dnes": {
     "logo": "/images/platforms/logos/3dnes.webp"
   },
