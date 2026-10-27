@@ -448,5 +448,533 @@
     "launch_size": 28,
     "file_size": 712246179,
     "md5": "382f48df17ef5a6919bc53336b079697"
+  },
+  "n64/Utchan Nanchan no Hono no Challenger - Denryuu Ira Ira Bou (Japan).extract.zip": {
+    "launch_path": "+japan/Utchan Nanchan no Hono no Challenger - Denryuu Ira Ira Bou (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 3336338,
+    "md5": "de3d9c1cb7ab12682eca00d1129b68ed"
+  },
+  "n64/Hamster Monogatari 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Hamster Monogatari 64 (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 6667116,
+    "md5": "b69ffec5289c2028bdcdbe0bfe405647"
+  },
+  "n64/Power League 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Power League 64 (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 6199065,
+    "md5": "9899254a83b22b1b228658c315128f86"
+  },
+  "n64/Fushigi no Dungeon - Fuurai no Shiren 2 - Oni Shuurai! Shiren Jou! (Japan).extract.zip": {
+    "launch_path": "+japan/Fushigi no Dungeon - Fuurai no Shiren 2 - Oni Shuurai! Shiren Jou! (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 22309121,
+    "md5": "7eafe307e1b39053bb861f0879f85b64"
+  },
+  "n64/Bakushou Jinsei 64 - Mezase! Resort Ou (Japan).extract.zip": {
+    "launch_path": "+japan/Bakushou Jinsei 64 - Mezase! Resort Ou (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 7580110,
+    "md5": "e3d6ebca0e92701c57cfe04ab17d2a10"
+  },
+  "n64/Custom Robo (Japan).extract.zip": {
+    "launch_path": "+japan/Custom Robo (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 11628248,
+    "md5": "b4450462e391e8a2a90e243a6a3e8f78"
+  },
+  "n64/AI Shougi 3 (Japan).extract.zip": {
+    "launch_path": "+japan/AI Shougi 3 (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 3150313,
+    "md5": "e3ff2b4c93b6335cf0ae7fac8e291fe1"
+  },
+  "n64/Heiwa Pachinko World 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Heiwa Pachinko World 64 (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 4539458,
+    "md5": "ce0e01f6f3c97011f86b76218ad7de40"
+  },
+  "n64/Custom Robo V2 (Japan).extract.zip": {
+    "launch_path": "+japan/Custom Robo V2 (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 12582353,
+    "md5": "1d6a19da14b59502a4340d52f4ccf327"
+  },
+  "n64/Doraemon - Nobita to 3tsu no Seireiseki (Japan).extract.zip": {
+    "launch_path": "+japan/Doraemon - Nobita to 3tsu no Seireiseki (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 4743007,
+    "md5": "53be95220c3f7b9deb7772a35c07cc50"
+  },
+  "n64/Nushi Zuri 64 - Shiokaze ni Notte (Japan).extract.zip": {
+    "launch_path": "+japan/Nushi Zuri 64 - Shiokaze ni Notte (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 16298954,
+    "md5": "539e34a4ecfc3bb47b5b28ec6999fe41"
+  },
+  "n64/Choro Q 64 2 - Hacha Mecha Grand Prix Race (Japan).extract.zip": {
+    "launch_path": "+japan/Choro Q 64 2 - Hacha Mecha Grand Prix Race (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 4647578,
+    "md5": "864df6adc21b53675b03b702cb3bc4f3"
+  },
+  "n64/Super Robot Taisen 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Super Robot Taisen 64 (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 23378163,
+    "md5": "f526396cb77bc1e0cb959b9d7594ad88"
+  },
+  "n64/Mahjong Master (Japan).extract.zip": {
+    "launch_path": "+japan/Mahjong Master (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 6213928,
+    "md5": "a1e1ec1e350f45cfccdd3c9c5081bb19"
+  },
+  "n64/Ide Yosuke no Mahjong Juku (Japan).extract.zip": {
+    "launch_path": "+japan/Ide Yosuke no Mahjong Juku (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 4351957,
+    "md5": "b04140b6bee2b082621586e8686b6d2d"
+  },
+  "n64/Chou Kuukan Nighter Pro Yakyuu King (Japan).extract.zip": {
+    "launch_path": "+japan/Chou Kuukan Nighter Pro Yakyuu King (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 6960606,
+    "md5": "9cbc296a009a0ccf87e3f7bc1a86334b"
+  },
+  "n64/64 Hanafuda - Tenshi no Yakusoku (Japan).extract.zip": {
+    "launch_path": "+japan/64 Hanafuda - Tenshi no Yakusoku (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 3880509,
+    "md5": "23345e4d96cd99c36d9b1f95b20039d5"
+  },
+  "n64/Tetris 64 (Japan) (En).extract.zip": {
+    "launch_path": "+japan/Tetris 64 (Japan) (En).z64",
+    "launch_size": 8388608,
+    "file_size": 6757694,
+    "md5": "e654fa0d8c51146be51cfe7461fefb33"
+  },
+  "n64/J.League Tactics Soccer (Japan) (Rev 1).extract.zip": {
+    "launch_path": "+japan/J.League Tactics Soccer (Japan) (Rev 1).z64",
+    "launch_size": 12582912,
+    "file_size": 6387092,
+    "md5": "00656b0f1e921a6e6a1af2f3d9525704"
+  },
+  "n64/Zool - Majuu Tsukai Densetsu (Japan).extract.zip": {
+    "launch_path": "+japan/Zool - Majuu Tsukai Densetsu (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 8157144,
+    "md5": "f63fd6f7b042f01fd184319eb498ef14"
+  },
+  "n64/Mahjong Hourouki Classic (Japan).extract.zip": {
+    "launch_path": "+japan/Mahjong Hourouki Classic (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 4873980,
+    "md5": "5291de721330b5183c9a865fa99000be"
+  },
+  "n64/Mario no Photopie (Japan).extract.zip": {
+    "launch_path": "+japan/Mario no Photopie (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 11872748,
+    "md5": "40adfa2ae74600eef3ab8b1bbd2d44ba"
+  },
+  "n64/Bass Rush - ECOGEAR PowerWorm Championship (Japan).extract.zip": {
+    "launch_path": "+japan/Bass Rush - ECOGEAR PowerWorm Championship (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 14413455,
+    "md5": "4f5e5b872f8935db613b72ef56285827"
+  },
+  "n64/Bomberman 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Bomberman 64 (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 7012727,
+    "md5": "044147de3ba36a0041387b215f4311d7"
+  },
+  "n64/64 Oozumou (Japan).extract.zip": {
+    "launch_path": "+japan/64 Oozumou (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 11155275,
+    "md5": "3100024e4e9c8a4fe209dabf9bc312b9"
+  },
+  "n64/Mahjong 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Mahjong 64 (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 6391218,
+    "md5": "88e54538d14c8db785fcb587eed9939e"
+  },
+  "n64/Kiratto Kaiketsu! 64 Tanteidan (Japan).extract.zip": {
+    "launch_path": "+japan/Kiratto Kaiketsu! 64 Tanteidan (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 6492210,
+    "md5": "a4d374c5d3457c8b51dc7cc77ec7857c"
+  },
+  "n64/J.League Dynamite Soccer 64 (Japan).extract.zip": {
+    "launch_path": "+japan/J.League Dynamite Soccer 64 (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 3944818,
+    "md5": "6228813c825a3aefb0c2823f2b53aab0"
+  },
+  "n64/Puyo Puyo Sun 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Puyo Puyo Sun 64 (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 6089267,
+    "md5": "b837433a929230d10ce92359413734ea"
+  },
+  "n64/Jikkyou Powerful Pro Yakyuu 6 (Japan) (Rev 2).extract.zip": {
+    "launch_path": "+japan/Jikkyou Powerful Pro Yakyuu 6 (Japan) (Rev 2).z64",
+    "launch_size": 16777216,
+    "file_size": 13024520,
+    "md5": "2e3ecde59d0cf0279d4748fb965fee8b"
+  },
+  "n64/Famista 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Famista 64 (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 9414661,
+    "md5": "1be6d684668b67afce7a6fd731c65f8e"
+  },
+  "n64/Robot Poncots 64 - 7tsu no Umi no Caramel (Japan).extract.zip": {
+    "launch_path": "+japan/Robot Poncots 64 - 7tsu no Umi no Caramel (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 12081086,
+    "md5": "ee8d2a042fc77237daea5152952d9654"
+  },
+  "n64/Goemon - Mononoke Sugoroku (Japan).extract.zip": {
+    "launch_path": "+japan/Goemon - Mononoke Sugoroku (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 13572741,
+    "md5": "14db6928a93733f1682670916254f978"
+  },
+  "n64/Jinsei Game 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Jinsei Game 64 (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 6883520,
+    "md5": "5fa2346969ce1d2cde07e694ebf25226"
+  },
+  "n64/Doraemon 2 - Nobita to Hikari no Shinden (Japan).extract.zip": {
+    "launch_path": "+japan/Doraemon 2 - Nobita to Hikari no Shinden (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 7593934,
+    "md5": "551a5d7e7771cc430d155f561ab92241"
+  },
+  "n64/Shin Nihon Pro Wrestling Toukon Road 2 - The Next Generation (Japan).extract.zip": {
+    "launch_path": "+japan/Shin Nihon Pro Wrestling Toukon Road 2 - The Next Generation (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 22828753,
+    "md5": "be725fed96c2f5fc88ab66211f66761f"
+  },
+  "n64/Virtual Pro Wrestling 2 - Oudou Keishou (Japan).extract.zip": {
+    "launch_path": "+japan/Virtual Pro Wrestling 2 - Oudou Keishou (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 26112364,
+    "md5": "f8bb283994c10000110c1fc6b0691327"
+  },
+  "n64/Bakuretsu Muteki Bangaioh (Japan).extract.zip": {
+    "launch_path": "+japan/Bakuretsu Muteki Bangaioh (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 7503750,
+    "md5": "a52bf71eaeb07154b31e60c30649f757"
+  },
+  "n64/Pro Mahjong Tsuwamono 64 - Jansou Battle ni Chousen (Japan).extract.zip": {
+    "launch_path": "+japan/Pro Mahjong Tsuwamono 64 - Jansou Battle ni Chousen (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 3702906,
+    "md5": "b1d20775b9a2582dba8e8a42c8219a0a"
+  },
+  "n64/Puyo Puyoon Party (Japan).extract.zip": {
+    "launch_path": "+japan/Puyo Puyoon Party (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 9230990,
+    "md5": "103a479b91cb1706c485b66e7e2c3d33"
+  },
+  "n64/Susume! Taisen Puzzle Dama - Toukon! Marutama Chou (Japan).extract.zip": {
+    "launch_path": "+japan/Susume! Taisen Puzzle Dama - Toukon! Marutama Chou (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 5983464,
+    "md5": "3c3f9cdc204051d262f2e991b88f2cd0"
+  },
+  "n64/Super Robot Spirits (Japan).extract.zip": {
+    "launch_path": "+japan/Super Robot Spirits (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 8174486,
+    "md5": "5a9080d8222f6aafd1eb172d1d2cb598"
+  },
+  "n64/Doubutsu no Mori (Japan).extract.zip": {
+    "launch_path": "+japan/Doubutsu no Mori (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 11372421,
+    "md5": "57c212ed035240a9796ade8e8cad7177"
+  },
+  "n64/SD Hiryuu no Ken Densetsu (Japan).extract.zip": {
+    "launch_path": "+japan/SD Hiryuu no Ken Densetsu (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 8737348,
+    "md5": "603b95f65ffaf2d648fd14598baf1875"
+  },
+  "n64/Chou Kuukan Nighter Pro Yakyuu King 2 (Japan).extract.zip": {
+    "launch_path": "+japan/Chou Kuukan Nighter Pro Yakyuu King 2 (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 10746376,
+    "md5": "13cf17039d1ba13d198d8a50452278e7"
+  },
+  "n64/Jangou Simulation Mahjong Dou 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Jangou Simulation Mahjong Dou 64 (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 3693692,
+    "md5": "bb1620a93296094fa54f99147789e656"
+  },
+  "n64/J.League Live 64 (Japan).extract.zip": {
+    "launch_path": "+japan/J.League Live 64 (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 5000270,
+    "md5": "feb6a8545647267966251afd8608a95b"
+  },
+  "n64/Pokemon Stadium (Japan).extract.zip": {
+    "launch_path": "+japan/Pokemon Stadium (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 13109608,
+    "md5": "157669a1baf8f6650fb0b0b19c3fb5b4"
+  },
+  "n64/Morita Shougi 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Morita Shougi 64 (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 5971283,
+    "md5": "3d77650796ba71a0efe1bfed90b78184"
+  },
+  "n64/Derby Stallion 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Derby Stallion 64 (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 20763724,
+    "md5": "fa4f5bfb5597204cc03e71870eab49f3"
+  },
+  "n64/64 de Hakken!! Tamagotchi - Minna de Tamagotchi World (Japan).extract.zip": {
+    "launch_path": "+japan/64 de Hakken!! Tamagotchi - Minna de Tamagotchi World (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 10032965,
+    "md5": "f6e7d69a66c275c0b191507d8dce90e5"
+  },
+  "n64/Dezaemon 3D (Japan).extract.zip": {
+    "launch_path": "+japan/Dezaemon 3D (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 9722040,
+    "md5": "690459477f0cf27de317291bbbe577cb"
+  },
+  "n64/Shin Nihon Pro Wrestling Toukon Road - Brave Spirits (Japan).extract.zip": {
+    "launch_path": "+japan/Shin Nihon Pro Wrestling Toukon Road - Brave Spirits (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 6478534,
+    "md5": "c34c2c1ebadb105c26ea9caa87672ee2"
+  },
+  "n64/Jikkyou Powerful Pro Yakyuu 4 (Japan) (Rev 1).extract.zip": {
+    "launch_path": "+japan/Jikkyou Powerful Pro Yakyuu 4 (Japan) (Rev 1).z64",
+    "launch_size": 12582912,
+    "file_size": 9954237,
+    "md5": "ff4e6de667249d5356acff706c9f3e76"
+  },
+  "n64/Neon Genesis Evangelion (Japan).extract.zip": {
+    "launch_path": "+japan/Neon Genesis Evangelion (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 24554913,
+    "md5": "ab657bbf547c38bc277c95f241675a9f"
+  },
+  "n64/Parlor! Pro 64 - Pachinko Jikki Simulation Game (Japan).extract.zip": {
+    "launch_path": "+japan/Parlor! Pro 64 - Pachinko Jikki Simulation Game (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 7557469,
+    "md5": "a4f1b694f5b8a89dcc82ab32741a496c"
+  },
+  "n64/J.League Eleven Beat 1997 (Japan).extract.zip": {
+    "launch_path": "+japan/J.League Eleven Beat 1997 (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 6227108,
+    "md5": "7435eb12e7c1dbcd9d8d1ab539c53b5d"
+  },
+  "n64/Onegai Monsters (Japan).extract.zip": {
+    "launch_path": "+japan/Onegai Monsters (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 13410107,
+    "md5": "fccf019d432d99b909872124cee01350"
+  },
+  "n64/64 Trump Collection - Alice no Wakuwaku Trump World (Japan).extract.zip": {
+    "launch_path": "+japan/64 Trump Collection - Alice no Wakuwaku Trump World (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 6525642,
+    "md5": "99284d4c1360a3f343b991b85fc3e9f1"
+  },
+  "n64/Eikou no Saint Andrews (Japan).extract.zip": {
+    "launch_path": "+japan/Eikou no Saint Andrews (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 6412730,
+    "md5": "80b0556ec828cfef9391f513e6287659"
+  },
+  "n64/Wonder Project J2 - Koruro no Mori no Jozet (Japan).extract.zip": {
+    "launch_path": "+japan/Wonder Project J2 - Koruro no Mori no Jozet (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 6084916,
+    "md5": "80654129a8a2f257f3f29263b4ee2ea6"
+  },
+  "n64/Dance Dance Revolution - Disney Dancing Museum (Japan).extract.zip": {
+    "launch_path": "+japan/Dance Dance Revolution - Disney Dancing Museum (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 20602749,
+    "md5": "5f020a4cdd9edd748d552111b8f44307"
+  },
+  "n64/Harukanaru Augusta - Masters '98 (Japan).extract.zip": {
+    "launch_path": "+japan/Harukanaru Augusta - Masters '98 (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 13258521,
+    "md5": "82e476ceec5d80db909d0c8d815a8be0"
+  },
+  "n64/Nintama Rantarou 64 Game Gallery (Japan).extract.zip": {
+    "launch_path": "+japan/Nintama Rantarou 64 Game Gallery (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 3048454,
+    "md5": "428bcd4002d882d639e956b73042eb2a"
+  },
+  "n64/1080 TenEighty Snowboarding (Japan, USA) (En,Ja).extract.zip": {
+    "launch_path": "+japan/1080 TenEighty Snowboarding (Japan, USA) (En,Ja).z64",
+    "launch_size": 16777216,
+    "file_size": 11889449,
+    "md5": "25e097d4e80dc60ace8791406ba8ac9c"
+  },
+  "n64/Super B-Daman - Battle Phoenix 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Super B-Daman - Battle Phoenix 64 (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 10498453,
+    "md5": "6b84364839d54af471ce1d3a9346a2f6"
+  },
+  "n64/Last Legion UX (Japan).extract.zip": {
+    "launch_path": "+japan/Last Legion UX (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 7418009,
+    "md5": "3768152e4afcfd006eb1dc195d7bdf6f"
+  },
+  "n64/Jikkyou J.League Perfect Striker (Japan).extract.zip": {
+    "launch_path": "+japan/Jikkyou J.League Perfect Striker (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 6565676,
+    "md5": "d8c7f2fe7047ef45b8c62da601222b85"
+  },
+  "n64/Jikkyou Powerful Pro Yakyuu 5 (Japan) (Rev 2).extract.zip": {
+    "launch_path": "+japan/Jikkyou Powerful Pro Yakyuu 5 (Japan) (Rev 2).z64",
+    "launch_size": 16777216,
+    "file_size": 12061509,
+    "md5": "b1921ef3c90d1bc1d986d4208b6bd47d"
+  },
+  "n64/Nushi Zuri 64 (Japan) (Rev 1).extract.zip": {
+    "launch_path": "+japan/Nushi Zuri 64 (Japan) (Rev 1).z64",
+    "launch_size": 16777216,
+    "file_size": 11747103,
+    "md5": "3fb0e10c7fb5f827b1a8bb61c65cd865"
+  },
+  "n64/Tsumi to Batsu - Hoshi no Keishousha (Japan).extract.zip": {
+    "launch_path": "+japan/Tsumi to Batsu - Hoshi no Keishousha (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 25427146,
+    "md5": "57c9131dc617423a14ed244901898a37"
+  },
+  "n64/Jikkyou Powerful Pro Yakyuu 2000 (Japan) (Rev 1).extract.zip": {
+    "launch_path": "+japan/Jikkyou Powerful Pro Yakyuu 2000 (Japan) (Rev 1).z64",
+    "launch_size": 16777216,
+    "file_size": 13293751,
+    "md5": "f0e3259d0c6e581c6cef6f3f5bf11948"
+  },
+  "n64/Densha de Go! 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Densha de Go! 64 (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 19163658,
+    "md5": "0facd6bca66e11f97a2928279bc3e57b"
+  },
+  "n64/Doraemon 3 - Nobita no Machi SOS! (Japan).extract.zip": {
+    "launch_path": "+japan/Doraemon 3 - Nobita no Machi SOS! (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 12287837,
+    "md5": "24bac91644e2fccab5db1fac31d4112a"
+  },
+  "n64/Jikkyou Powerful Pro Yakyuu - Basic Ban 2001 (Japan) (Rev 1).extract.zip": {
+    "launch_path": "+japan/Jikkyou Powerful Pro Yakyuu - Basic Ban 2001 (Japan) (Rev 1).z64",
+    "launch_size": 16777216,
+    "file_size": 13168764,
+    "md5": "33de485c5b41ac3282ad006031196a25"
+  },
+  "n64/64 Oozumou 2 (Japan).extract.zip": {
+    "launch_path": "+japan/64 Oozumou 2 (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 8981687,
+    "md5": "209c28070ae4756c5932b86737962429"
+  },
+  "n64/Jikkyou G1 Stable (Japan) (Rev 1).extract.zip": {
+    "launch_path": "+japan/Jikkyou G1 Stable (Japan) (Rev 1).z64",
+    "launch_size": 16777216,
+    "file_size": 11038073,
+    "md5": "b982389a29eac0aed18f2faa3a2353e1"
+  },
+  "n64/Getter Love!! - Cho Renai Party Game Tanjou (Japan).extract.zip": {
+    "launch_path": "+japan/Getter Love!! - Cho Renai Party Game Tanjou (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 8480302,
+    "md5": "6790599f8d3452630453b9eaf435f429"
+  },
+  "n64/Saikyou Habu Shougi (Japan).extract.zip": {
+    "launch_path": "+japan/Saikyou Habu Shougi (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 6168259,
+    "md5": "a6b7b22749985e17205a53090bd3b6ff"
+  },
+  "n64/PD Ultraman Battle Collection 64 (Japan).extract.zip": {
+    "launch_path": "+japan/PD Ultraman Battle Collection 64 (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 18420753,
+    "md5": "b54fb4f1807673f1ef5137ce6549f404"
+  },
+  "n64/Toon Panic (Japan) (Proto).extract.zip": {
+    "launch_path": "+japan/Toon Panic (Japan) (Proto).z64",
+    "launch_size": 12582912,
+    "file_size": 5489240,
+    "md5": "175582f56f886f1f42052bd9b1d0781b"
+  },
+  "n64/Pachinko 365 Nichi (Japan).extract.zip": {
+    "launch_path": "+japan/Pachinko 365 Nichi (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 8955203,
+    "md5": "c5d74387b56c94bacdbb75f1253faf74"
+  },
+  "n64/Itoi Shigesato no Bass Tsuri No. 1 Kettei Ban! (Japan).extract.zip": {
+    "launch_path": "+japan/Itoi Shigesato no Bass Tsuri No. 1 Kettei Ban! (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 9973184,
+    "md5": "7e280b4146b268f36b435c63fd3659e4"
+  },
+  "n64/Virtual Pro Wrestling 64 (Japan).extract.zip": {
+    "launch_path": "+japan/Virtual Pro Wrestling 64 (Japan).z64",
+    "launch_size": 16777216,
+    "file_size": 11395384,
+    "md5": "6ba61eec86e376a7d7cb30f31b7e2330"
+  },
+  "n64/SimCity 2000 (Japan).extract.zip": {
+    "launch_path": "+japan/SimCity 2000 (Japan).z64",
+    "launch_size": 12582912,
+    "file_size": 4864264,
+    "md5": "2af7c35c109cce9d1781e9971816a721"
+  },
+  "n64/Yakouchuu II - Satsujin Kouro (Japan).extract.zip": {
+    "launch_path": "+japan/Yakouchuu II - Satsujin Kouro (Japan).z64",
+    "launch_size": 33554432,
+    "file_size": 29629563,
+    "md5": "7b2d94e0cdc2c7e67a9150a22d4a0d5e"
+  },
+  "n64/Pro Mahjong Kiwame 64 (Japan) (Rev 1).extract.zip": {
+    "launch_path": "+japan/Pro Mahjong Kiwame 64 (Japan) (Rev 1).z64",
+    "launch_size": 8388608,
+    "file_size": 4090214,
+    "md5": "942b774bc3667022de243bfe0161c20e"
+  },
+  "n64/Baku Bomber Man (Japan).extract.zip": {
+    "launch_path": "+japan/Baku Bomber Man (Japan).z64",
+    "launch_size": 8388608,
+    "file_size": 5401133,
+    "md5": "7a70271c783686ed7bae8db3c3131ab7"
   }
 }

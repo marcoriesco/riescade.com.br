@@ -1973,11 +1973,6 @@
 			"extensions": [".v64", ".z64", ".n64", ".wad", ".zip", ".7z"]
 		},
 		{
-			"id": "n64j",
-			"name": "Nintendo 64 Japan",
-			"extensions": [".v64", ".z64", ".n64", ".wad", ".zip", ".7z"]
-		},
-		{
 			"id": "neogeoaes",
 			"name": "Neo Geo AES",
 			"extensions": [".zip", ".wad", ".neo", ".7z"]

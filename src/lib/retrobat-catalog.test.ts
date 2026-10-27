@@ -4,6 +4,18 @@ import extractPaths from "./retrobat-extract-paths.json";
 const row:CatalogRow={id:"a".repeat(64),platform:"snes",filename:"Mario.zip",title:"Mario",file_size:3,md5_checksum:"b".repeat(32)};
 const platforms=[{id:"snes",extensions:[".zip"]},{id:"nes",extensions:[".nes"]}];
 describe("RetroBat marker snapshot",()=>{
+  it("keeps N64 ZIPs direct and routes all Japanese packages into the shared system",()=>{
+    const rows=Object.entries(extractPaths).filter(([key])=>key.startsWith("n64/")).map(([key,value],index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"n64",filename:key.slice(4),file_size:value.file_size,md5_checksum:value.md5}));
+    expect(rows).toHaveLength(88);
+    const result=buildRetrobatCatalog([...rows,{...row,platform:"n64",filename:"Example (USA).zip"},{...row,platform:"n64",filename:"_media.zip"},{...row,platform:"n64j"}],[{id:"n64",extensions:[".z64",".n64",".zip"]}]);
+    expect(result.platforms).toEqual(["n64"]);
+    expect(result.assets).toHaveLength(89);
+    expect(result.media).toHaveLength(1);
+    expect(result.assets.find(asset=>asset.download_name==="Example (USA).zip")).toMatchObject({install_mode:"file",launch_path:"Example (USA).zip"});
+    for(const asset of result.assets.filter(asset=>asset.install_mode==="extract")){
+      expect(asset.launch_path).toBe(`+japan/${asset.download_name.replace(/\.extract\.zip$/, ".z64")}`);
+    }
+  });
   it("exports Arcade Dumps packages with BAT launchers",()=>{
     const result=buildRetrobatCatalog([{...row,platform:"arcadedumps",filename:"Halo Fireteam Raven.extract.zip"}],[{id:"arcadedumps",extensions:[".bat",".cmd"]}]);
     expect(result.assets[0]).toMatchObject({platform:"arcadedumps",download_name:"Halo Fireteam Raven.extract.zip",launch_path:"Halo Fireteam Raven.bat",install_mode:"extract"});

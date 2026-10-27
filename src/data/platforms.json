@@ -320,11 +320,6 @@
     "fullName": "Namco System 2x6"
   },
   {
-    "name": "n64j",
-    "image": "/images/platform/n64j.webp",
-    "fullName": "Nintendo 64 Japan"
-  },
-  {
     "name": "n64h",
     "image": "/images/platform/n64h.webp",
     "fullName": "Nintendo 64 Hacks"
