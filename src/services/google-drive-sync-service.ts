@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import gamesCatalogJson from "@/data/games-catalog.json";
 import emulatorsCatalogJson from "@/data/emulators-catalog.json";
 import { downloadPackageTitle, isExtractPackage } from "@/lib/download-package";
+import { safeRomRelativePath } from "@/lib/rom-relative-path";
 import { getSupabaseAdmin } from "@/lib/server/supabase-admin";
 import {
   findUniqueGoogleDriveFolder,
@@ -183,7 +184,20 @@ async function syncFolder(
   platform: PlatformConfig | null,
   category: "bios" | "rom" | "emulator" | "theme" = platform ? "rom" : "bios"
 ): Promise<{ assets: number; skipped: number }> {
-  const files = await listGoogleDriveFolder(folderId);
+  const files: Array<{file: GoogleDriveFile; prefix: string}> = [];
+  const seen = new Set<string>();
+  async function visit(id: string, prefix = "", depth = 0): Promise<void> {
+    if (depth > 16 || seen.has(id)) throw new Error("Invalid or excessively deep ROM folder tree");
+    seen.add(id);
+    for (const file of await listGoogleDriveFolder(id)) {
+      if (isGoogleDriveFolder(file)) {
+        if (category !== "rom" || /^(media|images|videos|manuals)$/i.test(file.name) || file.name.startsWith(".")) continue;
+        if (!safeRomRelativePath(file.name) || file.name.includes("/")) throw new Error(`Invalid ROM folder: ${file.name}`);
+        await visit(file.id, prefix + file.name + "/", depth + 1);
+      } else files.push({file, prefix});
+    }
+  }
+  await visit(folderId);
   const allowedExtensions = platform
     ? new Set(platform.extensions.map((extension) => extension.toLowerCase()))
     : null;
@@ -191,7 +205,8 @@ async function syncFolder(
   const rows: DownloadAssetRow[] = [];
   let skipped = 0;
 
-  for (const file of files) {
+  for (const {file, prefix} of files) {
+    if (prefix && file.name.toLowerCase() === "_media.zip") { skipped += 1; continue; }
     const emulatorId = downloadPackageTitle(file.name).toLocaleLowerCase();
     // Full media packs are ZIPs even when the platform's games use other formats.
     if (
@@ -221,6 +236,7 @@ async function syncFolder(
       continue;
     }
     rows.push(row);
+    if (prefix) row.install_name = prefix + file.name;
   }
 
   await replaceFolderAssets(folderId, rows);

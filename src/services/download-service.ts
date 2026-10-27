@@ -90,7 +90,7 @@ function mapAsset(asset: DownloadAssetRow, config?: PlatformConfig) {
     sha256: null,
     md5: asset.md5_checksum,
     install_mode: resolvedInstallMode(asset),
-    install_name: downloadPackageTitle(asset.filename),
+    install_name: asset.install_name || downloadPackageTitle(asset.filename),
     romset_version: asset.romset_version,
   };
 }
@@ -492,7 +492,7 @@ async function authorizeIndexedAsset(
       sha256: null,
       md5: asset.md5_checksum,
       install_mode: resolvedInstallMode(asset),
-      install_name: downloadPackageTitle(asset.filename),
+      install_name: asset.install_name || downloadPackageTitle(asset.filename),
       romset_version: asset.romset_version,
     },
     downloadUrl: asset.web_content_link,

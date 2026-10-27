@@ -4,6 +4,17 @@ import extractPaths from "./retrobat-extract-paths.json";
 const row:CatalogRow={id:"a".repeat(64),platform:"snes",filename:"Mario.zip",title:"Mario",file_size:3,md5_checksum:"b".repeat(32)};
 const platforms=[{id:"snes",extensions:[".zip"]},{id:"nes",extensions:[".nes"]}];
 describe("RetroBat marker snapshot",()=>{
+  it("preserves direct ROM folders while keeping download names and existing extraction rules",()=>{
+    const result=buildRetrobatCatalog([
+      {...row,platform:"neogeo",filename:"cabalng.zip",install_name:"+ports/Arcade/cabalng.zip"},
+      {...row,id:"c".repeat(64),platform:"neogeo",filename:"cabalng.extract.zip",install_name:"Packages/cabalng.extract.zip",file_size:extractPaths["neogeo/cabalng.extract.zip"].file_size,md5_checksum:extractPaths["neogeo/cabalng.extract.zip"].md5},
+    ],[{id:"neogeo",extensions:[".zip"]}]);
+    expect(result.assets.find(a=>a.install_mode==="file")).toMatchObject({download_name:"cabalng.zip",launch_path:"+ports/Arcade/cabalng.zip"});
+    expect(result.assets.find(a=>a.install_mode==="extract")?.launch_path).toBe("+ports/cabalng.zip");
+    for(const install_name of ["../cabalng.zip","/cabalng.zip","+ports/../cabalng.zip","CON/cabalng.zip","+ports/other.zip"]){
+      expect(buildRetrobatCatalog([{...row,filename:"cabalng.zip",install_name}],platforms).total).toBe(0);
+    }
+  });
   it("preserves all four verified Neo Geo folders",()=>{
     const rows=Object.entries(extractPaths).filter(([key])=>key.startsWith("neogeo/")).map(([key,value],index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"neogeo",filename:key.slice(7),file_size:value.file_size,md5_checksum:value.md5}));
     const result=buildRetrobatCatalog(rows,[{id:"neogeo",extensions:[".zip"]}]);

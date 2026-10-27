@@ -1,10 +1,12 @@
 import { createHash } from "node:crypto";
 import { isExtractPackage, downloadPackageTitle } from "./download-package";
 import extractPaths from "./retrobat-extract-paths.json";
+import { safeRomRelativePath } from "./rom-relative-path";
 
 export interface CatalogRow {
   id: string; platform: string | null; filename: string; title: string;
   file_size: number | null; md5_checksum: string | null;
+  install_name?: string | null;
 }
 export function buildRetrobatCatalog(rows: CatalogRow[], platforms: {id:string;extensions:string[]}[]) {
   const supported=new Map(platforms.map(p=>[p.id,new Set(p.extensions.map(e=>e.toLowerCase()))]));
@@ -16,11 +18,11 @@ export function buildRetrobatCatalog(rows: CatalogRow[], platforms: {id:string;e
       && (isExtractPackage(name) || supported.get(row.platform)!.has(extension))
       && !/[\x00-\x1f<>:"/\\|?*]/.test(name) && !/[. ]$/.test(name)
       && !/^(con|prn|aux|nul|com[1-9]|lpt[1-9])\./i.test(name)
-      && name.toLowerCase()!=="_media.zip";
+      && name.toLowerCase()!=="_media.zip" && validInstallPath(row);
   }).map(row=>({id:row.id,platform:row.platform!,title:row.title,
     download_name:row.filename,file_size:row.file_size,
     md5:row.md5_checksum,sha256:null,install_mode:isExtractPackage(row.filename)?"extract":"file",
-    launch_path:isExtractPackage(row.filename)?mappedExtractPath(row)??extractLaunchPath(row.platform!,row.filename,platforms.find(p=>p.id===row.platform)!.extensions):row.filename,
+    launch_path:isExtractPackage(row.filename)?mappedExtractPath(row)??extractLaunchPath(row.platform!,row.filename,platforms.find(p=>p.id===row.platform)!.extensions):installPrefix(row)+row.filename,
   })).sort((a,b)=>a.platform.localeCompare(b.platform,"en")||a.id.localeCompare(b.id,"en"));
   const populated=new Set(assets.map(a=>a.platform));
   const media=rows.filter(row=>row.platform && populated.has(row.platform)
@@ -29,6 +31,12 @@ export function buildRetrobatCatalog(rows: CatalogRow[], platforms: {id:string;e
     .sort((a,b)=>a.platform.localeCompare(b.platform,"en")||a.id.localeCompare(b.id,"en"));
   const revision=createHash("sha256").update(JSON.stringify({assets,media})).digest("hex");
   return {schema_version:1,revision,total:assets.length,platforms:[...populated],assets,media};
+}
+function validInstallPath(row: CatalogRow) {
+  return !row.install_name?.includes("/") || (safeRomRelativePath(row.install_name) && row.install_name.split("/").at(-1) === row.filename);
+}
+function installPrefix(row: CatalogRow) {
+  return row.install_name?.includes("/") ? row.install_name.slice(0, row.install_name.lastIndexOf("/") + 1) : "";
 }
 function mappedExtractPath(row:CatalogRow){
   const entry=(extractPaths as Record<string,{launch_path:string;file_size:number;md5:string}>)[`${row.platform}/${row.filename}`];
