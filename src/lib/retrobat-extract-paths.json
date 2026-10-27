@@ -976,5 +976,287 @@
     "launch_size": 8388608,
     "file_size": 5401133,
     "md5": "7a70271c783686ed7bae8db3c3131ab7"
+  },
+  "neogeo/amazoneo.extract.zip": {
+    "launch_path": "+homebrew/amazoneo.zip",
+    "launch_size": 3421172,
+    "file_size": 3421839,
+    "md5": "67df5ba6f7f065361bf01ceae6af7183"
+  },
+  "neogeo/bpanicdx.extract.zip": {
+    "launch_path": "+homebrew/bpanicdx.zip",
+    "launch_size": 3551320,
+    "file_size": 3552007,
+    "md5": "1ae5e89c98a7a309dee29f080b5f4669"
+  },
+  "neogeo/cabalng.extract.zip": {
+    "launch_path": "+ports/cabalng.zip",
+    "launch_size": 2096994,
+    "file_size": 2097453,
+    "md5": "607ccf0a0c4ddc06319d806045a095a9"
+  },
+  "neogeo/captainbarrel.extract.zip": {
+    "launch_path": "+homebrew/captainbarrel.zip",
+    "launch_size": 16132110,
+    "file_size": 16134727,
+    "md5": "f58f67cf6ef732a9df79a376c8c7e4b2"
+  },
+  "neogeo/cnbe.extract.zip": {
+    "launch_path": "+homebrew/cnbe.zip",
+    "launch_size": 160205,
+    "file_size": 160364,
+    "md5": "0250b42d79e2d5a5cd850806e5bbb9a4"
+  },
+  "neogeo/columnsn.extract.zip": {
+    "launch_path": "+ports/columnsn.zip",
+    "launch_size": 58285,
+    "file_size": 58431,
+    "md5": "94dffb46e2be20bd6ba3c8badfb2582f"
+  },
+  "neogeo/cphd.extract.zip": {
+    "launch_path": "+homebrew/cphd.zip",
+    "launch_size": 28740882,
+    "file_size": 28745406,
+    "md5": "48253c3295220684ac76c885a2a212f3"
+  },
+  "neogeo/cthd2003.extract.zip": {
+    "launch_path": "+hacks/cthd2003.zip",
+    "launch_size": 26583357,
+    "file_size": 26587553,
+    "md5": "0e0b9e41fcf1634b0811d969a2232354"
+  },
+  "neogeo/cyborgforce.extract.zip": {
+    "launch_path": "+homebrew/cyborgforce.zip",
+    "launch_size": 21067912,
+    "file_size": 21071280,
+    "md5": "da3e069ce0d2a062d8e70942b48beced"
+  },
+  "neogeo/diggerma.extract.zip": {
+    "launch_path": "+homebrew/diggerma.zip",
+    "launch_size": 372956,
+    "file_size": 373158,
+    "md5": "0e09356ff238dfe7991f1901316ed018"
+  },
+  "neogeo/dragonsh.extract.zip": {
+    "launch_path": "+unreleased/dragonsh.zip",
+    "launch_size": 5411236,
+    "file_size": 5412212,
+    "md5": "f5d938a7bec9ed6226be0ceea52c3d21"
+  },
+  "neogeo/flapchck.extract.zip": {
+    "launch_path": "+homebrew/flapchck.zip",
+    "launch_size": 2587728,
+    "file_size": 2588265,
+    "md5": "c434baec236f2d87647a367b3e8382b0"
+  },
+  "neogeo/flipshot.extract.zip": {
+    "launch_path": "+homebrew/flipshot.zip",
+    "launch_size": 4261880,
+    "file_size": 4262677,
+    "md5": "2c47f41c35d8db8f11b1c830a78b5c41"
+  },
+  "neogeo/ghostlop.extract.zip": {
+    "launch_path": "+unreleased/ghostlop.zip",
+    "launch_size": 5248676,
+    "file_size": 5249627,
+    "md5": "60a47e941724af3328576b8ab0965b22"
+  },
+  "neogeo/gladmort.extract.zip": {
+    "launch_path": "+homebrew/gladmort.zip",
+    "launch_size": 26326225,
+    "file_size": 26330387,
+    "md5": "02a157f6dea72be97df29518c0d09bdb"
+  },
+  "neogeo/hypernoid.extract.zip": {
+    "launch_path": "+homebrew/hypernoid.zip",
+    "launch_size": 13419719,
+    "file_size": 13421913,
+    "md5": "be61f9bf718561ff8d58a239f43a8b20"
+  },
+  "neogeo/ironclad.extract.zip": {
+    "launch_path": "+unreleased/ironclad.zip",
+    "launch_size": 14069028,
+    "file_size": 14071324,
+    "md5": "e61bdb8d2c4bc50acf90ef2eabfc8759"
+  },
+  "neogeo/kf10thep.extract.zip": {
+    "launch_path": "+hacks/kf10thep.zip",
+    "launch_size": 45199265,
+    "file_size": 45206301,
+    "md5": "56d481f0e93b1faa5cee20e6038df336"
+  },
+  "neogeo/kf2k2mp.extract.zip": {
+    "launch_path": "+hacks/kf2k2mp.zip",
+    "launch_size": 83536276,
+    "file_size": 83549160,
+    "md5": "9295f4af71e7e2eed67e85384f1f96ae"
+  },
+  "neogeo/kf2k2pla.extract.zip": {
+    "launch_path": "+hacks/kf2k2pla.zip",
+    "launch_size": 208334342,
+    "file_size": 208366273,
+    "md5": "58c9354c9343f117cd121ea8fdb76067"
+  },
+  "neogeo/kf2k5uni.extract.zip": {
+    "launch_path": "+hacks/kf2k5uni.zip",
+    "launch_size": 43045035,
+    "file_size": 43051741,
+    "md5": "573575e8042619667fd0246a0b6c9fb1"
+  },
+  "neogeo/knightsch.extract.zip": {
+    "launch_path": "+homebrew/knightsch.zip",
+    "launch_size": 9703768,
+    "file_size": 9705397,
+    "md5": "56815a81cac1a1b2efca6eb842aa77c2"
+  },
+  "neogeo/kof2k4se.extract.zip": {
+    "launch_path": "+hacks/kof2k4se.zip",
+    "launch_size": 43020103,
+    "file_size": 43026809,
+    "md5": "5ede11e22b4566bf4785150acc005751"
+  },
+  "neogeo/kof94te.extract.zip": {
+    "launch_path": "+hacks/kof94te.zip",
+    "launch_size": 13178878,
+    "file_size": 13181027,
+    "md5": "8f03ff1b35786b3225556bd3c0339630"
+  },
+  "neogeo/lasthope.extract.zip": {
+    "launch_path": "+homebrew/lasthope.zip",
+    "launch_size": 11204154,
+    "file_size": 11206006,
+    "md5": "02408d7e62798b0fa48295c292c8eea3"
+  },
+  "neogeo/looptrsp.extract.zip": {
+    "launch_path": "+homebrew/looptrsp.zip",
+    "launch_size": 3606182,
+    "file_size": 3606879,
+    "md5": "8b9505e45bb98eca4ae8a2242bb2f027"
+  },
+  "neogeo/ltorb.extract.zip": {
+    "launch_path": "+homebrew/ltorb.zip",
+    "launch_size": 35021,
+    "file_size": 35167,
+    "md5": "6ba6d448d1ea511fccb08877416c336e"
+  },
+  "neogeo/nblktiger.extract.zip": {
+    "launch_path": "+ports/nblktiger.zip",
+    "launch_size": 7908815,
+    "file_size": 7910163,
+    "md5": "0c3aed450001b536ad3ab09b179abb01"
+  },
+  "neogeo/neonopon.extract.zip": {
+    "launch_path": "+homebrew/neonopon.zip",
+    "launch_size": 23237,
+    "file_size": 23384,
+    "md5": "0b4e4d3bc3157c46f909757b665a0b94"
+  },
+  "neogeo/neopong.extract.zip": {
+    "launch_path": "+ports/neopong.zip",
+    "launch_size": 2014596,
+    "file_size": 2015040,
+    "md5": "60aa20ad9bf2a1b1faecc9b1b2b8ecfc"
+  },
+  "neogeo/neotet.extract.zip": {
+    "launch_path": "+homebrew/neotet.zip",
+    "launch_size": 88250,
+    "file_size": 88403,
+    "md5": "310a7089ba1b993ef619d6bd790358c6"
+  },
+  "neogeo/neothndr.extract.zip": {
+    "launch_path": "+homebrew/neothndr.zip",
+    "launch_size": 323906,
+    "file_size": 324098,
+    "md5": "3ba3df175cbeafe7562c19bdef268680"
+  },
+  "neogeo/neotris.extract.zip": {
+    "launch_path": "+homebrew/neotris.zip",
+    "launch_size": 13107814,
+    "file_size": 13109959,
+    "md5": "aad6c19196177e67066b95a5962acd98"
+  },
+  "neogeo/ngem2k.extract.zip": {
+    "launch_path": "+homebrew/ngem2k.zip",
+    "launch_size": 6597,
+    "file_size": 6740,
+    "md5": "b3e0f00f53be3023a26682afc862f7bb"
+  },
+  "neogeo/ngfrog.extract.zip": {
+    "launch_path": "+homebrew/ngfrog.zip",
+    "launch_size": 1551967,
+    "file_size": 1552345,
+    "md5": "92e878e74a492e287bb5908b7d923d61"
+  },
+  "neogeo/nitd.extract.zip": {
+    "launch_path": "+homebrew/nitd.zip",
+    "launch_size": 19830902,
+    "file_size": 19834066,
+    "md5": "3f5d1cabb72f53d3e9bf57f45ce65850"
+  },
+  "neogeo/nsmb.extract.zip": {
+    "launch_path": "+ports/nsmb.zip",
+    "launch_size": 7728585,
+    "file_size": 7729893,
+    "md5": "70db2ac55f05aa72b3ade448626fca4f"
+  },
+  "neogeo/poknight.extract.zip": {
+    "launch_path": "+homebrew/poknight.zip",
+    "launch_size": 81769,
+    "file_size": 81926,
+    "md5": "7ae1d40b595aa9e568ad87f30671eaf8"
+  },
+  "neogeo/powerins.extract.zip": {
+    "launch_path": "+ports/powerins.zip",
+    "launch_size": 6936329,
+    "file_size": 6937525,
+    "md5": "cb017efaaaa93fc56c6d3d3108d68512"
+  },
+  "neogeo/sbp.extract.zip": {
+    "launch_path": "+homebrew/sbp.zip",
+    "launch_size": 9549116,
+    "file_size": 9550708,
+    "md5": "0055710bbe9181ad193bd8da0d56466d"
+  },
+  "neogeo/shinobing.extract.zip": {
+    "launch_path": "+ports/shinobing.zip",
+    "launch_size": 8511610,
+    "file_size": 8513048,
+    "md5": "07b6111712fcd439d11a4d9c07520824"
+  },
+  "neogeo/svcsplus.extract.zip": {
+    "launch_path": "+hacks/svcsplus.zip",
+    "launch_size": 43343670,
+    "file_size": 43350421,
+    "md5": "6084c0fe23177560d6712aec67177582"
+  },
+  "neogeo/teot.extract.zip": {
+    "launch_path": "+unreleased/teot.zip",
+    "launch_size": 23338260,
+    "file_size": 23341963,
+    "md5": "47ec62310e88f4b48a6d368811f2f0a4"
+  },
+  "neogeo/totc.extract.zip": {
+    "launch_path": "+homebrew/totc.zip",
+    "launch_size": 8056224,
+    "file_size": 8057588,
+    "md5": "cf6fa726aaeb1a6eb55bdcbc2a7b3935"
+  },
+  "neogeo/vliner.extract.zip": {
+    "launch_path": "+unreleased/vliner.zip",
+    "launch_size": 198801,
+    "file_size": 198978,
+    "md5": "b8f50ad1d1b61a1a9d68cb1d236a10b7"
+  },
+  "neogeo/xenocrisis.extract.zip": {
+    "launch_path": "+homebrew/xenocrisis.zip",
+    "launch_size": 17900053,
+    "file_size": 17902934,
+    "md5": "c7c6e22a8d806e7d99cd745f23914944"
+  },
+  "neogeo/zintrckb.extract.zip": {
+    "launch_path": "+unreleased/zintrckb.zip",
+    "launch_size": 4037677,
+    "file_size": 4038443,
+    "md5": "a063cf4597b85b512487299950c5586e"
   }
 }

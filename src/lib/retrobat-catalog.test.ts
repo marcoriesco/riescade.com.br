@@ -4,6 +4,30 @@ import extractPaths from "./retrobat-extract-paths.json";
 const row:CatalogRow={id:"a".repeat(64),platform:"snes",filename:"Mario.zip",title:"Mario",file_size:3,md5_checksum:"b".repeat(32)};
 const platforms=[{id:"snes",extensions:[".zip"]},{id:"nes",extensions:[".nes"]}];
 describe("RetroBat marker snapshot",()=>{
+  it("preserves all four verified Neo Geo folders",()=>{
+    const rows=Object.entries(extractPaths).filter(([key])=>key.startsWith("neogeo/")).map(([key,value],index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"neogeo",filename:key.slice(7),file_size:value.file_size,md5_checksum:value.md5}));
+    const result=buildRetrobatCatalog(rows,[{id:"neogeo",extensions:[".zip"]}]);
+    expect(result.assets).toHaveLength(47);
+    const counts:Record<string,number>={};
+    for(const asset of result.assets){
+      expect(asset.install_mode).toBe("extract");
+      expect(asset.launch_path).toBe(extractPaths[`neogeo/${asset.download_name}` as keyof typeof extractPaths].launch_path);
+      const folder=asset.launch_path.split("/")[0];counts[folder]=(counts[folder]??0)+1;
+    }
+    expect(counts).toEqual({"+homebrew":26,"+ports":7,"+hacks":8,"+unreleased":6});
+  });
+  it("preserves all four verified Neo Geo folders",()=>{
+    const rows=Object.entries(extractPaths).filter(([key])=>key.startsWith("neogeo/")).map(([key,value],index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"neogeo",filename:key.slice(7),file_size:value.file_size,md5_checksum:value.md5}));
+    const result=buildRetrobatCatalog(rows,[{id:"neogeo",extensions:[".zip"]}]);
+    expect(result.assets).toHaveLength(47);
+    const counts:Record<string,number>={};
+    for(const asset of result.assets){
+      expect(asset.install_mode).toBe("extract");
+      expect(asset.launch_path).toBe(extractPaths[`neogeo/${asset.download_name}` as keyof typeof extractPaths].launch_path);
+      const folder=asset.launch_path.split("/")[0];counts[folder]=(counts[folder]??0)+1;
+    }
+    expect(counts).toEqual({"+homebrew":26,"+ports":7,"+hacks":8,"+unreleased":6});
+  });
   it("keeps N64 ZIPs direct and routes all Japanese packages into the shared system",()=>{
     const rows=Object.entries(extractPaths).filter(([key])=>key.startsWith("n64/")).map(([key,value],index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"n64",filename:key.slice(4),file_size:value.file_size,md5_checksum:value.md5}));
     expect(rows).toHaveLength(88);
