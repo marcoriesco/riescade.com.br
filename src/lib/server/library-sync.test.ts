@@ -17,6 +17,16 @@ describe("library rows", () => {
   ])("rejects %j", extra => {
     expect(() => validateLibraryRows({ rows: [row(extra)] })).toThrow();
   });
+  it("accepts additions only to the counters", () => {
+    const time = row({ key: "gametime", value: "190", delta: 60 });
+    expect(validateLibraryRows({ rows: [time] })).toEqual([time]);
+    for (const delta of [0, -5, 1.5, "60", 2_000_000_000]) expect(() => validateLibraryRows({ rows: [row({ key: "gametime", delta })] })).toThrow();
+    expect(() => validateLibraryRows({ rows: [row({ key: "favorite", delta: 1 })] })).toThrow();
+  });
+  it("adds up two additions to one counter", () => {
+    const rows = validateLibraryRows({ rows: [row({ key: "gametime", value: "130", delta: 30, updated: 5 }), row({ key: "gametime", value: "160", delta: 60, updated: 9 })] });
+    expect(rows).toEqual([row({ key: "gametime", value: "160", delta: 90, updated: 9 })]);
+  });
   it("rejects bodies that are not a batch, and batches over the limit", () => {
     expect(() => validateLibraryRows(null)).toThrow();
     expect(() => validateLibraryRows({ rows: {} })).toThrow();

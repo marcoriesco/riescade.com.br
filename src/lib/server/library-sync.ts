@@ -3,10 +3,13 @@ import { AppApiError } from "@/lib/server/app-errors";
 
 // The `state` keys of the RIESCADE EmulationStation gamelist.db (GameDatabase.cpp, STATE_KEYS)
 export const LIBRARY_KEYS = new Set(["favorite", "hidden", "kidgame", "playcount", "lastplayed", "gametime", "emulator", "core"]);
+// Keys that add up on every computer: a push may send what that computer added (`delta`) instead of a total.
+export const LIBRARY_COUNTERS = new Set(["playcount", "gametime"]);
 export const LIBRARY_PUSH_LIMIT = 1000;
 export const LIBRARY_PULL_LIMIT = 2000;
+const MAX_DELTA = 1_000_000_000;
 
-export type LibraryRow = { system: string; path: string; key: string; value: string; updated: number };
+export type LibraryRow = { system: string; path: string; key: string; value: string; updated: number; delta?: number };
 
 const SYSTEM = /^[a-z0-9_+-]{1,64}$/;
 
@@ -23,15 +26,21 @@ export function validateLibraryRows(body: unknown): LibraryRow[] {
   const unique = new Map<string, LibraryRow>();
   for (const item of rows) {
     if (!item || typeof item !== "object") invalid();
-    const { system, path, key, value, updated } = item as Record<string, unknown>;
+    const { system, path, key, value, updated, delta } = item as Record<string, unknown>;
     if (typeof system !== "string" || !SYSTEM.test(system)) invalid();
     if (typeof path !== "string" || path.length < 1 || path.length > 1024 || path.includes("\0")) invalid();
     if (typeof key !== "string" || !LIBRARY_KEYS.has(key)) invalid();
     if (typeof value !== "string" || value.length > 256) invalid();
     if (typeof updated !== "number" || !Number.isSafeInteger(updated) || updated <= 0) invalid();
+    if (delta !== undefined && (!LIBRARY_COUNTERS.has(key) || typeof delta !== "number" || !Number.isSafeInteger(delta) || delta <= 0 || delta > MAX_DELTA)) invalid();
     const id = `${system}\n${path}\n${key}`;
     const previous = unique.get(id);
-    if (!previous || previous.updated < updated) unique.set(id, { system, path, key, value, updated });
+    if (delta !== undefined && previous?.delta !== undefined) {
+      // two additions to one counter both count
+      unique.set(id, { ...previous, value, updated: Math.max(previous.updated, updated), delta: previous.delta + (delta as number) });
+    } else if (!previous || previous.updated < updated) {
+      unique.set(id, { system, path, key, value, updated, ...(delta !== undefined ? { delta: delta as number } : {}) });
+    }
   }
   return [...unique.values()];
 }
