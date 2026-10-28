@@ -116,6 +116,7 @@ export default function Footer() {
             {[
               ["/tutorial", "Tutorial"],
               ["/wiki", "Wiki de ROMs"],
+              ["/recordes", "Recordes"],
               ["/politica", "Privacidade"],
               ["/termos", "Termos"],
               ["/app-data", "Exclusão de dados"],

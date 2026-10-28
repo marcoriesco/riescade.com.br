@@ -1,150 +1,34 @@
 "use client";
-import { PageIntro, ExploreLink } from "@/components/PageIntro";
 
-import { useState, useEffect, useCallback, type ReactNode } from "react";
+import { useState, useEffect, useCallback, useRef, type KeyboardEvent } from "react";
+import Link from "next/link";
 import { supabase, type Subscription } from "@/lib/supabase";
 import { useRouter, useSearchParams } from "next/navigation";
 import { User } from "@supabase/supabase-js";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
-import {
-  Zap,
-  Shield,
-  User as UserIcon,
-  Download,
-  AlertCircle,
-  XCircle,
-  Gamepad2,
-  CalendarDays,
-  Clock3,
-  Check,
-  CheckCircle2,
-  Sparkles,
-  Cpu,
-  Lock,
-  CreditCard,
-  RefreshCw,
-  Crown,
-  Palette,
-  type LucideIcon,
-} from "lucide-react";
-import Image from "next/image";
+import { AlertCircle, ArrowRight, CheckCircle2, Crown, Download, Gamepad2, Palette, Trophy, XCircle, type LucideIcon } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { CancelSubscriptionModal } from "@/components/CancelSubscriptionModal";
+import { Callout, primaryButton } from "./ui";
+import { SubscriptionTab, type SubscriptionDetails } from "./tabs/SubscriptionTab";
+import { GamesTab } from "./tabs/GamesTab";
+import { RecordsTab } from "./tabs/RecordsTab";
+import { DownloadsTab, type BiosAsset, type ReleaseInfo } from "./tabs/DownloadsTab";
+import { ThemesTab, type RetroBatTheme } from "./tabs/ThemesTab";
 
 const ACTIVE_STATUSES = new Set(["active", "trialing"]);
 
-const STATUS_LABELS: Record<string, string> = {
-  active: "Ativa",
-  trialing: "Em período de teste",
-  past_due: "Pagamento pendente",
-  unpaid: "Não paga",
-  incomplete: "Pagamento incompleto",
-  incomplete_expired: "Expirada",
-  canceled: "Cancelada",
-  paused: "Pausada",
-};
-
-const MEMBER_BENEFITS = [
-  "Biblioteca integrada ao aplicativo RIESCADE",
-  "Downloads seguros dentro do aplicativo",
-  "Pack de BIOS completo para download",
-  "Comunidade VIP — Suporte prioritário",
-  "250+ Plataformas — Atari até Switch",
-  "RetroAchievements + Scraping automático",
+// The subscription always comes first: without it, it is where the player learns how to subscribe.
+const TABS: { id: string; label: string; icon: LucideIcon }[] = [
+  { id: "assinatura", label: "Assinatura", icon: Crown },
+  { id: "jogos", label: "Meus jogos", icon: Gamepad2 },
+  { id: "recordes", label: "Recordes", icon: Trophy },
+  { id: "downloads", label: "Downloads", icon: Download },
+  { id: "temas", label: "Temas", icon: Palette },
 ];
-
-interface SubscriptionDetails {
-  status?: string;
-  plan_name?: string | null;
-  amount?: number | null;
-  currency?: string | null;
-  interval?: string | null;
-  cancel_at_period_end?: boolean;
-  start_date?: string | null;
-  end_date?: string | null;
-}
-
-interface ReleaseInfo {
-  version: string;
-  size: number | null;
-  updatedAt?: string | null;
-}
-
-interface RetroBatTheme {
-  id: string;
-  name: string;
-  description: string;
-  previewUrl: string | null;
-  fileName: string | null;
-  size: number | null;
-  version: string | null;
-}
-
-interface BiosAsset {
-  id: string;
-  file_size: number | null;
-}
-
-const formatAccountDate = (value?: string | null) =>
-  value
-    ? new Intl.DateTimeFormat("pt-BR", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-      }).format(new Date(value))
-    : "Não informado";
-
-const formatAccountDateTime = (value?: string | null) =>
-  value
-    ? new Intl.DateTimeFormat("pt-BR", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }).format(new Date(value))
-    : "Não informado";
-
-const formatAccountAge = (value?: string | null) => {
-  if (!value) return "Não informado";
-  const createdAt = new Date(value);
-  const now = new Date();
-  const months =
-    (now.getFullYear() - createdAt.getFullYear()) * 12 +
-    now.getMonth() -
-    createdAt.getMonth();
-  if (months < 1) {
-    const days = Math.max(
-      1,
-      Math.floor((now.getTime() - createdAt.getTime()) / 86_400_000)
-    );
-    return `${days} ${days === 1 ? "dia" : "dias"}`;
-  }
-  if (months < 12) return `${months} ${months === 1 ? "mês" : "meses"}`;
-  const years = Math.floor(months / 12);
-  const remainingMonths = months % 12;
-  return remainingMonths
-    ? `${years} ${years === 1 ? "ano" : "anos"} e ${remainingMonths} ${remainingMonths === 1 ? "mês" : "meses"}`
-    : `${years} ${years === 1 ? "ano" : "anos"}`;
-};
-
-const formatSize = (bytes?: number | null) => {
-  if (!bytes) return null;
-  const gb = bytes / 1024 ** 3;
-  return gb >= 1
-    ? `${gb.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} GB`
-    : `${Math.round(bytes / 1024 ** 2)} MB`;
-};
-
-const formatPrice = (details: SubscriptionDetails | null) => {
-  if (details?.amount == null || !details.currency) return "R$ 30";
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: details.currency.toUpperCase(),
-  }).format(details.amount / 100);
-};
+type TabId = (typeof TABS)[number]["id"];
 
 // Drive's uc links stop on an HTML virus-scan page for big files like bios.zip.
 function directDriveUrl(url: string) {
@@ -171,107 +55,14 @@ async function fetchJson<T>(url: string, init?: RequestInit): Promise<T | null> 
   }
 }
 
-function SectionHeading({ eyebrow, title, highlight, description }: {
-  eyebrow: string;
-  title: string;
-  highlight: string;
-  description?: string;
-}) {
+function PageShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-8">
-      <span className="font-mono text-xs font-bold uppercase tracking-[0.3em] text-primary">
-        {eyebrow}
-      </span>
-      <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight text-foreground md:text-4xl">
-        {title} <span className="text-gradient-primary">{highlight}</span>
-      </h2>
-      {description && (
-        <p className="mt-3 max-w-3xl text-muted-foreground">{description}</p>
-      )}
+    <div className="site-page flex min-h-screen flex-col bg-background">
+      <Header />
+      {children}
     </div>
   );
 }
-
-function StatTile({ icon: Icon, label, value, detail, tone = "default" }: {
-  icon: LucideIcon;
-  label: string;
-  value: string;
-  detail?: string;
-  tone?: "default" | "success" | "warning";
-}) {
-  const valueColor =
-    tone === "success" ? "text-[#14d52a]" : tone === "warning" ? "text-amber-400" : "text-foreground";
-  return (
-    <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] p-5">
-      <div className="mb-4 flex size-10 items-center justify-center rounded-xl border border-primary/30 bg-primary/10">
-        <Icon className="size-4 text-primary" />
-      </div>
-      <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-        {label}
-      </p>
-      <p className={`mt-1 font-display text-xl font-bold uppercase ${valueColor}`}>{value}</p>
-      {detail && <p className="mt-1 text-xs text-muted-foreground">{detail}</p>}
-    </div>
-  );
-}
-
-function DownloadCard({ icon: Icon, tag, name, description, features, install, meta, children, locked }: {
-  icon: LucideIcon;
-  tag: string;
-  name: ReactNode;
-  description: string;
-  features: string[];
-  install: string;
-  meta: string[];
-  children: ReactNode;
-  locked?: boolean;
-}) {
-  return (
-    <article className="group flex flex-col rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_20px_60px_hsl(var(--primary)/0.08)]">
-      <div className="mb-6 flex items-start justify-between gap-4">
-        <div className="glow-primary flex size-12 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 transition-colors group-hover:border-primary/60">
-          <Icon className="size-5 text-primary" />
-        </div>
-        <span className="inline-flex items-center gap-1.5 rounded-lg border border-primary/25 bg-primary/[0.08] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
-          {locked && <Lock className="size-3" />}
-          {tag}
-        </span>
-      </div>
-      <h3 className="font-display text-2xl font-bold uppercase tracking-wide text-foreground">{name}</h3>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{description}</p>
-
-      <ul className="mt-6 space-y-3">
-        {features.map((feature) => (
-          <li key={feature} className="flex items-start gap-3">
-            <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border border-primary/50 bg-primary/10">
-              <Check className="size-3 text-primary" />
-            </span>
-            <span className="text-sm text-foreground/80">{feature}</span>
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-6 rounded-xl border border-border bg-black/30 p-4">
-        <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Como instalar</p>
-        <p className="mt-2 text-sm leading-relaxed text-foreground/80">{install}</p>
-      </div>
-
-      <div className="mt-auto pt-6">
-        {meta.length > 0 && (
-          <p className="mb-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            {meta.join(" · ")}
-          </p>
-        )}
-        {children}
-      </div>
-    </article>
-  );
-}
-
-const primaryButton =
-  "inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-6 font-display text-sm font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_45px_hsl(var(--primary)/0.3)] transition-all hover:-translate-y-0.5 hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0";
-const secondaryButton =
-  "inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-white/30 bg-black/40 px-6 font-display text-sm font-bold uppercase tracking-[0.12em] text-white transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-primary/10 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0";
 
 export default function DashboardClient() {
   const [user, setUser] = useState<User | null>(null);
@@ -292,18 +83,37 @@ export default function DashboardClient() {
   const success = searchParams.get("success");
   const canceled = searchParams.get("canceled");
   const sessionId = searchParams.get("session_id");
+  const requestedTab = searchParams.get("tab");
+  const [tab, setTab] = useState<TabId>(TABS.some((t) => t.id === requestedTab) ? requestedTab! : "assinatura");
+  // Tabs are mounted on first visit and kept, so switching back does not refetch.
+  const [visited, setVisited] = useState<Set<TabId>>(() => new Set([tab]));
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   const hasAccess =
     !!subscription &&
     ACTIVE_STATUSES.has(subscription.status) &&
     (!subscription.end_date || new Date(subscription.end_date) > new Date());
 
+  const selectTab = useCallback((id: TabId, focus = false) => {
+    setTab(id);
+    setVisited((previous) => (previous.has(id) ? previous : new Set(previous).add(id)));
+    if (focus) tabRefs.current[id]?.focus();
+    const url = new URL(window.location.href);
+    if (id === "assinatura") url.searchParams.delete("tab");
+    else url.searchParams.set("tab", id);
+    window.history.replaceState(null, "", url);
+  }, []);
+
+  const onTabKey = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const index = TABS.findIndex((t) => t.id === tab);
+    const next = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: TABS.length - 1 }[event.key];
+    if (next === undefined) return;
+    event.preventDefault();
+    selectTab(TABS[(next + TABS.length) % TABS.length].id, true);
+  };
+
   const fetchSubscription = useCallback(async (userId: string) => {
-    const { data, error } = await supabase
-      .from("subscriptions")
-      .select("*")
-      .eq("user_id", userId)
-      .maybeSingle();
+    const { data, error } = await supabase.from("subscriptions").select("*").eq("user_id", userId).maybeSingle();
 
     if (error) console.error("Error fetching subscription:", error);
     setSubscription(error ? null : data);
@@ -313,10 +123,9 @@ export default function DashboardClient() {
     }
 
     const token = await accessToken();
-    const body = await fetchJson<{ subscription: SubscriptionDetails | null }>(
-      "/api/app/subscription",
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    const body = await fetchJson<{ subscription: SubscriptionDetails | null }>("/api/app/subscription", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     setDetails(body?.subscription ?? null);
   }, []);
 
@@ -325,9 +134,7 @@ export default function DashboardClient() {
     try {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
-        options: {
-          redirectTo: window.location.origin + "/dashboard",
-        },
+        options: { redirectTo: window.location.origin + "/dashboard" },
       });
 
       if (error) {
@@ -348,14 +155,8 @@ export default function DashboardClient() {
       try {
         const response = await fetch("/api/verify-session", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${await accessToken()}`,
-          },
-          body: JSON.stringify({
-            sessionId,
-            userId: user?.id,
-          }),
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${await accessToken()}` },
+          body: JSON.stringify({ sessionId, userId: user?.id }),
         });
 
         if (response.ok) {
@@ -377,10 +178,7 @@ export default function DashboardClient() {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
-
+        const { data: { session } } = await supabase.auth.getSession();
         if (session?.user) {
           setUser(session.user);
           await fetchSubscription(session.user.id);
@@ -391,16 +189,13 @@ export default function DashboardClient() {
         setLoading(false);
       }
     };
-
     checkUser();
   }, [fetchSubscription]);
 
-  // Release metadata is public; it only fills versions and sizes on the cards.
+  // Release metadata is public; it only fills versions and sizes.
   useEffect(() => {
     fetchJson<ReleaseInfo>("/api/app/retrobat/latest").then(setRetroBatRelease);
-    fetchJson<{ themes: RetroBatTheme[] }>("/api/app/retrobat/themes").then((body) =>
-      setRetroBatThemes(body?.themes ?? [])
-    );
+    fetchJson<{ themes: RetroBatTheme[] }>("/api/app/retrobat/themes").then((body) => setRetroBatThemes(body?.themes ?? []));
   }, []);
 
   useEffect(() => {
@@ -432,13 +227,8 @@ export default function DashboardClient() {
     try {
       const response = await fetch("/api/create-checkout-session", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${await accessToken()}`,
-        },
-        body: JSON.stringify({
-          priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID || "price_1",
-        }),
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${await accessToken()}` },
+        body: JSON.stringify({ priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID || "price_1" }),
       });
 
       const { url } = await response.json();
@@ -472,13 +262,10 @@ export default function DashboardClient() {
   const handleThemeDownload = async (theme: RetroBatTheme) => {
     setPendingAction(`theme:${theme.id}`);
     setActionError(null);
-    const body = await fetchJson<{ downloadUrl?: string }>(
-      `/api/app/retrobat/themes/${encodeURIComponent(theme.id)}/download`,
-      {
-        method: "POST",
-        headers: { Authorization: `Bearer ${await accessToken()}` },
-      }
-    );
+    const body = await fetchJson<{ downloadUrl?: string }>(`/api/app/retrobat/themes/${encodeURIComponent(theme.id)}/download`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${await accessToken()}` },
+    });
     setPendingAction(null);
     if (body?.downloadUrl) {
       window.location.assign(body.downloadUrl);
@@ -491,17 +278,11 @@ export default function DashboardClient() {
     if (!biosAsset) return;
     setPendingAction("bios");
     setActionError(null);
-    const body = await fetchJson<{ downloadUrl?: string }>(
-      `/api/app/bios/downloads/${biosAsset.id}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${await accessToken()}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ clientVersion: "web-dashboard" }),
-      }
-    );
+    const body = await fetchJson<{ downloadUrl?: string }>(`/api/app/bios/downloads/${biosAsset.id}`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${await accessToken()}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ clientVersion: "web-dashboard" }),
+    });
     setPendingAction(null);
     if (body?.downloadUrl) {
       window.location.assign(directDriveUrl(body.downloadUrl));
@@ -517,13 +298,8 @@ export default function DashboardClient() {
     try {
       const response = await fetch("/api/cancel-subscription", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${await accessToken()}`,
-        },
-        body: JSON.stringify({
-          subscriptionId: subscription.subscription_id,
-        }),
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${await accessToken()}` },
+        body: JSON.stringify({ subscriptionId: subscription.subscription_id }),
       });
 
       const result = await response.json();
@@ -533,15 +309,11 @@ export default function DashboardClient() {
         await fetchSubscription(user.id);
       } else {
         console.error("Erro ao cancelar assinatura:", result);
-        alert(
-          "Erro ao cancelar sua assinatura. Por favor, tente novamente ou entre em contato com o suporte."
-        );
+        alert("Erro ao cancelar sua assinatura. Por favor, tente novamente ou entre em contato com o suporte.");
       }
     } catch (error) {
       console.error("Erro na requisição de cancelamento:", error);
-      alert(
-        "Erro ao processar sua solicitação. Por favor, verifique sua conexão e tente novamente."
-      );
+      alert("Erro ao processar sua solicitação. Por favor, verifique sua conexão e tente novamente.");
     } finally {
       setCancellingSubscription(false);
     }
@@ -549,59 +321,44 @@ export default function DashboardClient() {
 
   if (loading || authRedirecting) {
     return (
-      <div className="flex site-page min-h-screen flex-col bg-background">
-        <Header />
-        <div id="main-content" role="main" tabIndex={-1} className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <div className="mb-4 h-12 w-12 animate-spin rounded-full border-t-4 border-primary border-opacity-50 mx-auto"></div>
-            <p className="text-lg text-foreground/80">
-              {loading ? "Verificando autenticação..." : "Redirecionando para autenticação..."}
-            </p>
+      <PageShell>
+        <div id="main-content" role="main" tabIndex={-1} className="flex flex-1 items-center justify-center">
+          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+            {loading ? "Verificando autenticação..." : "Redirecionando para autenticação..."}
           </div>
         </div>
-      </div>
+      </PageShell>
     );
   }
 
   if (!user) {
     return (
-      <div className="flex site-page min-h-screen flex-col bg-background">
-        <Header />
-        <div id="main-content" role="main" tabIndex={-1} className="flex flex-1 items-center justify-center px-6 pt-28">
-          <div className="w-full max-w-md rounded-2xl border border-primary/40 bg-gradient-to-b from-primary/[0.07] to-background/90 p-8 text-center">
-            <div className="glow-primary mx-auto mb-6 flex size-14 items-center justify-center rounded-xl border border-primary/30 bg-primary/10">
-              <Gamepad2 className="size-6 text-primary" />
-            </div>
-            <h1 className="font-display text-2xl font-bold uppercase text-foreground">
-              Área do <span className="text-gradient-primary">membro</span>
+      <PageShell>
+        <div id="main-content" role="main" tabIndex={-1} className="flex flex-1 items-center justify-center px-6 pt-28 pb-16">
+          <div className="w-full max-w-md rounded-lg border border-border bg-card/40 p-8">
+            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">Minha conta</p>
+            <h1 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-foreground">
+              Área do <span className="text-primary">membro</span>
             </h1>
-            <p className="mt-3 text-muted-foreground">
-              Entre com sua conta Google para ver sua assinatura e baixar o
-              RIESCADE e o pack de BIOS. Se for seu primeiro acesso, a conta é
-              criada automaticamente.
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Entre com sua conta Google para ver sua assinatura, seus jogos e recordes, e baixar o RIESCADE e o pack de BIOS. No
+              primeiro acesso, a conta é criada automaticamente.
             </p>
-            <button onClick={handleSignIn} disabled={authRedirecting} className={`${primaryButton} mt-8`}>
+            <button onClick={handleSignIn} disabled={authRedirecting} className={`${primaryButton} mt-8 w-full py-3`}>
               <FontAwesomeIcon icon={faGoogle} className="h-4 w-4" />
               Entrar com Google
             </button>
           </div>
         </div>
-      </div>
+      </PageShell>
     );
   }
 
   const firstName = (user.user_metadata?.full_name as string | undefined)?.split(" ")[0];
-  const avatarUrl = (user.user_metadata?.avatar_url || user.user_metadata?.picture) as string | undefined;
-  const status = details?.status ?? subscription?.status;
-  const statusLabel = subscription ? STATUS_LABELS[status ?? ""] ?? "Inativa" : "Sem assinatura";
-  const periodEnd = details?.end_date ?? subscription?.end_date;
-  const cancelsAtPeriodEnd = !!details?.cancel_at_period_end;
-  const biosSize = formatSize(biosAsset?.file_size);
 
   return (
     <div className="site-page relative min-h-screen bg-background">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[600px] bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.10)_0%,transparent_60%)]" />
-
       <Header />
 
       <CancelSubscriptionModal
@@ -612,426 +369,109 @@ export default function DashboardClient() {
         isSubmitting={cancellingSubscription}
       />
 
-      <main id="main-content" tabIndex={-1} className="relative z-10 mx-auto max-w-7xl px-6 pb-24 pt-32 md:px-12">
-        <PageIntro
-          eyebrow="Minha conta"
-          title={<>{firstName ? `Olá, ${firstName}.` : "Seu próximo"} <span className="text-gradient-primary">{firstName ? "Bora jogar?" : "play."}</span></>}
-          description="Acompanhe sua assinatura, veja há quanto tempo faz parte da RIESCADE e baixe os sistemas e o pack de BIOS."
-        >
-          <ExploreLink href="/tutorial">Como começar</ExploreLink>
-        </PageIntro>
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-6xl px-6 pt-24 pb-28">
+        <nav aria-label="Navegação estrutural" className="pt-10 text-sm text-muted-foreground">
+          <Link href="/" className="transition-colors hover:text-foreground">Início</Link>
+          <span className="mx-2">/</span>
+          <span className="text-foreground">Minha conta</span>
+        </nav>
 
-        {success && (
-          <div className="mb-8 flex items-start gap-3 rounded-2xl border border-[#14d52a]/30 bg-[#14d52a]/10 p-5 animate-fade-in">
-            <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-[#14d52a]" />
-            <div>
-              <p className="font-semibold text-foreground">
-                {verifyingSession ? "Confirmando seu pagamento..." : "Pagamento confirmado! Sua assinatura está ativa."}
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Baixe um dos sistemas abaixo e entre com a mesma conta Google usada na assinatura.
-              </p>
-            </div>
+        <header className="flex flex-col justify-between gap-6 pb-10 pt-8 md:flex-row md:items-end">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">Minha conta</p>
+            <h1 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-foreground md:text-5xl">
+              {firstName ? <>Olá, <span className="text-primary">{firstName}</span></> : <>Sua <span className="text-primary">conta</span></>}
+            </h1>
           </div>
-        )}
+          <Link
+            href="/tutorial"
+            className="inline-flex shrink-0 items-center gap-2 self-start rounded-lg border border-border bg-card px-5 py-2.5 font-mono text-xs font-semibold text-foreground transition-all hover:border-primary hover:text-primary md:self-auto"
+          >
+            Como começar
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        </header>
 
-        {canceled && (
-          <div className="mb-8 flex items-start gap-3 rounded-2xl border border-red-500/30 bg-red-900/20 p-5 animate-fade-in">
-            <XCircle className="mt-0.5 size-5 shrink-0 text-red-400" />
-            <p className="text-red-300">
-              Pagamento cancelado. Nenhuma cobrança foi feita. Se tiver dúvidas, fale com o suporte.
-            </p>
-          </div>
-        )}
-
-        {actionError && (
-          <div role="alert" className="mb-8 flex items-start gap-3 rounded-2xl border border-amber-500/30 bg-amber-900/20 p-5">
-            <AlertCircle className="mt-0.5 size-5 shrink-0 text-amber-400" />
-            <p className="text-amber-200">{actionError}</p>
-          </div>
-        )}
-
-        {/* RESUMO */}
-        <section aria-label="Resumo da conta" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatTile
-            icon={CalendarDays}
-            label="Na RIESCADE há"
-            value={formatAccountAge(user.created_at)}
-            detail={`Desde ${formatAccountDate(user.created_at)}`}
-          />
-          <StatTile
-            icon={Crown}
-            label="Assinatura"
-            value={statusLabel}
-            tone={hasAccess ? "success" : subscription ? "warning" : "default"}
-            detail={
-              hasAccess
-                ? `Assinante há ${formatAccountAge(subscription!.created_at)}`
-                : subscription
-                  ? `Assinou em ${formatAccountDate(subscription.created_at)}`
-                  : "Assine para liberar os downloads"
-            }
-          />
-          <StatTile
-            icon={RefreshCw}
-            label={hasAccess && !cancelsAtPeriodEnd ? "Próxima renovação" : "Acesso até"}
-            value={hasAccess && periodEnd ? new Date(periodEnd).toLocaleDateString("pt-BR") : "—"}
-            detail={
-              hasAccess
-                ? cancelsAtPeriodEnd
-                  ? "Não será renovada"
-                  : `${formatPrice(details)} por ${details?.interval === "year" ? "ano" : "mês"}`
-                : "Nenhum período ativo"
-            }
-          />
-          <StatTile
-            icon={Clock3}
-            label="Último acesso"
-            value={user.last_sign_in_at ? new Date(user.last_sign_in_at).toLocaleDateString("pt-BR") : "—"}
-            detail={formatAccountDateTime(user.last_sign_in_at)}
-          />
-        </section>
-
-        {/* CONTA + ASSINATURA */}
-        <section className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-5">
-          <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] p-7 xl:col-span-2">
-            <div className="flex items-center gap-4 border-b border-border pb-6">
-              {avatarUrl ? (
-                <Image
-                  src={avatarUrl}
-                  alt=""
-                  width={64}
-                  height={64}
-                  unoptimized
-                  referrerPolicy="no-referrer"
-                  className="size-16 shrink-0 rounded-2xl border border-primary/50 object-cover shadow-[0_0_24px_hsl(var(--primary)/0.2)]"
-                />
-              ) : (
-                <div className="flex size-16 shrink-0 items-center justify-center rounded-2xl border border-primary/50 bg-primary/15">
-                  <UserIcon className="size-7 text-primary" />
-                </div>
-              )}
-              <div className="min-w-0">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Perfil RIESCADE</p>
-                <h2 className="mt-1 truncate font-display text-xl font-bold text-foreground">
-                  {user.user_metadata?.full_name || "Jogador"}
-                </h2>
-                <p className="truncate text-sm text-muted-foreground">{user.email}</p>
-              </div>
-            </div>
-
-            <dl className="mt-6 space-y-4 text-sm">
-              {[
-                ["Conta criada em", formatAccountDate(user.created_at)],
-                ["Login", "Google"],
-                ["Plano", hasAccess ? details?.plan_name || "RIESCADE Membro" : "Gratuito"],
-                ["Assinante desde", subscription ? formatAccountDate(subscription.created_at) : "—"],
-              ].map(([label, value]) => (
-                <div key={label} className="flex items-center justify-between gap-4">
-                  <dt className="text-muted-foreground">{label}</dt>
-                  <dd className="text-right font-medium text-foreground">{value}</dd>
-                </div>
-              ))}
-            </dl>
-
-            <p className="mt-6 rounded-xl border border-border bg-black/30 p-4 text-xs leading-relaxed text-muted-foreground">
-              Use esta mesma conta Google para entrar no RIESCADE.
-              O aplicativo abre o navegador nesta conta para liberar o acesso.
-            </p>
-          </div>
-
-          {hasAccess ? (
-            <div className="relative overflow-hidden rounded-2xl border-2 border-primary/50 bg-gradient-to-b from-primary/[0.07] to-background/90 p-7 xl:col-span-3">
-              <CornerBrackets />
-              <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <Sparkles className="size-4 text-primary" />
-                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-primary">
-                      {details?.plan_name || "RIESCADE Membro"}
-                    </span>
-                  </div>
-                  <div className="mt-4 flex items-baseline gap-2">
-                    <span className="font-display text-5xl font-bold text-foreground">{formatPrice(details)}</span>
-                    <span className="font-mono text-sm text-muted-foreground">/{details?.interval === "year" ? "ano" : "mês"}</span>
-                  </div>
-                </div>
-                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#14d52a]/50 bg-[#14d52a]/10 px-3 py-1 font-mono text-xs font-bold uppercase text-[#14d52a]">
-                  <span className="size-2 rounded-full bg-[#14d52a]" />
-                  {statusLabel}
-                </span>
-              </div>
-
-              <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <InfoBox label="Assinante desde" value={formatAccountDate(subscription!.created_at)} />
-                <InfoBox
-                  label="Período atual"
-                  value={`${new Date(details?.start_date ?? subscription!.start_date).toLocaleDateString("pt-BR")} — ${periodEnd ? new Date(periodEnd).toLocaleDateString("pt-BR") : "—"}`}
-                />
-                <InfoBox
-                  label={cancelsAtPeriodEnd ? "Encerra em" : "Renova em"}
-                  value={periodEnd ? formatAccountDate(periodEnd) : "—"}
-                />
-              </div>
-
-              {cancelsAtPeriodEnd && (
-                <p className="mt-4 flex items-start gap-2 rounded-xl border border-amber-500/30 bg-amber-900/20 p-4 text-sm text-amber-200">
-                  <AlertCircle className="mt-0.5 size-4 shrink-0" />
-                  Sua assinatura não será renovada. O acesso continua até o fim do período atual.
-                </p>
-              )}
-
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <button onClick={handleManageBilling} disabled={pendingAction === "portal"} className={`${secondaryButton} sm:w-auto`}>
-                  <CreditCard className="size-4" />
-                  {pendingAction === "portal" ? "Abrindo..." : "Pagamento e faturas"}
-                </button>
-                <button
-                  onClick={() => setShowCancelModal(true)}
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl px-6 text-sm font-medium text-muted-foreground transition-colors hover:bg-red-900/30 hover:text-red-300"
-                >
-                  <XCircle className="size-4" />
-                  Cancelar assinatura
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="relative overflow-hidden rounded-2xl border-2 border-primary/50 bg-gradient-to-b from-primary/[0.07] to-background/90 p-7 animate-pulse-glow xl:col-span-3">
-              <CornerBrackets />
-              <div className="flex items-center gap-3">
-                <Sparkles className="size-5 text-primary" />
-                <span className="font-mono text-xs font-bold uppercase tracking-widest text-primary">
-                  {subscription ? "Reative sua assinatura" : "Torne-se membro"}
-                </span>
-              </div>
-              <div className="mt-4 flex items-baseline gap-2">
-                <span className="font-display text-5xl font-bold text-foreground md:text-6xl">R$ 30</span>
-                <span className="font-mono text-sm text-muted-foreground">/mês</span>
-              </div>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {subscription
-                  ? `Sua assinatura está ${statusLabel.toLowerCase()}. Reative para voltar a baixar jogos e o pack de BIOS.`
-                  : "Assinatura mensal sem fidelidade. Cancele quando quiser."}
-              </p>
-
-              <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {MEMBER_BENEFITS.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-3">
-                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border border-primary/50 bg-primary/10">
-                      <Check className="size-3 text-primary" />
-                    </span>
-                    <span className="text-sm text-foreground/80">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <button onClick={handleCheckout} disabled={pendingAction === "checkout"} className={`${primaryButton} mt-8 h-14 text-base`}>
-                <Zap className="size-5" />
-                {pendingAction === "checkout" ? "Abrindo pagamento..." : subscription ? "Reativar assinatura" : "Assinar agora"}
-              </button>
-              <p className="mt-3 text-center font-mono text-xs text-muted-foreground">
-                Pagamento 100% seguro via Stripe.
-              </p>
+        <div className="mb-8 space-y-3 empty:hidden">
+          {success && (
+            <Callout icon={CheckCircle2} tone="success" title={verifyingSession ? "Confirmando seu pagamento..." : "Pagamento confirmado! Sua assinatura está ativa."}>
+              Baixe o RIESCADE na aba Downloads e entre com a mesma conta Google usada na assinatura.
+            </Callout>
+          )}
+          {canceled && (
+            <Callout icon={XCircle} tone="danger" title="Pagamento cancelado">
+              Nenhuma cobrança foi feita. Se tiver dúvidas, fale com o suporte.
+            </Callout>
+          )}
+          {actionError && (
+            <div role="alert">
+              <Callout icon={AlertCircle} tone="warning" title={actionError} />
             </div>
           )}
-        </section>
+        </div>
 
-        {/* DOWNLOADS */}
-        <section id="downloads" className="mt-20 scroll-mt-28">
-          <SectionHeading
-            eyebrow="Downloads"
-            title="Central de"
-            highlight="downloads"
-            description="Baixe o aplicativo RIESCADE para Windows e o pack completo de BIOS para habilitar todos os sistemas e emuladores com sua assinatura."
-          />
+        <div role="tablist" aria-label="Seções da conta" className="-mx-6 mb-10 flex gap-1 overflow-x-auto border-b border-border px-6">
+          {TABS.map(({ id, label, icon: Icon }) => {
+            const selected = tab === id;
+            return (
+              <button
+                key={id}
+                ref={(node) => { tabRefs.current[id] = node; }}
+                role="tab"
+                id={`tab-${id}`}
+                aria-selected={selected}
+                aria-controls={`panel-${id}`}
+                tabIndex={selected ? 0 : -1}
+                onClick={() => selectTab(id)}
+                onKeyDown={onTabKey}
+                className={`-mb-px inline-flex shrink-0 items-center gap-2 border-b-2 px-4 py-3 font-mono text-xs uppercase tracking-wider transition-colors ${
+                  selected ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Icon className={`h-3.5 w-3.5 ${selected ? "text-primary" : ""}`} />
+                {label}
+                {id === "assinatura" && !hasAccess && <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-label="Sem assinatura ativa" />}
+              </button>
+            );
+          })}
+        </div>
 
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
-            <DownloadCard
-              icon={Gamepad2}
-              tag="Aplicativo Oficial"
-              name={<>RIESCADE <span className="text-primary">App</span></>}
-              description="O aplicativo oficial RIESCADE para Windows. Navegação fluida com EmulationStation, catálogo na nuvem integrado e emuladores pré-configurados."
-              features={[
-                retroBatRelease ? `Versão ${retroBatRelease.version}` : "Versão oficial para Windows",
-                "Mais de 240 plataformas com downloads dentro do app",
-                "Jogo, mídias e emuladores baixados na hora ao iniciar",
-                "Suporte completo a controles com vibração e mapeamento automático",
-                "RetroAchievements, temas exclusivos e atualizações automáticas",
-              ]}
-              install="Extraia o .7z em uma pasta de sua preferência (ex: C:\RIESCADE), execute RetroBat.exe e faça login com sua conta Google."
-              meta={[
-                retroBatRelease ? `Versão ${retroBatRelease.version}` : "",
-                formatSize(retroBatRelease?.size) ?? "",
-                "Windows 10 / 11",
-              ].filter(Boolean)}
-            >
-              {retroBatRelease ? (
-                <a href="/api/app/retrobat/download" className={primaryButton}>
-                  <Download className="size-4" />
-                  Baixar RIESCADE
-                </a>
-              ) : (
-                <button disabled className={primaryButton}>Em breve</button>
+        {TABS.map(({ id }) =>
+          visited.has(id) ? (
+            <section key={id} role="tabpanel" id={`panel-${id}`} aria-labelledby={`tab-${id}`} hidden={tab !== id} tabIndex={0} className="focus:outline-none">
+              {id === "assinatura" && (
+                <SubscriptionTab
+                  user={user}
+                  subscription={subscription}
+                  details={details}
+                  hasAccess={hasAccess}
+                  pending={pendingAction}
+                  onCheckout={handleCheckout}
+                  onManageBilling={handleManageBilling}
+                  onCancel={() => setShowCancelModal(true)}
+                />
               )}
-            </DownloadCard>
-
-            <DownloadCard
-              icon={Cpu}
-              tag={hasAccess ? "Membros" : "Exclusivo para membros"}
-              locked={!hasAccess}
-              name={<>Pack de <span className="text-primary">BIOS</span></>}
-              description="Os arquivos de sistema exigidos pelos emuladores para rodar jogos de consoles como PlayStation, Saturn, Dreamcast, Neo Geo e muitos outros."
-              features={[
-                "Pacote único com as BIOS de todas as plataformas suportadas",
-                "Essencial para inicializar jogos de consoles em disco e arcade",
-                "Estrutura 100% pronta e compatível para extração direta",
-                "Atualizado constantemente para novos emuladores",
-              ]}
-              install="Extraia o conteúdo do bios.zip diretamente dentro da pasta bios do seu RIESCADE."
-              meta={["bios.zip", biosSize ?? ""].filter(Boolean)}
-            >
-              {hasAccess ? (
-                <button
-                  onClick={handleBiosDownload}
-                  disabled={!biosAsset || pendingAction === "bios"}
-                  className={primaryButton}
-                >
-                  <Download className="size-4" />
-                  {pendingAction === "bios" ? "Liberando..." : biosAsset ? "Baixar pack de BIOS" : "Carregando..."}
-                </button>
-              ) : (
-                <button onClick={handleCheckout} disabled={pendingAction === "checkout"} className={secondaryButton}>
-                  <Lock className="size-4" />
-                  Assinar para liberar
-                </button>
+              {id === "jogos" && <GamesTab token={accessToken} />}
+              {id === "recordes" && <RecordsTab token={accessToken} />}
+              {id === "downloads" && (
+                <DownloadsTab
+                  release={retroBatRelease}
+                  bios={biosAsset}
+                  hasAccess={hasAccess}
+                  pending={pendingAction}
+                  onBios={handleBiosDownload}
+                  onCheckout={handleCheckout}
+                />
               )}
-            </DownloadCard>
-          </div>
-
-          <div className="mt-6 flex flex-col gap-3 rounded-2xl border border-border bg-surface/30 p-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="flex items-start gap-3 text-sm text-muted-foreground">
-              <Shield className="mt-0.5 size-4 shrink-0 text-primary" />
-              {hasAccess
-                ? "Os downloads de jogos ficam dentro dos aplicativos. Use sua conta somente nos seus próprios dispositivos."
-                : "Os aplicativos são gratuitos. A assinatura libera os downloads de jogos dentro deles e o pack de BIOS."}
-            </p>
-            <ExploreLink href="/tutorial">Ver tutorial</ExploreLink>
-          </div>
-        </section>
-
-        {/* TEMAS RETROBAT */}
-        <section id="temas" className="mt-20 scroll-mt-28">
-          <SectionHeading
-            eyebrow="Temas"
-            title="Temas exclusivos"
-            highlight="RIESCADE"
-            description="O RIESCADE RetroBat já vem com o tema RIESCADE Origins. Os temas abaixo são exclusivos para membros e podem ser instalados quando quiser."
-          />
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {(retroBatThemes ?? []).map((theme) => {
-              const pending = pendingAction === `theme:${theme.id}`;
-              return (
-                <article
-                  key={theme.id}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-card to-primary/[0.035] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
-                >
-                  <div className="relative aspect-video border-b border-white/10 bg-black/40">
-                    <ThemePreview previewUrl={theme.previewUrl} name={theme.name} />
-                    <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-lg border border-primary/25 bg-black/70 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
-                      {!hasAccess && <Lock className="size-3" />}
-                      {hasAccess ? "Membros" : "Exclusivo para membros"}
-                    </span>
-                  </div>
-                  <div className="flex flex-1 flex-col p-6">
-                    <h3 className="font-display text-xl font-bold uppercase tracking-wide text-foreground">
-                      RIESCADE <span className="text-primary">{theme.name}</span>
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{theme.description}</p>
-                    <div className="mt-auto pt-6">
-                      <p className="mb-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                        {[theme.version ? `v${theme.version}` : "", theme.fileName ?? `${theme.id}.retrobat.zip`, formatSize(theme.size) ?? ""].filter(Boolean).join(" · ")}
-                      </p>
-                      {!theme.fileName ? (
-                        <button disabled className={secondaryButton}>Em breve</button>
-                      ) : hasAccess ? (
-                        <button
-                          onClick={() => handleThemeDownload(theme)}
-                          disabled={pending}
-                          className={primaryButton}
-                        >
-                          <Download className="size-4" />
-                          {pending ? "Liberando..." : "Baixar tema"}
-                        </button>
-                      ) : (
-                        <button onClick={handleCheckout} disabled={pendingAction === "checkout"} className={secondaryButton}>
-                          <Lock className="size-4" />
-                          Assinar para liberar
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="mt-6 rounded-2xl border border-border bg-black/30 p-6">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Como instalar</p>
-            <p className="mt-2 text-sm leading-relaxed text-foreground/80">
-              Extraia o .zip dentro da pasta <code className="font-mono text-foreground">emulationstation\.emulationstation\themes</code> do
-              RIESCADE RetroBat. Depois, no EmulationStation, abra Configurações da interface → Conjunto de temas e escolha o tema.
-            </p>
-          </div>
-        </section>
+              {id === "temas" && (
+                <ThemesTab themes={retroBatThemes} hasAccess={hasAccess} pending={pendingAction} onDownload={handleThemeDownload} onCheckout={handleCheckout} />
+              )}
+            </section>
+          ) : null
+        )}
       </main>
 
       <Footer />
     </div>
-  );
-}
-
-function CornerBrackets() {
-  return (
-    <>
-      <div className="absolute left-0 top-0 h-4 w-4 border-l-2 border-t-2 border-primary" />
-      <div className="absolute right-0 top-0 h-4 w-4 border-r-2 border-t-2 border-primary" />
-      <div className="absolute bottom-0 left-0 h-4 w-4 border-b-2 border-l-2 border-primary" />
-      <div className="absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 border-primary" />
-    </>
-  );
-}
-
-function InfoBox({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-xl border border-border bg-black/35 p-4">
-      <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
-      <p className="mt-2 text-sm font-medium text-foreground">{value}</p>
-    </div>
-  );
-}
-
-function ThemePreview({ previewUrl, name }: { previewUrl: string | null; name: string }) {
-  const [error, setError] = useState(false);
-
-  if (!previewUrl || error) {
-    return (
-      <div className="flex h-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-black/60 to-primary/10">
-        <Palette className="size-10 text-primary/60" />
-        <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">{name}</span>
-      </div>
-    );
-  }
-
-  return (
-    <Image
-      src={previewUrl}
-      alt={`Tema ${name}`}
-      fill
-      unoptimized
-      onError={() => setError(true)}
-      sizes="(min-width: 1280px) 400px, (min-width: 640px) 50vw, 100vw"
-      className="object-cover transition-transform duration-500 group-hover:scale-105"
-    />
   );
 }
