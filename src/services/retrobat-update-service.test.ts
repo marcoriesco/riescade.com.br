@@ -1,8 +1,27 @@
-import { describe, expect, it, vi } from "vitest";
+import crypto from "node:crypto";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("server-only", () => ({}));
 
-import { parseRetroBatUpdateManifest, pickRetroBatUpdateManifests } from "./retrobat-update-service";
+const mockListGoogleDriveFolder = vi.fn();
+const mockReadGoogleDriveFileText = vi.fn();
+
+vi.mock("@/services/google-drive-service", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/services/google-drive-service")>();
+  return {
+    ...actual,
+    listGoogleDriveFolder: (...args: unknown[]) => mockListGoogleDriveFolder(...args),
+    readGoogleDriveFileText: (...args: unknown[]) => mockReadGoogleDriveFileText(...args),
+  };
+});
+
+import {
+  buildRetroBatSignedPayload,
+  clearRetroBatUpdateManifestCache,
+  listRetroBatUpdates,
+  parseRetroBatUpdateManifest,
+  pickRetroBatUpdateManifests,
+} from "./retrobat-update-service";
 
 function driveFile(name: string, overrides: Record<string, unknown> = {}) {
   return {
@@ -10,9 +29,43 @@ function driveFile(name: string, overrides: Record<string, unknown> = {}) {
     name,
     mimeType: "application/json",
     size: "900",
+    md5Checksum: "abc123",
     modifiedTime: "2026-10-17T01:00:00.000Z",
     ...overrides,
   };
+}
+
+const testKeyPair = crypto.generateKeyPairSync("ed25519");
+const testPublicKeySpki = (testKeyPair.publicKey.export({ format: "der", type: "spki" }) as Buffer).toString("base64");
+
+function createSignedManifest(overrides: Record<string, unknown> = {}) {
+  const base: Record<string, unknown> = {
+    product: "riescade-retrobat",
+    release: 5,
+    retrobat: "8.3.1",
+    version: "1.0.5",
+    notes: "Release 5",
+    from: 4,
+    delta: {
+      name: "RIESCADE-update-r5.zip",
+      url: "https://drive.usercontent.google.com/download?id=delta5&export=download&confirm=t",
+      size: 1024,
+      sha256: "a".repeat(64),
+    },
+    full: {
+      name: "RIESCADE-v1.0.5.7z",
+      url: "https://drive.usercontent.google.com/download?id=full5&export=download&confirm=t",
+      size: 2048,
+      sha256: "b".repeat(64),
+    },
+    removed: ["system/old.txt"],
+    ...overrides,
+  };
+  const payload = buildRetroBatSignedPayload(base);
+  const signature = payload
+    ? crypto.sign(null, Buffer.from(payload, "utf8"), testKeyPair.privateKey).toString("base64")
+    : "c2ln";
+  return { ...base, signature };
 }
 
 describe("pickRetroBatUpdateManifests", () => {
@@ -41,15 +94,52 @@ describe("pickRetroBatUpdateManifests", () => {
 });
 
 describe("parseRetroBatUpdateManifest", () => {
-  const manifest = { product: "riescade-retrobat", release: 5, version: "8.3.1-riescade-r5", signature: "c2ln" };
-
-  it("accepts a manifest of the expected release", () => {
-    expect(parseRetroBatUpdateManifest(JSON.stringify(manifest), 5)).toEqual(manifest);
+  it("accepts a validly signed manifest of the expected release", () => {
+    const manifest = createSignedManifest();
+    expect(parseRetroBatUpdateManifest(JSON.stringify(manifest), 5, testPublicKeySpki)).toEqual(manifest);
   });
 
-  it("rejects other products, mismatched releases and invalid JSON", () => {
-    expect(parseRetroBatUpdateManifest(JSON.stringify({ ...manifest, product: "riescade-native" }), 5)).toBeNull();
-    expect(parseRetroBatUpdateManifest(JSON.stringify(manifest), 6)).toBeNull();
-    expect(parseRetroBatUpdateManifest("{", 5)).toBeNull();
+  it("rejects tampered signatures, other products, mismatched releases and invalid JSON", () => {
+    const manifest = createSignedManifest();
+    expect(parseRetroBatUpdateManifest(JSON.stringify({ ...manifest, notes: "Tampered" }), 5, testPublicKeySpki)).toBeNull();
+    expect(parseRetroBatUpdateManifest(JSON.stringify({ ...manifest, signature: Buffer.alloc(64).toString("base64") }), 5, testPublicKeySpki)).toBeNull();
+    expect(parseRetroBatUpdateManifest(JSON.stringify({ ...manifest, product: "riescade-native" }), 5, testPublicKeySpki)).toBeNull();
+    expect(parseRetroBatUpdateManifest(JSON.stringify(manifest), 6, testPublicKeySpki)).toBeNull();
+    expect(parseRetroBatUpdateManifest("{", 5, testPublicKeySpki)).toBeNull();
+  });
+});
+
+describe("listRetroBatUpdates", () => {
+  beforeEach(() => {
+    clearRetroBatUpdateManifestCache();
+    mockListGoogleDriveFolder.mockReset();
+    mockReadGoogleDriveFileText.mockReset();
+    process.env.GOOGLE_RELEASES_FOLDER_ID = "releases-folder";
+  });
+
+  it("caches downloaded manifests by file id and checksum/modifiedTime", async () => {
+    const manifest5 = createSignedManifest({ release: 5, version: "1.0.5" });
+    mockListGoogleDriveFolder.mockResolvedValue([
+      driveFile("RIESCADE-update-r5.json", { id: "file-5", md5Checksum: "hash-v1" }),
+    ]);
+    mockReadGoogleDriveFileText.mockResolvedValue(JSON.stringify(manifest5));
+
+    const first = await listRetroBatUpdates(testPublicKeySpki);
+    const second = await listRetroBatUpdates(testPublicKeySpki);
+
+    expect(first).toEqual([manifest5]);
+    expect(second).toEqual([manifest5]);
+    expect(mockReadGoogleDriveFileText).toHaveBeenCalledTimes(1);
+
+    // Changing checksum triggers a fresh download
+    const updated5 = createSignedManifest({ release: 5, version: "1.0.5", notes: "Updated notes" });
+    mockListGoogleDriveFolder.mockResolvedValue([
+      driveFile("RIESCADE-update-r5.json", { id: "file-5", md5Checksum: "hash-v2" }),
+    ]);
+    mockReadGoogleDriveFileText.mockResolvedValue(JSON.stringify(updated5));
+
+    const third = await listRetroBatUpdates(testPublicKeySpki);
+    expect(third).toEqual([updated5]);
+    expect(mockReadGoogleDriveFileText).toHaveBeenCalledTimes(2);
   });
 });
