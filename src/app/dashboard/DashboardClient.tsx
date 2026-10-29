@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { User } from "@supabase/supabase-js";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
-import { AlertCircle, ArrowRight, CheckCircle2, Crown, Download, Gamepad2, Palette, Trophy, XCircle, type LucideIcon } from "lucide-react";
+import { AlertCircle, ArrowRight, Award, CheckCircle2, Crown, Download, Gamepad2, Palette, Trophy, XCircle, type LucideIcon } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { CancelSubscriptionModal } from "@/components/CancelSubscriptionModal";
@@ -15,6 +15,7 @@ import { Callout, primaryButton } from "./ui";
 import { SubscriptionTab, type SubscriptionDetails } from "./tabs/SubscriptionTab";
 import { GamesTab } from "./tabs/GamesTab";
 import { RecordsTab } from "./tabs/RecordsTab";
+import { AchievementsTab } from "./tabs/AchievementsTab";
 import { DownloadsTab, type BiosAsset, type ReleaseInfo } from "./tabs/DownloadsTab";
 import { ThemesTab, type RetroBatTheme } from "./tabs/ThemesTab";
 
@@ -25,6 +26,7 @@ const TABS: { id: string; label: string; icon: LucideIcon }[] = [
   { id: "assinatura", label: "Assinatura", icon: Crown },
   { id: "jogos", label: "Meus jogos", icon: Gamepad2 },
   { id: "recordes", label: "Recordes", icon: Trophy },
+  { id: "conquistas", label: "Conquistas", icon: Award },
   { id: "downloads", label: "Downloads", icon: Download },
   { id: "temas", label: "Temas", icon: Palette },
 ];
@@ -453,6 +455,7 @@ export default function DashboardClient() {
               )}
               {id === "jogos" && <GamesTab token={accessToken} />}
               {id === "recordes" && <RecordsTab token={accessToken} />}
+              {id === "conquistas" && <AchievementsTab token={accessToken} onLinkAccount={() => selectTab("recordes", true)} />}
               {id === "downloads" && (
                 <DownloadsTab
                   release={retroBatRelease}

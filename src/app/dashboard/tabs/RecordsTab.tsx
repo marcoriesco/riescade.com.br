@@ -77,7 +77,7 @@ export function RecordsTab({ token }: { token: () => Promise<string | undefined>
   const steps = [
     // The site cannot see the first two from here, so only the RA link is ever checked off.
     { done: false, title: "Entrar no RIESCADE com esta conta", text: "No aplicativo, menu RIESCADE → Conta. É assim que seus jogos chegam aqui." },
-    { done: false, title: "Ligar o RetroAchievements no RIESCADE", text: "Menu principal → RetroAchievements: ative e entre com sua conta RA. As pontuações são enviadas ao RA enquanto você joga." },
+    { done: false, title: "Ligar o RetroAchievements no RIESCADE", text: "Ajustes de jogo → Contas → Ajustes das conquistas retrô: ative e entre com sua conta RA. Para entrar nos placares, ligue também o modo hardcore. As pontuações são enviadas ao RA enquanto você joga." },
     { done: linked, title: "Informar sua conta RA aqui", text: "Assim o site sabe de quem ler os recordes." },
   ];
 

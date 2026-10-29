@@ -141,6 +141,84 @@ export async function refreshRecords(db: SupabaseClient, userId: string, link: R
   }
 }
 
+export type AchievementGame = {
+  game_id: number; title: string; console_name: string; icon: string | null;
+  earned: number; earned_hardcore: number; total: number; last_earned_at: string | null; award: string | null;
+};
+export type RecentAchievement = {
+  id: number; title: string; description: string; points: number; badge: string | null; hardcore: boolean;
+  earned_at: string; game_id: number; game_title: string; console_name: string;
+};
+export type AchievementsSummary = {
+  points: number; softcore_points: number; true_points: number; rank: number | null; total_ranked: number | null;
+  games: AchievementGame[]; recent: RecentAchievement[];
+};
+
+// RA dates without a zone ("2025-09-04 20:37:26") are UTC.
+const raDate = (value: unknown) => {
+  if (typeof value !== "string" || !value) return null;
+  const date = new Date(/[zZ]|[+-]\d\d:?\d\d$/.test(value) ? value : `${value.replace(" ", "T")}Z`);
+  return Number.isNaN(date.getTime()) ? null : date.toISOString();
+};
+const num = (value: unknown) => (typeof value === "number" && Number.isFinite(value) ? value : 0);
+const RECENT_ACHIEVEMENTS = 30;
+// RA only lists unlocks inside a window; 3 years keeps the list filled without loading a whole career.
+const RECENT_WINDOW_MINUTES = 3 * 365 * 24 * 60;
+
+/** Read live from RA (3 calls): points and rank, progress per game, and the latest unlocks of the last 3 years. */
+export async function getAchievements(link: RaLink): Promise<AchievementsSummary> {
+  type Summary = { TotalPoints?: number; TotalSoftcorePoints?: number; TotalTruePoints?: number; Rank?: number | null; TotalRanked?: number };
+  type Progress = { Results?: { GameID: number; Title?: string; ConsoleName?: string; ImageIcon?: string; MaxPossible?: number; NumAwarded?: number; NumAwardedHardcore?: number; MostRecentAwardedDate?: string; HighestAwardKind?: string | null }[] };
+  type Unlock = { AchievementID: number; Title?: string; Description?: string; Points?: number; BadgeURL?: string; HardcoreMode?: number; Date?: string; GameID: number; GameTitle?: string; ConsoleName?: string };
+
+  const summary = (await ra<Summary>("API_GetUserSummary", { u: link.ra_ulid, g: 0, a: 0 })) ?? {};
+  await sleep(CALL_GAP_MS);
+  const progress = (await ra<Progress>("API_GetUserCompletionProgress", { u: link.ra_ulid, c: 500 })) ?? {};
+  await sleep(CALL_GAP_MS);
+  const unlocks = (await ra<Unlock[]>("API_GetUserRecentAchievements", { u: link.ra_ulid, m: RECENT_WINDOW_MINUTES })) ?? [];
+
+  const games = (progress.Results ?? [])
+    .filter((g) => Number.isSafeInteger(g.GameID))
+    .map((g) => ({
+      game_id: g.GameID,
+      title: text(g.Title, 256) || `Jogo ${g.GameID}`,
+      console_name: text(g.ConsoleName, 128),
+      icon: media(g.ImageIcon),
+      earned: num(g.NumAwarded),
+      earned_hardcore: num(g.NumAwardedHardcore),
+      total: num(g.MaxPossible),
+      last_earned_at: raDate(g.MostRecentAwardedDate),
+      award: g.HighestAwardKind ?? null,
+    }));
+
+  const recent = (Array.isArray(unlocks) ? unlocks : [])
+    .map((u) => ({
+      id: u.AchievementID,
+      title: text(u.Title, 256),
+      description: text(u.Description, 512),
+      points: num(u.Points),
+      badge: media(u.BadgeURL),
+      hardcore: u.HardcoreMode === 1,
+      earned_at: raDate(u.Date),
+      game_id: u.GameID,
+      game_title: text(u.GameTitle, 256),
+      console_name: text(u.ConsoleName, 128),
+    }))
+    .filter((u): u is RecentAchievement => !!u.earned_at && Number.isSafeInteger(u.id))
+    .sort((a, b) => b.earned_at.localeCompare(a.earned_at))
+    .slice(0, RECENT_ACHIEVEMENTS);
+
+  return {
+    points: num(summary.TotalPoints),
+    softcore_points: num(summary.TotalSoftcorePoints),
+    true_points: num(summary.TotalTruePoints),
+    rank: typeof summary.Rank === "number" ? summary.Rank : null,
+    total_ranked: typeof summary.TotalRanked === "number" ? summary.TotalRanked : null,
+    games,
+    recent,
+  };
+}
+
 export async function getRaLink(db: SupabaseClient, userId: string): Promise<RaLink | null> {
   const { data, error } = await db.from("retroachievements_links").select("ra_user, ra_ulid, ra_avatar, public, refreshed_at").eq("user_id", userId).maybeSingle();
   if (error) throw error;
