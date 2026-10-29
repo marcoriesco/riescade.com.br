@@ -32,17 +32,39 @@ export function raConfigured(): boolean {
 }
 
 function apiKey(): string {
-  const key = process.env.RA_WEB_API_KEY;
+  // trimmed: a key pasted in the dashboard with a trailing newline is refused by RA (401)
+  const key = process.env.RA_WEB_API_KEY?.trim();
   if (!key) throw new AppApiError(503, "Os recordes ainda não foram ativados no site.");
   return key;
 }
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+// RA answers 429 after ~14 calls in a burst and sends no Retry-After; ~0.4 s between calls stays under it.
+const CALL_GAP_MS = 400;
+const RETRY_DELAYS_MS = [1500, 3000, 6000];
+
 async function ra<T>(method: string, params: Record<string, string | number>): Promise<T | null> {
   const query = new URLSearchParams({ y: apiKey(), ...Object.fromEntries(Object.entries(params).map(([k, v]) => [k, String(v)])) });
-  const response = await fetch(`${API}/${method}.php?${query}`, { cache: "no-store", signal: AbortSignal.timeout(10000) });
+  const call = () => fetch(`${API}/${method}.php?${query}`, {
+    cache: "no-store",
+    signal: AbortSignal.timeout(10000),
+    headers: { "User-Agent": "RIESCADE/1.0 (+https://riescade.com.br)" },
+  });
+  let response = await call();
+  for (const delay of RETRY_DELAYS_MS) {
+    if (response.status !== 429) break;
+    await sleep(delay);
+    response = await call();
+  }
   // RA answers 404/422 for unknown users and games without the player's scores.
   if (response.status === 404 || response.status === 422) return null;
-  if (!response.ok) throw new AppApiError(502, "O RetroAchievements não respondeu. Tente de novo em alguns minutos.");
+  if (!response.ok) {
+    console.error(`[retroachievements] ${method} -> ${response.status}: ${(await response.text().catch(() => "")).slice(0, 300)}`);
+    if (response.status === 401) throw new AppApiError(502, "O RetroAchievements recusou a chave do site (RA_WEB_API_KEY).");
+    if (response.status === 403) throw new AppApiError(502, "O RetroAchievements bloqueou o acesso do servidor do site.");
+    if (response.status === 429) throw new AppApiError(503, "O RetroAchievements está limitando as consultas. Tente de novo em alguns minutos.");
+    throw new AppApiError(502, "O RetroAchievements não respondeu. Tente de novo em alguns minutos.");
+  }
   return (await response.json()) as T;
 }
 
@@ -104,6 +126,7 @@ export async function refreshRecords(db: SupabaseClient, userId: string, link: R
     const read: number[] = [];
     for (const game of games) {
       if (!Number.isSafeInteger(game.GameID)) continue;
+      await sleep(CALL_GAP_MS);
       const boards = await ra<{ Results?: RaLeaderboard[] }>("API_GetUserGameLeaderboards", { i: game.GameID, u: link.ra_ulid, c: 500 });
       read.push(game.GameID);
       rows.push(...toRecords(game, boards?.Results ?? []));

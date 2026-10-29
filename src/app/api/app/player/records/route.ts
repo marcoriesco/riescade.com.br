@@ -13,6 +13,8 @@ import {
 
 // The player's RetroAchievements link and the leaderboard records read from it.
 export const dynamic = "force-dynamic";
+// a refresh reads up to 50 RA games, paced to stay under RA's rate limit (~25 s)
+export const maxDuration = 60;
 const headers = { "Cache-Control": "no-store" };
 
 function failure(error: unknown) {
