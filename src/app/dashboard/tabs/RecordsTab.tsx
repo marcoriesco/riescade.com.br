@@ -83,15 +83,18 @@ export function RecordsTab({ token }: { token: () => Promise<string | undefined>
 
   return (
     <div className="space-y-10">
-      <Callout
-        icon={Info}
-        tone="warning"
-        title="Os recordes dependem do RetroAchievements"
-        action={<Link href="/recordes" className={secondaryButton}>Ver recordes públicos <ArrowRight className="h-3.5 w-3.5" /></Link>}
-      >
-        Para começar a contar seus recordes por jogo, é preciso estar logado no RIESCADE e jogar com o RetroAchievements (RA) ativado.
-        O recorde de cada jogo é a sua melhor pontuação nos placares (leaderboards) do RA; jogos sem placar no RA ainda não têm recorde.
-      </Callout>
+      {/* Setup guidance is only for players who have not linked RA yet. */}
+      {!linked && (
+        <Callout
+          icon={Info}
+          tone="warning"
+          title="Os recordes dependem do RetroAchievements"
+          action={<Link href="/recordes" className={secondaryButton}>Ver recordes públicos <ArrowRight className="h-3.5 w-3.5" /></Link>}
+        >
+          Para começar a contar seus recordes por jogo, é preciso estar logado no RIESCADE e jogar com o RetroAchievements (RA) ativado.
+          O recorde de cada jogo é a sua melhor pontuação nos placares (leaderboards) do RA; jogos sem placar no RA ainda não têm recorde.
+        </Callout>
+      )}
 
       {!data.configured && (
         <Callout icon={Info} title="Recordes em ativação">
@@ -99,21 +102,23 @@ export function RecordsTab({ token }: { token: () => Promise<string | undefined>
         </Callout>
       )}
 
-      <section>
-        <SectionTitle title="Como começar" />
-        <ol className="grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-3 [&>li]:bg-card [&>li]:px-5 [&>li]:py-4">
-          {steps.map((step, index) => (
-            <li key={step.title}>
-              <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-                {step.done ? <Check className="h-3.5 w-3.5 text-[#14d52a]" /> : <Circle className="h-3.5 w-3.5 text-primary" />}
-                Passo {index + 1}
-              </p>
-              <p className="mt-2 text-sm font-semibold text-foreground">{step.title}</p>
-              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{step.text}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
+      {!linked && (
+        <section>
+          <SectionTitle title="Como começar" />
+          <ol className="grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-3 [&>li]:bg-card [&>li]:px-5 [&>li]:py-4">
+            {steps.map((step, index) => (
+              <li key={step.title}>
+                <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                  {step.done ? <Check className="h-3.5 w-3.5 text-[#14d52a]" /> : <Circle className="h-3.5 w-3.5 text-primary" />}
+                  Passo {index + 1}
+                </p>
+                <p className="mt-2 text-sm font-semibold text-foreground">{step.title}</p>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
 
       <section>
         <SectionTitle title="Conta RetroAchievements" />
@@ -141,6 +146,7 @@ export function RecordsTab({ token }: { token: () => Promise<string | undefined>
                 <a href={`https://retroachievements.org/user/${encodeURIComponent(data.link.user)}`} target="_blank" rel="noopener noreferrer" className={secondaryButton}>
                   Perfil no RA <ExternalLink className="h-3.5 w-3.5" />
                 </a>
+                <Link href="/recordes" className={secondaryButton}>Recordes públicos <ArrowRight className="h-3.5 w-3.5" /></Link>
               </div>
             </div>
             <div className="flex flex-col gap-3 border-t border-border pt-4 sm:flex-row sm:items-center sm:justify-between">
