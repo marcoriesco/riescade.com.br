@@ -1,9 +1,24 @@
 import {describe,it,expect} from "vitest";
 import {buildRetrobatCatalog,type CatalogRow} from "./retrobat-catalog";
 import extractPaths from "./retrobat-extract-paths.json";
+import gamesCatalog from "../data/games-catalog.json";
 const row:CatalogRow={id:"a".repeat(64),platform:"snes",filename:"Mario.zip",title:"Mario",file_size:3,md5_checksum:"b".repeat(32)};
 const platforms=[{id:"snes",extensions:[".zip"]},{id:"nes",extensions:[".nes"]}];
 describe("RetroBat marker snapshot",()=>{
+  it("exports Ports collections through their real launchers and keeps shared media separate",()=>{
+    const mappings=Object.entries(extractPaths).filter(([key])=>key.startsWith("ports/"));
+    expect(mappings).toHaveLength(31);
+    const rows=mappings.map(([key,value],index)=>({...row,id:index.toString(16).padStart(64,"0"),platform:"ports",filename:key.slice(6),file_size:value.file_size,md5_checksum:value.md5}));
+    expect(gamesCatalog.platforms.find(p=>p.id==="ports")?.extensions).toContain(".game");
+    const result=buildRetrobatCatalog([...rows,{...row,id:"f".repeat(64),platform:"ports",filename:"_media.zip"}],gamesCatalog.platforms);
+    expect(result.assets).toHaveLength(31);expect(result.media).toHaveLength(1);
+    for(const asset of result.assets){
+      expect(asset.install_mode).toBe("extract");
+      expect(asset.launch_path).toBe(extractPaths[`ports/${asset.download_name}` as keyof typeof extractPaths].launch_path);
+    }
+    expect(result.assets.find(a=>a.download_name==="Half-Life - Collection.extract.zip")?.launch_path).toBe("halflife/Half-Life.game");
+    expect(result.assets.find(a=>a.download_name==="SMB1R.extract.zip")?.launch_path).toBe("SMB1R.game");
+  });
   it("preserves direct ROM folders while keeping download names and existing extraction rules",()=>{
     const result=buildRetrobatCatalog([
       {...row,platform:"neogeo",filename:"cabalng.zip",install_name:"+ports/Arcade/cabalng.zip"},

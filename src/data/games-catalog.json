@@ -1157,7 +1157,7 @@
 		{
 			"id": "ports",
 			"name": "Ports",
-			"extensions": [".libretro"]
+			"extensions": [".game", ".zip"]
 		},
 		{
 			"id": "love",

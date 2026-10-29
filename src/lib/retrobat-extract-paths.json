@@ -1258,5 +1258,190 @@
     "launch_size": 4037677,
     "file_size": 4038443,
     "md5": "a063cf4597b85b512487299950c5586e"
+  },
+  "ports/Baldurs Gate II - Shadows of Amn.extract.zip": {
+    "launch_path": "gemrb/Baldurs Gate II - Shadows of Amn.game",
+    "file_size": 2814400666,
+    "md5": "731977bd1ea3d34561e8092e38a68807",
+    "launch_size": 13
+  },
+  "ports/Bermuda Syndrome.extract.zip": {
+    "launch_path": "bsyndrome/Bermuda Syndrome.game",
+    "file_size": 120601135,
+    "md5": "2fa7ad6d5a6449d744cc41d5cf96492f",
+    "launch_size": 13
+  },
+  "ports/Blake Stone - Collection.extract.zip": {
+    "launch_path": "bstone/Blake Stone - Aliens of Gold.game",
+    "file_size": 5431477,
+    "md5": "4518ee02f348ee02d4f360809642ce6a",
+    "launch_size": 13
+  },
+  "ports/C-Dogs SDL.extract.zip": {
+    "launch_path": "cdogs/C-Dogs SDL.game",
+    "file_size": 33793100,
+    "md5": "2c6e6b3e1faec9364f65858678df86a3",
+    "launch_size": 13
+  },
+  "ports/Cave Story.extract.zip": {
+    "launch_path": "cavestory/Cave Story.game",
+    "file_size": 1607214,
+    "md5": "a93222bcc9df8f04013984d2ead217e9",
+    "launch_size": 13
+  },
+  "ports/Commander Keen 4 Coop.extract.zip": {
+    "launch_path": "cgenius/Commander Keen 4 Coop.game",
+    "file_size": 24668568,
+    "md5": "a082d0e6aa99a5516591ae3aee6c3a04",
+    "launch_size": 13
+  },
+  "ports/Diablo.extract.zip": {
+    "launch_path": "devilutionx/Diablo.game",
+    "file_size": 1045436616,
+    "md5": "7ca8e40ae25617067a36e1ca83a06e3f",
+    "launch_size": 13
+  },
+  "ports/Doom 3 - Collection.extract.zip": {
+    "launch_path": "doom3/Doom 3.game",
+    "file_size": 2097469351,
+    "md5": "e6fd31d27a1f6c9dee95438666fbae7a",
+    "launch_size": 13
+  },
+  "ports/Duke Nukem 3D - Collection.extract.zip": {
+    "launch_path": "eduke32/Duke Nukem 3D.game",
+    "file_size": 1254414185,
+    "md5": "81328cf73b90bd3cc8c688d65946f016",
+    "launch_size": 29
+  },
+  "ports/Duke Nukem 3D Raze.extract.zip": {
+    "launch_path": "raze/Duke Nukem 3D Raze.game",
+    "file_size": 265265895,
+    "md5": "86faea088160ec1797a25ed2f01ff301",
+    "launch_size": 13
+  },
+  "ports/Half-Life - Collection.extract.zip": {
+    "launch_path": "halflife/Half-Life.game",
+    "file_size": 1967495383,
+    "md5": "45e960e27ebd8043dc67c53f6522d87b",
+    "launch_size": 13
+  },
+  "ports/Jak and Daxter - Collection.extract.zip": {
+    "launch_path": "opengoal/Jak and Daxter - The Precursor Legacy.game",
+    "file_size": 19266929486,
+    "md5": "f160d3fc0bfa4e9310a40c19164acb63",
+    "launch_size": 13
+  },
+  "ports/Jazz Jackrabbit.extract.zip": {
+    "launch_path": "openjazz/Jazz Jackrabbit.game",
+    "file_size": 11644182,
+    "md5": "8d83a7219a9e958083dedc0be625ed7e",
+    "launch_size": 13
+  },
+  "ports/Perfect Dark.extract.zip": {
+    "launch_path": "pdark/Perfect Dark.game",
+    "file_size": 85019225,
+    "md5": "84ccc42ca7ba1fc81235522450e4879c",
+    "launch_size": 13
+  },
+  "ports/Power Bomberman.extract.zip": {
+    "launch_path": "pb/Power Bomberman.game",
+    "file_size": 570789326,
+    "md5": "60eb35977465364634de4f6bae0e2d52",
+    "launch_size": 13
+  },
+  "ports/Quake - Collection.extract.zip": {
+    "launch_path": "quake/Quake.game",
+    "file_size": 218308764,
+    "md5": "a11c91c2a30e957e791bbf340dcbf154",
+    "launch_size": 13
+  },
+  "ports/Quake II - Collection.extract.zip": {
+    "launch_path": "quake2/Quake II.game",
+    "file_size": 761288719,
+    "md5": "c47de9e3edef203656a05876c198d844",
+    "launch_size": 13
+  },
+  "ports/Return to Castle Wolfenstein.extract.zip": {
+    "launch_path": "rtcw/Return to Castle Wolfenstein.game",
+    "file_size": 2404289033,
+    "md5": "364cb263e521e78b4ad3a1dbe8a29dc7",
+    "launch_size": 13
+  },
+  "ports/SMB1R.extract.zip": {
+    "launch_path": "SMB1R.game",
+    "file_size": 77731009,
+    "md5": "d655841751fb5a9bfe7994d214b4b46a"
+  },
+  "ports/Sonic 3 AIR.extract.zip": {
+    "launch_path": "sonic3-air/Sonic 3 AIR.game",
+    "file_size": 23311924,
+    "md5": "a482a499f2ab590b138761760d0d7931",
+    "launch_size": 13
+  },
+  "ports/Sonic CD.extract.zip": {
+    "launch_path": "sonicretro/Sonic CD.game",
+    "file_size": 87164810,
+    "md5": "7530cfee5f240071f55c411520a34984",
+    "launch_size": 13
+  },
+  "ports/Sonic Mania.extract.zip": {
+    "launch_path": "sonic-mania/Sonic Mania.game",
+    "file_size": 411031661,
+    "md5": "b3fc10bb267d5e7801efa1d82c91ecff",
+    "launch_size": 13
+  },
+  "ports/Star Fox 64.extract.zip": {
+    "launch_path": "starship/Star Fox 64.game",
+    "file_size": 39243402,
+    "md5": "4ba8aacd8c0d811843fb6ec8e2c61d1e",
+    "launch_size": 13
+  },
+  "ports/Star Wars - Dark Forces.extract.zip": {
+    "launch_path": "theforceengine/Star Wars - Dark Forces.game",
+    "file_size": 39876963,
+    "md5": "4b8664a089fd473da5fd2028ef99e8aa",
+    "launch_size": 13
+  },
+  "ports/Super Mario 64.extract.zip": {
+    "launch_path": "ghostship/Super Mario 64.game",
+    "file_size": 42459489,
+    "md5": "826255b8f694df2d0be2f89876f98ade",
+    "launch_size": 13
+  },
+  "ports/Super Mario War.extract.zip": {
+    "launch_path": "superbroswar/Super Mario War.game",
+    "file_size": 95693999,
+    "md5": "78acbe04056e05dc7ea1f44d20bcfcf3",
+    "launch_size": 13
+  },
+  "ports/The Legend of Zelda - Majoras Mask.extract.zip": {
+    "launch_path": "2ship/The Legend of Zelda - Majoras Mask.game",
+    "file_size": 135603608,
+    "md5": "d7cd030dbc78b2e45ec0f9189257e3c7",
+    "launch_size": 13
+  },
+  "ports/The Legend of Zelda - Ocarina of Time.extract.zip": {
+    "launch_path": "soh/The Legend of Zelda - Ocarina of Time.game",
+    "file_size": 193663790,
+    "md5": "e6c515d76af21e0ac7a60fcce4466d69",
+    "launch_size": 13
+  },
+  "ports/The Legend of Zelda - Twilight Princess.extract.zip": {
+    "launch_path": "dusklight/The Legend of Zelda - Twilight Princess.game",
+    "file_size": 971852076,
+    "md5": "b13f7d770514fce21d64451563366072",
+    "launch_size": 13
+  },
+  "ports/Theme Hospital.extract.zip": {
+    "launch_path": "corsixth/Theme Hospital.game",
+    "file_size": 208122421,
+    "md5": "5d81822465a407001007fa80398820c1",
+    "launch_size": 13
+  },
+  "ports/Wolfenstein 3D.extract.zip": {
+    "launch_path": "ecwolf/Wolfenstein 3D.game",
+    "file_size": 2620712,
+    "md5": "df562fee460cf7c507c7efd1ab4401ca",
+    "launch_size": 13
   }
 }
