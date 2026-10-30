@@ -6,6 +6,9 @@ import { getSupabaseAdmin } from "@/lib/server/supabase-admin";
 import { downloadPackageTitle, isExtractPackage } from "@/lib/download-package";
 
 const ACTIVE_SUBSCRIPTION_STATUSES = new Set(["active", "trialing"]);
+// TEMPORÁRIO: plataformas liberadas para qualquer conta logada, sem assinatura.
+// Para voltar ao normal, esvazie a lista (o riescade-native tem a mesma lista em service.rs).
+const LOGIN_ONLY_PLATFORMS = new Set<string>(["recomp"]);
 const DATABASE_PAGE_SIZE = 1000;
 const RESERVED_PLATFORM_FILENAMES = new Set(["_media.zip"]);
 
@@ -332,6 +335,12 @@ export function hasActiveSubscription(
   return !subscription.end_date || new Date(subscription.end_date) > now;
 }
 
+/** O usuário já veio autenticado da rota; aqui só se dispensa a assinatura. */
+async function assertPlatformDownloadAccess(user: User, platform: unknown): Promise<void> {
+  if (typeof platform === "string" && LOGIN_ONLY_PLATFORMS.has(platform)) return;
+  await assertDownloadAccess(user);
+}
+
 export async function assertDownloadAccess(user: User): Promise<void> {
   if (isDownloadTester(user.id)) return;
 
@@ -507,7 +516,7 @@ async function authorizeIndexedPlatformDownload(
   clientVersion: string | undefined,
   configuredLimit?: number
 ) {
-  await assertDownloadAccess(user);
+  await assertPlatformDownloadAccess(user, platform);
 
   if (typeof platform !== "string" || !/^[a-z0-9_-]{1,64}$/.test(platform)) {
     throw new AppApiError(400, "Invalid platform");
@@ -620,7 +629,7 @@ export async function authorizePlatformMediaDownload(
   platform: unknown,
   clientVersion?: string
 ) {
-  await assertDownloadAccess(user);
+  await assertPlatformDownloadAccess(user, platform);
   if (typeof platform !== "string" || !/^[a-z0-9_-]{1,64}$/.test(platform)) {
     throw new AppApiError(400, "Invalid platform");
   }
